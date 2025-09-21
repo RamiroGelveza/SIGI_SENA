@@ -115,6 +115,20 @@
                     </div>
                 </div>
             </div>
+            <!-- Tarjeta ingresos -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow-lg border-0 rounded-4 h-100">
+                    <div class="card-body text-center p-4">
+                        <h5 class="card-title text-dark fw-semibold mb-3">Ingresos</h5>
+                        <p class="card-text text-muted mb-4">
+                            Registra y controla la gestion de los Ingresos.
+                        </p>
+                        <a href="{{ route('Ingresos.index') }}" class="btn btn-success btn-lg rounded-pill">
+                            <i class="fas fa-tractor"></i> Gestionar Ingresos
+                        </a>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>

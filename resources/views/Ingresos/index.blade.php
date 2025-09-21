@@ -1,8 +1,8 @@
 @extends('layouts.app')
-@section('title','Fincas')
+@section('title','Ingreso')
 
 @section('titleContent')
-<h1 class="text-center">Gestion Fincas</h1>
+<h1 class="text-center">Gestion Ingreso</h1>
     
 @endsection
 @section('content')
@@ -30,33 +30,41 @@
 </script>
 <body class="bg-light">
     <div class="container">
-        <a href="{{route('Fincas.create')}}" class="btn btn-success">Nueva Finca</a>
+        <a href="{{route('Ingresos.create')}}" class="btn btn-success">Nuevo Ingreso</a>
     
         <table class="table table-bordered table-hover">
         <thead class="table-success">
             <tr>
                 <th>id</th>
-                <th>nombre</th>
-                <th>ubicacion</th>
+                <th>fecha</th>
+                <th>descripcion</th>
+                <th>cantidadVendida</th>
+                <th>precioUnitario</th>
+                <th>Cosecha</th>
                 <th>opciones</th>
+
             </tr>
         </thead>
         <tbody>
 
-            @foreach ($fincas as $finca )
+            @foreach ($ingresos as $ingreso )
                 <tr>
             
-            <td>{{$finca->id}}</td>
-            <td>{{$finca->nombre}}</td>
-            <td>{{$finca->ubicacion}}</td>
+            <td>{{$ingreso->id}}</td>
+            <td>{{$ingreso->fecha}}</td>
+            <td>{{$ingreso->descripcion}}</td>
+            <td>{{$ingreso->cantidadVendida}}</td>
+            <td>{{$ingreso->precioUnitario}}</td>
+            <td>{{$ingreso->Cosecha->idCultivo}}</td>
+
             <td>
 
             <div class="row">
-                <div class="col-3">
-<a href="{{route('Fincas.edit',$finca->id)}}" class="btn btn-warning">Actualizar</a>
+                <div class="col-4">
+<a href="{{route('Ingresos.edit',$ingreso->id)}}" class="btn btn-warning">Actualizar</a>
                 </div>
-                <div class="col-3">
-     <form action="{{route('Fincas.destroy',$finca->id)}}" method="POST">
+                <div class="col-4">
+     <form action="{{route('Ingresos.destroy',$ingreso->id)}}" method="POST">
                     @csrf
                     <button type="submit" class="btn btn-danger" onclick="confirmarEliminacion(event)">Eliminar</button>
                 </form>
@@ -72,6 +80,4 @@
     <a href="{{route('welcome')}}" class="btn btn-info">Volver</a>
             
           </div> 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
 @endsection

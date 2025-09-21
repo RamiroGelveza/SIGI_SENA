@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoriaGastoController;
 use App\Http\Controllers\CosechaController;
 use App\Http\Controllers\EstadosCosechaController;
 use App\Http\Controllers\FincaController;
+use App\Http\Controllers\IngresoController;
 use App\Http\Controllers\InvernaderoController;
 use App\Http\Controllers\MantenimientoInvernaderoController;
 use App\Http\Controllers\TiposCultivoController;
@@ -67,4 +68,12 @@ Route::post('/Cosechas/store',[CosechaController::class,'store'])->name('Cosecha
 Route::post('/Cosechas/destroy/{id}',[CosechaController::class,'destroy'])->name('Cosechas.destroy');
 Route::get('/Cosechas/edit/{id}',[CosechaController::class,'edit'])->name('Cosechas.edit');
 Route::post('/Cosechas/update/{id}',[CosechaController::class,'update'])->name('Cosechas.update');
+
+#routes de ingresos
+Route::get('/Ingresos/index',[IngresoController::class,'index'])->name('Ingresos.index');
+Route::get('/Ingresos/create',[IngresoController::class,'create'])->name('Ingresos.create');
+Route::post('/Ingresos/store',[IngresoController::class,'store'])->name('Ingresos.store');
+Route::post('/Ingresos/destroy/{id}',[IngresoController::class,'destroy'])->name('Ingresos.destroy');
+Route::get('/Ingresos/edit/{id}',[IngresoController::class,'edit'])->name('Ingresos.edit');
+Route::post('/Ingresos/update/{id}',[IngresoController::class,'update'])->name('Ingresos.update');
 

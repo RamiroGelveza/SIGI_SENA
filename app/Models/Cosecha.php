@@ -31,5 +31,9 @@ class Cosecha extends Model
   public function estadosCosecha(){
         return $this->belongsTo(EstadosCosecha::class,'idEstado');
     }
+ public function ingreso(){
+        return $this->hasMany(Ingreso::class);
+    }
+
 }
 
