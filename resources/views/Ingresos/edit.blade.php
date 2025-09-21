@@ -70,7 +70,7 @@
                                     <option value="{{ $cosecha->id }}" @if ($ingresos->idCosecha==$cosecha->id) selected
                                         
                                     @endif>
-                                        {{ $cosecha->nombre }} - {{ $cosecha->idCultivo }}
+                                        {{ $cosecha->nombre }}{{ $cosecha->idCultivo }}
                                     </option>
                                 @endforeach
                             </select>

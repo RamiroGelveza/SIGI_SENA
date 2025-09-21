@@ -32,7 +32,7 @@ class IngresoController extends Controller
     public function store(Request $request)
     {
         Ingreso::create($request->all());
-        return redirect()->route('Ingresos.index');
+        return redirect()->route('Ingresos.index')->with('success','Ingreso Creado correctamente');
         
     }
 
@@ -61,7 +61,7 @@ class IngresoController extends Controller
     {
         $ingresos=Ingreso::findorfail($id);
         $ingresos->update($request->all());
-        return redirect()->route('Ingresos.index');
+        return redirect()->route('Ingresos.index')->with('success','Ingreso Actualizado correctamente');
         
     }
 
@@ -72,6 +72,6 @@ class IngresoController extends Controller
     {
         $ingresos=Ingreso::findorfail($id);
         $ingresos->delete();
-        return redirect()->route('Ingresos.index');
+        return redirect()->route('Ingresos.index')->with('success','Ingreso Eliminado correctamente');
     }
 }
