@@ -30,7 +30,7 @@
 
 <body class="">
     <div class="">
-        <a href="{{route('Cosechas.create')}}" class="btn btn-success">Nueva Cosecha</a>
+        <a href="{{route('Cosechas.create')}}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nueva Cosecha</a>
         <table class="table table-hover table-bordered">
             <thead class="table-success ">
                 <tr>
@@ -69,25 +69,26 @@
                     <td>{{$cosecha->tiposCultivo->nombre}}</td>
                     <td>{{$cosecha->estadosCosecha->nombre}}</td>
 
-                    <td>
-                        <div class="row">
-                            <div class="d-flex justify-content-around">
-
-                                <a href="{{route('Cosechas.edit',$cosecha->id)}}" class="btn btn-warning">Actualizar</a>
-                            </div>
-                            <div class="d-flex justify-content-around">
-                                <form action="{{route('Cosechas.destroy',$cosecha->id)}}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger" onclick="confirmarEliminacion(event)">Eliminar</button>
-                                </form>
-                            </div>
+                    <td class="">
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="{{route('Cosechas.edit',$cosecha->id)}}"
+                                class="btn btn-warning shadow-sm btn-accion">
+                                <i class="bi bi-pencil-square"></i> Editar
+                            </a>
+                            <form action="{{route('Cosechas.destroy',$cosecha->id)}}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-danger shadow-sm btn-accion"
+                                    onclick="confirmarEliminacion(event)">
+                                    <i class="bi bi-trash3"></i> Eliminar
+                                </button>
+                            </form>
                         </div>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-        <a href="{{route('welcome')}}" class="btn btn-info">Volver</a>
+        <a href="{{route('welcome')}}" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Volver</a>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"

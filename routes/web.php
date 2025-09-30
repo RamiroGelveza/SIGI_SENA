@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoriaGastoController;
 use App\Http\Controllers\CosechaController;
 use App\Http\Controllers\EstadosCosechaController;
 use App\Http\Controllers\FincaController;
+use App\Http\Controllers\GastosController;
 use App\Http\Controllers\IngresoController;
 use App\Http\Controllers\InvernaderoController;
 use App\Http\Controllers\MantenimientoInvernaderoController;
@@ -30,20 +31,20 @@ Route::get('/Invernaderos/edit/{id}',[InvernaderoController::class,'edit'])->nam
 Route::post('/Invernaderos/update/{id}',[InvernaderoController::class,'update'])->name('Invernaderos.update');
 
 #routes de categoria gastos
-Route::get('CategoriaGastos/index',[CategoriaGastoController::class,'index'])->name('CategoriaGastos.index');
-Route::get('CategoriaGastos/create',[CategoriaGastoController::class,'create'])->name('CategoriaGastos.create');
-Route::post('CategoriaGastos/store',[CategoriaGastoController::class,'store'])->name('CategoriaGastos.store');
-Route::post('CategoriaGastos/destroy/{id}',[CategoriaGastoController::class,'destroy'])->name('CategoriaGastos.destroy');
-Route::get('CategoriaGastos/edit/{id}',[CategoriaGastoController::class,'edit'])->name('CategoriaGastos.edit');
-Route::post('CategoriaGastos/update/{id}',[CategoriaGastoController::class,'update'])->name('CategoriaGastos.update');
+Route::get('/CategoriaGastos/index',[CategoriaGastoController::class,'index'])->name('CategoriaGastos.index');
+Route::get('/CategoriaGastos/create',[CategoriaGastoController::class,'create'])->name('CategoriaGastos.create');
+Route::post('/CategoriaGastos/store',[CategoriaGastoController::class,'store'])->name('CategoriaGastos.store');
+Route::post('/CategoriaGastos/destroy/{id}',[CategoriaGastoController::class,'destroy'])->name('CategoriaGastos.destroy');
+Route::get('/CategoriaGastos/edit/{id}',[CategoriaGastoController::class,'edit'])->name('CategoriaGastos.edit');
+Route::post('/CategoriaGastos/update/{id}',[CategoriaGastoController::class,'update'])->name('CategoriaGastos.update');
 
 #routes de Tipos Cultivos
-Route::get('TiposCultivos/index',[TiposCultivoController::class,'index'])->name('TiposCultivos.index');
-Route::get('TiposCultivos/create',[TiposCultivoController::class,'create'])->name('TiposCultivos.create');
-Route::post('TiposCultivos/store',[TiposCultivoController::class,'store'])->name('TiposCultivos.store');
-Route::post('TiposCultivos/destroy/{id}',[TiposCultivoController::class,'destroy'])->name('TiposCultivos.destroy');
-Route::get('TiposCultivos/edit/{id}',[TiposCultivoController::class,'edit'])->name('TiposCultivos.edit');
-Route::post('TiposCultivos/update/{id}',[TiposCultivoController::class,'update'])->name('TiposCultivos.update');
+Route::get('/TiposCultivos/index',[TiposCultivoController::class,'index'])->name('TiposCultivos.index');
+Route::get('/TiposCultivos/create',[TiposCultivoController::class,'create'])->name('TiposCultivos.create');
+Route::post('/TiposCultivos/store',[TiposCultivoController::class,'store'])->name('TiposCultivos.store');
+Route::post('/TiposCultivos/destroy/{id}',[TiposCultivoController::class,'destroy'])->name('TiposCultivos.destroy');
+Route::get('/TiposCultivos/edit/{id}',[TiposCultivoController::class,'edit'])->name('TiposCultivos.edit');
+Route::post('/TiposCultivos/update/{id}',[TiposCultivoController::class,'update'])->name('TiposCultivos.update');
 
 #routes de mantenimineto invernaderos
 Route::get('/MantenimientoInverndero/index',[MantenimientoInvernaderoController::class,'index'])->name('MantenimientoInverndero.index');
@@ -76,4 +77,13 @@ Route::post('/Ingresos/store',[IngresoController::class,'store'])->name('Ingreso
 Route::post('/Ingresos/destroy/{id}',[IngresoController::class,'destroy'])->name('Ingresos.destroy');
 Route::get('/Ingresos/edit/{id}',[IngresoController::class,'edit'])->name('Ingresos.edit');
 Route::post('/Ingresos/update/{id}',[IngresoController::class,'update'])->name('Ingresos.update');
+
+#routes de Gastos
+Route::get('/Gastos/index',[GastosController::class,'index'])->name('Gastos.index');
+Route::get('/Gastos/create',[GastosController::class,'create'])->name('Gastos.create');
+Route::post('/Gastos/store',[GastosController::class,'store'])->name('Gastos.store');
+Route::post('/Gastos/destroy/{id}',[GastosController::class,'destroy'])->name('Gastos.destroy');
+Route::get('/Gastos/edit/{id}',[GastosController::class,'edit'])->name('Gastos.edit');
+Route::post('/Gastos/update/{id}',[GastosController::class,'update'])->name('Gastos.update');
+
 

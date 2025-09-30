@@ -1,8 +1,8 @@
 @extends('layouts.app')
-@section('title','Ingreso')
+@section('title','Gastos')
 
 @section('titleContent')
-<h1 class="text-center">Gestion Ingresos</h1>
+<h1 class="text-center">Gestion Gastos</h1>
 
 @endsection
 @section('content')
@@ -31,7 +31,7 @@
 
 <body class="bg-light">
     <div class="container">
-        <a href="{{route('Ingresos.create')}}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nuevo Ingreso</a>
+        <a href="{{route('Gastos.create')}}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nueva Finca</a>
 
         <table class="table table-bordered table-hover">
             <thead class="table-success">
@@ -39,31 +39,30 @@
                     <th>id</th>
                     <th>fecha</th>
                     <th>descripcion</th>
-                    <th>cantidadVendida</th>
-                    <th>precioUnitario</th>
-                    <th>Cosecha</th>
+                    <th>monto</th>
+                    <th>cosecha</th>
+                    <th>categoria Gastos</th>
                     <th>opciones</th>
-
                 </tr>
             </thead>
             <tbody>
 
-                @foreach ($ingresos as $ingreso )
+                @foreach ($gastos as $gasto )
                 <tr>
 
-                    <td>{{$ingreso->id}}</td>
-                    <td>{{$ingreso->fecha}}</td>
-                    <td>{{$ingreso->descripcion}}</td>
-                    <td>{{$ingreso->cantidadVendida}}</td>
-                    <td>{{$ingreso->precioUnitario}}</td>
-                    <td>{{$ingreso->Cosecha->idCultivo}}</td>
+                    <td>{{$gasto->id}}</td>
+                    <td>{{$gasto->fecha}}</td>
+                    <td>{{$gasto->descripcion}}</td>
+                    <td>{{$gasto->monto}}</td>
+                    <td>{{$gasto->idCosecha}}</td>
+                    <td>{{$gasto->idCategoriaGastos}}</td>
                     <td class="text-center">
                         <div class="d-flex justify-content-center gap-2">
-                            <a href="{{route('Ingresos.edit',$ingreso->id)}}"
+                            <a href="{{route('Gastos.edit',$gasto->id)}}"
                                 class="btn btn-warning shadow-sm btn-accion">
                                 <i class="bi bi-pencil-square"></i> Editar
                             </a>
-                            <form action="{{route('Ingresos.destroy',$ingreso->id)}}" method="POST">
+                            <form action="{{route('Gastos.destroy',$gasto->id)}}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-danger shadow-sm btn-accion"
                                     onclick="confirmarEliminacion(event)">

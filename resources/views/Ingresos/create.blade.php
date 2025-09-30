@@ -46,17 +46,17 @@
                             <select name="idCosecha" id="idCosecha" class="form-select">
                                 <option value="">Seleccione una cosecha</option>
                                 @foreach($cosechas as $cosecha)
-                                    <option value="{{ $cosecha->id }}">{{ $cosecha->nombre }} - {{ $cosecha->idCultivo }}</option>
+                                <option value="{{ $cosecha->id }}">{{ $cosecha->nombre }} - {{ $cosecha->idCultivo }}</option>
                                 @endforeach
                             </select>
                         </div>
 
                         <!-- Botones -->
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ route('Ingresos.index') }}" class="btn btn-secondary">Cancelar</a>
-                            <button type="submit" class="btn btn-success">Guardar Ingreso</button>
+                        <div class="d-flex justify-content">
+                            <button type="submit" class="btn btn-success "><i class="ri-save-3-fill"></i> Guardar</button>
+                            <a href="{{ route('Ingresos.index') }}" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
                         </div>
-                        
+
                     </form>
                 </div>
             </div>

@@ -80,9 +80,9 @@
                         </div>
 
                         <!-- Botones -->
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ route('Ingresos.index') }}" class="btn btn-secondary">Cancelar</a>
-                            <button type="submit" class="btn btn-success">Guardar Ingreso</button>
+                        <div class="d-flex justify-content">
+                            <button type="submit" class="btn btn-outline-secondary btn-lg rounded-3">Actualizar</button>
+                            <a href="{{ route('Ingresos.index') }}" class="btn btn-secondary"> <i class="bi bi-x-circle"></i> Cancelar</a>
                         </div>
                         
                     </form>
