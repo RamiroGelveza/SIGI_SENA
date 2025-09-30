@@ -225,6 +225,5 @@
     background-color: #386641; /* Verde más profundo */
 }
 
-
 </style>
 @endpush
