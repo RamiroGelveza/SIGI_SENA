@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 #routes de finca
+
+Route::get('/Fincas/admin',[FincaController::class,'admin'])->name('Fincas.admin');
 Route::get('/Fincas/index',[FincaController::class,'index'])->name('Fincas.index');
 Route::get('/Fincas/create',[FincaController::class,'create'])->name('Fincas.create');
 Route::post('/Fincas/store',[FincaController::class,'store'])->name('Fincas.store');
@@ -22,9 +24,13 @@ Route::post('/Fincas/destroy/{id}',[FincaController::class,'destroy'])->name('Fi
 Route::get('/Fincas/edit/{id}',[FincaController::class,'edit'])->name('Fincas.edit');
 Route::post('/Fincas/update/{id}',[FincaController::class,'update'])->name('Fincas.update');
 
+
+
+
+
 # routes de invernadero
-Route::get('/Invernaderos/index',[InvernaderoController::class,'index'])->name('Invernaderos.index');
-Route::get('/Invernaderos/create',[InvernaderoController::class,'create'])->name('Invernaderos.create');
+Route::get('/Invernaderos/index/{idfinca}',[InvernaderoController::class,'index'])->name('Invernaderos.index');
+Route::get('/Invernaderos/create/{idfinca}',[InvernaderoController::class,'create'])->name('Invernaderos.create');
 Route::post('/Invernaderos/store',[InvernaderoController::class,'store'])->name('Invernaderos.store');
 Route::post('/Invernaderos/destroy/{id}',[InvernaderoController::class,'destroy'])->name('Invernaderos.destroy');
 Route::get('/Invernaderos/edit/{id}',[InvernaderoController::class,'edit'])->name('Invernaderos.edit');

@@ -52,6 +52,12 @@
                     <td>{{$finca->ubicacion}}</td>
                     <td class="text-center">
                         <div class="d-flex justify-content-center gap-2">
+
+                        <a href="{{route('Invernaderos.index',$finca->id)}}"
+                                class="btn btn-info shadow-sm btn-accion">
+                                <i class="bi bi-pencil-square"></i> Administrar Invernaderos
+                            </a>
+
                             <a href="{{route('Fincas.edit',$finca->id)}}"
                                 class="btn btn-warning shadow-sm btn-accion">
                                 <i class="bi bi-pencil-square"></i> Editar

@@ -9,7 +9,7 @@
     
 <body class="bg-light">
     <div class="container">
-        <a href="{{route('Invernaderos.create')}}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nuevo Invernadero</a>
+        <a href="{{route('Invernaderos.create,$invernadero->Finca->id')}}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nuevo Invernadero</a>
         <script>
         function confirmarEliminacion(event) {
             event.preventDefault();
@@ -73,6 +73,6 @@
             @endforeach
         </tbody>
     </table>
-    <a href="{{route('welcome')}}" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Volver</a>
+    <a href="{{route('Fincas.index')}}" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Volver</a>
             
 @endsection
