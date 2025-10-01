@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriaGastoController;
 use App\Http\Controllers\CosechaController;
+use App\Http\Controllers\dashboarController;
 use App\Http\Controllers\EstadosCosechaController;
 use App\Http\Controllers\FincaController;
 use App\Http\Controllers\GastosController;
@@ -11,9 +12,10 @@ use App\Http\Controllers\MantenimientoInvernaderoController;
 use App\Http\Controllers\TiposCultivoController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+
+#routes de dashboard
+Route::get('/',[dashboarController::class,'welcome'])->name('welcome');
+
 #routes de finca
 
 Route::get('/Fincas/admin',[FincaController::class,'admin'])->name('Fincas.admin');

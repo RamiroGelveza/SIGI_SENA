@@ -12,6 +12,21 @@
 <div class="container py-4">
     <div class="row g-4 justify-content-center">
 
+
+
+    <div class="col-md-6 col-lg-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="fas fa-seedling fa-2x text-primary"></i>
+                    </div>
+                    <h5 class="fw-semibold text-dark">Cantidas Fincas</h5>
+                </div>
+            </div>
+        </div>
+
+
+
         <!-- Fincas -->
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 border-0 shadow-sm">
@@ -28,23 +43,10 @@
             </div>
         </div>
 
-        <!-- Invernaderos -->
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body text-center p-4">
-                    <div class="mb-3">
-                        <i class="fas fa-home fa-2x text-primary"></i>
-                    </div>
-                    <h5 class="fw-semibold text-dark">Invernaderos</h5>
-                    <p class="text-muted small mb-4">Lleva un control completo de tus Invernaderos.</p>
-                    <a href="" class="btn btn-outline-primary rounded-pill w-100">
-                        Gestionar Invernaderos
-                    </a>
-                </div>
-            </div>
-        </div>
 
-        <!-- Categoría Gastos -->
+<!--
+
+
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body text-center p-4">
@@ -60,7 +62,7 @@
             </div>
         </div>
 
-        <!-- Tipos de Cultivos -->
+
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body text-center p-4">
@@ -76,7 +78,7 @@
             </div>
         </div>
 
-        <!-- Mantenimiento Invernadero -->
+
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body text-center p-4">
@@ -92,7 +94,7 @@
             </div>
         </div>
 
-        <!-- Estados de Cosecha -->
+
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body text-center p-4">
@@ -108,7 +110,7 @@
             </div>
         </div>
 
-        <!-- Cosecha -->
+
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body text-center p-4">
@@ -124,7 +126,7 @@
             </div>
         </div>
 
-        <!-- Ingresos -->
+
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body text-center p-4">
@@ -140,7 +142,7 @@
             </div>
         </div>
 
-        <!-- Gastos -->
+
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body text-center p-4">
@@ -156,6 +158,7 @@
             </div>
         </div>
 
+        -->
     </div>
 </div>
 @endsection
@@ -167,7 +170,7 @@
     border: 1px solid #dfe6dd; /* Borde sutil */
     border-radius: 18px;
     background: #ffffff; /* Fondo blanco limpio */
-    color: #3a3a3a; 
+    color: #3a3a3a;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     overflow: hidden;
