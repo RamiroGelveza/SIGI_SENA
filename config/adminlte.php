@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'SIGI',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -30,8 +30,8 @@ return [
     |
     */
 
-    'use_ico_only' => false,
-    'use_full_favicon' => false,
+    'use_ico_only' => true,
+    'use_full_favicon' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>SIGI</b>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'SIGI LOGO',
 
     /*
     |--------------------------------------------------------------------------
@@ -196,7 +196,7 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-light-success elevation-4',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
@@ -257,7 +257,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -318,39 +318,16 @@ return [
         [
             'text' => 'Principal',
             'url' => '/',
-            'icon' => 'far fa-fw fa-file',
+            'icon' => 'fas fa-fw fa-home',
             'label_color' => 'success',
         ],
         [
             'text' => 'Fincas',
             'url' => '/Fincas/index',
-            'icon' => 'far fa-fw fa-file',
+            'icon' => 'fas fa-fw fa-mountain',
             'label_color' => 'success',
-        ],
-        [
-            'text' => 'Mantenimiento',
-            'url' => '/MantenimientoInverndero/index',
-            'icon' => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],
-        [
-            'text' => 'Cosecha',
-            'url' => '/Cosechas/index',
-            'icon' => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],
-        [
-            'text' => 'Ingresos',
-            'url' => '/Ingresos/index',
-            'icon' => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],
-        [
-            'text' => 'Gastos',
-            'url' => '/Gastos/index',
-            'icon' => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],[
+        ]
+        ,[
             'text' => 'Configuración',
             'icon' => 'fas fa-folder', // Font Awesome icon
             'submenu' => [
@@ -374,6 +351,13 @@ return [
                         ],
             ],
         ],
+        [
+            'text' => 'Reportes',
+            'url' => '/',
+            'icon' => 'fas fa-fw fa-tachometer-alt',
+            'label_color' => 'success',
+        ],
+
 
     ],
 
@@ -413,7 +397,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
@@ -423,12 +407,12 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
+                    'location' => 'https://cdn.datatables.net/v/dt/dt-2.3.4/datatables.min.js',
                 ],
                 [
                     'type' => 'css',
                     'asset' => false,
-                    'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
+                    'location' => '//cdn.datatables.net/v/dt/dt-2.3.4/datatables.min.css" rel="stylesheet" integrity="sha384-pmGS6IIcXhAVIhcnh9X/mxffzZNHbuxboycGuQQoP3pAbb0SwlSUUHn2v22bOenI',
                 ],
             ],
         ],
@@ -463,7 +447,7 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11',
                 ],
             ],
         ],
