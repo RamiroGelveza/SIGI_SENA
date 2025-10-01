@@ -99,8 +99,8 @@
 
             <!-- Botones -->
             <div class="d-grid gap-2 mt-4">
-              <button type="submit" class="btn btn-success btn-lg">Actualizar</button>
-              <a href="{{ route('Invernaderos.index') }}" class="btn btn-outline-secondary btn-lg rounded-3">Cancelar</a>
+              <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-sync-alt"></i> Actualizar</button>
+              <a href="{{ route('Invernaderos.index') }}" class="btn btn-outline-secondary btn-lg rounded-3"> <i class="bi bi-x-circle"></i> Cancelar</a>
             </div>
 
           </form>

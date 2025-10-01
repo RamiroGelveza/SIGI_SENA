@@ -152,9 +152,9 @@ return [
     |
     */
 
-    'layout_topnav' => true,
+    'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
+    'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => null,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
@@ -316,82 +316,67 @@ return [
             'text' => 'search',
         ],
         [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
-        [
-            'text' => 'pages',
-            'url' => 'admin/pages',
+            'text' => 'Principal',
+            'url' => '/',
             'icon' => 'far fa-fw fa-file',
-            'label' => 4,
             'label_color' => 'success',
         ],
-        ['header' => 'account_settings'],
         [
-            'text' => 'profile',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'Fincas',
+            'url' => '/Fincas/index',
+            'icon' => 'far fa-fw fa-file',
+            'label_color' => 'success',
         ],
         [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'text' => 'Invernaderos',
+            'url' => '/Invernaderos/index',
+            'icon' => 'far fa-fw fa-file',
+            'label_color' => 'success',
         ],
         [
-            'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
+            'text' => 'Categoria Gastos',
+            'url' => '/CategoriaGastos/index',
+            'icon' => 'far fa-fw fa-file',
+            'label_color' => 'success',
         ],
         [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
+            'text' => 'Tipos de cultivo',
+            'url' => '/TiposCultivos/index',
+            'icon' => 'far fa-fw fa-file',
+            'label_color' => 'success',
         ],
         [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
+            'text' => 'Mantenimiento',
+            'url' => '/MantenimientoInverndero/index',
+            'icon' => 'far fa-fw fa-file',
+            'label_color' => 'success',
         ],
+        [
+            'text' => 'Estado Cosecha',
+            'url' => '/EstadosCosecha/index',
+            'icon' => 'far fa-fw fa-file',
+            'label_color' => 'success',
+        ],
+        [
+            'text' => 'Cosecha',
+            'url' => '/Cosechas/index',
+            'icon' => 'far fa-fw fa-file',
+            'label_color' => 'success',
+        ],
+        [
+            'text' => 'Ingresos',
+            'url' => '/Ingresos/index',
+            'icon' => 'far fa-fw fa-file',
+            'label_color' => 'success',
+        ],
+        [
+            'text' => 'Gastos',
+            'url' => '/Gastos/index',
+            'icon' => 'far fa-fw fa-file',
+            'label_color' => 'success',
+        ],
+
+        
     ],
 
     /*

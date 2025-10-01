@@ -3,7 +3,7 @@
 
 @section('titleContent')
 <h1 class="text-center">Gestion Mantenimiento Invernaderos</h1>
-    
+
 @endsection
 @section('content')
 <script>
@@ -30,9 +30,9 @@
 
 <body class="bg-light">
     <div class="container">
-        <a href="{{route('MantenimientoInverndero.create')}}" class="btn btn-success">Nueva Mantenimiento Invernadero</a>
+        <a href="{{route('MantenimientoInverndero.create')}}" class="btn btn-success"> <i class="bi bi-plus-circle"></i> Nuevo Mantenimiento Invernadero</a>
         <table class="table table-bordered table-hover">
-            <thead class="table-dark">
+            <thead class="table-success">
                 <tr>
                     <th>id</th>
                     <th>fechaMantenimiento</th>
@@ -52,18 +52,26 @@
                     <td>{{$mantenimiento->costoMantenimiento}}</td>
                     <td>{{$mantenimiento->descripcion}}</td>
                     <td>{{$mantenimiento->invernadero->nombre}}</td>
-                    <td>
-                        <a href="{{route('MantenimientoInverndero.edit',$mantenimiento->id)}}" class="btn btn-dark">Actualizar</a>
-                        <form action="{{route('MantenimientoInverndero.destroy',$mantenimiento->id)}}" method="POST">
-                        
-                            <button type="submit" class="btn btn-danger" onclick="confirmarEliminacion(event)">Eliminar</button>
-                        </form>
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="{{route('MantenimientoInverndero.edit',$mantenimiento->id)}}"
+                                class="btn btn-warning shadow-sm btn-accion">
+                                <i class="bi bi-pencil-square"></i> Editar
+                            </a>
+                            <form action="{{route('MantenimientoInverndero.destroy',$mantenimiento->id)}}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-danger shadow-sm btn-accion"
+                                    onclick="confirmarEliminacion(event)">
+                                    <i class="bi bi-trash3"></i> Eliminar
+                                </button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-        <a href="{{route('welcome')}}" class="btn btn-info">Volver</a>
+        <a href="{{route('welcome')}}" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Volver</a>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"

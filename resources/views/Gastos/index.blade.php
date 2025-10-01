@@ -2,7 +2,7 @@
 @section('title','Gastos')
 
 @section('titleContent')
-<h1 class="text-center">Gestion Categoria Gastos</h1>
+<h1 class="text-center">Gestion Gastos</h1>
 
 @endsection
 @section('content')
@@ -31,29 +31,38 @@
 
 <body class="bg-light">
     <div class="container">
-        <a href="{{route('CategoriaGastos.create')}}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nueva Categoria Gasto</a>
+        <a href="{{route('Gastos.create')}}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nueva Finca</a>
+
         <table class="table table-bordered table-hover">
             <thead class="table-success">
                 <tr>
                     <th>id</th>
-                    <th>nombre</th>
+                    <th>fecha</th>
+                    <th>descripcion</th>
+                    <th>monto</th>
+                    <th>cosecha</th>
+                    <th>categoria Gastos</th>
                     <th>opciones</th>
                 </tr>
             </thead>
             <tbody>
 
-                @foreach ($categoriaGastos as $categoriaGasto )
+                @foreach ($gastos as $gasto )
                 <tr>
 
-                    <td>{{$categoriaGasto->id}}</td>
-                    <td>{{$categoriaGasto->nombre}}</td>
-                    <td class="">
+                    <td>{{$gasto->id}}</td>
+                    <td>{{$gasto->fecha}}</td>
+                    <td>{{$gasto->descripcion}}</td>
+                    <td>{{$gasto->monto}}</td>
+                    <td>{{$gasto->idCosecha}}</td>
+                    <td>{{$gasto->idCategoriaGastos}}</td>
+                    <td class="text-center">
                         <div class="d-flex justify-content-center gap-2">
-                            <a href="{{route('CategoriaGastos.edit',$categoriaGasto->id)}}"
+                            <a href="{{route('Gastos.edit',$gasto->id)}}"
                                 class="btn btn-warning shadow-sm btn-accion">
                                 <i class="bi bi-pencil-square"></i> Editar
                             </a>
-                            <form action="{{route('CategoriaGastos.destroy',$categoriaGasto->id)}}" method="POST">
+                            <form action="{{route('Gastos.destroy',$gasto->id)}}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-danger shadow-sm btn-accion"
                                     onclick="confirmarEliminacion(event)">
@@ -69,6 +78,4 @@
         <a href="{{route('welcome')}}" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Volver</a>
 
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
     @endsection

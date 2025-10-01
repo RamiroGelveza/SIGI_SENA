@@ -45,8 +45,8 @@
 
                         <!-- Botones -->
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-success btn-lg rounded-3">Actualizar</button>
-                            <a href="{{ route('Fincas.index') }}" class="btn btn-outline-secondary btn-lg rounded-3">Cancelar</a>
+                            <button type="submit" class="btn btn-success btn-lg rounded-3"><i class="fas fa-sync-alt"></i> Actualizar</button>
+                            <a href="{{ route('Fincas.index') }}" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
                         </div>
                     </form>
 

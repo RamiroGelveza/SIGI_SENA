@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title','Mantenimiento')
+@section('title','Cosechas')
 
 @section('titleContent')
-<h1 class="text-center">Gestion Mantenimiento Invernaderos</h1>
-    
+<h1 class="text-center">Gestion Cosechas Invernaderos</h1>
+
 @endsection
 @section('content')
 <script>
@@ -28,26 +28,26 @@
     }
 </script>
 
-<body class="bg-light">
-    <div class="container-md">
-        <a href="{{route('Cosechas.create')}}" class="btn btn-success">Nueva Cosecha</a>
-        <table class="table table-bordered table-hover">
-            <thead class="table-dark">
+<body class="">
+    <div class="">
+        <a href="{{route('Cosechas.create')}}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nueva Cosecha</a>
+        <table class="table table-hover table-bordered">
+            <thead class="table-success ">
                 <tr>
-                    <th>id</th>
-                    <th>fecha Creacion</th>
-                    <th>fecha Siembra</th>
-                    <th>fecha Cosecha Estimada</th>
-                    <th>fecha Cosecha Real</th>
-                    <th>cantidad Sembrada</th>
-                    <th>total Gastos</th>
-                    <th>total Ingresos</th>
-                    <th>utilidad</th>
-                    <th>notas</th>
+                    <th>ID</th>
+                    <th>Fecha Creación</th>
+                    <th>Fecha Siembra</th>
+                    <th>Fecha Cosecha Estimada</th>
+                    <th>Fecha Cosecha Real</th>
+                    <th>Cantidad Sembrada</th>
+                    <th>Total Gastos</th>
+                    <th>Total Ingresos</th>
+                    <th>Utilidad</th>
+                    <th>Notas</th>
                     <th>Invernadero</th>
                     <th>Cultivo</th>
                     <th>Estado</th>
-                    <th>accion</th>
+                    <th>Acción</th>
                 </tr>
             </thead>
             <tbody>
@@ -69,18 +69,26 @@
                     <td>{{$cosecha->tiposCultivo->nombre}}</td>
                     <td>{{$cosecha->estadosCosecha->nombre}}</td>
 
-                    <td>
-                        <a href="{{route('Cosechas.edit',$cosecha->id)}}" class="btn btn-dark">Actualizar</a>
-                        <form action="{{route('Cosechas.destroy',$cosecha->id)}}" method="POST">
-                        @csrf
-                            <button type="submit" class="btn btn-danger" onclick="confirmarEliminacion(event)">Eliminar</button>
-                        </form>
+                    <td class="">
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="{{route('Cosechas.edit',$cosecha->id)}}"
+                                class="btn btn-warning shadow-sm btn-accion">
+                                <i class="bi bi-pencil-square"></i> Editar
+                            </a>
+                            <form action="{{route('Cosechas.destroy',$cosecha->id)}}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-danger shadow-sm btn-accion"
+                                    onclick="confirmarEliminacion(event)">
+                                    <i class="bi bi-trash3"></i> Eliminar
+                                </button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-        <a href="{{route('welcome')}}" class="btn btn-info">Volver</a>
+        <a href="{{route('welcome')}}" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Volver</a>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"

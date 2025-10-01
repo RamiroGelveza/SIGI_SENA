@@ -66,7 +66,7 @@
               <select
                 name="idInvernadero"
                 id="idInvernadero"
-                class="form-select form-select-lg @error('idInvernadero') is-invalid @enderror"
+                class="form-control form-select-lg @error('idInvernadero') is-invalid @enderror"
               >
                 <option value="" selected disabled>Seleccione un invernadero</option>
                 @foreach($invernaderos as $inv)
@@ -80,8 +80,8 @@
 
             <!-- Botones -->
             <div class="d-grid gap-2 mt-4">
-              <button type="submit" class="btn btn-success btn-lg">Guardar</button>
-              <a href="{{ route('MantenimientoInverndero.index') }}" class="btn btn-outline-secondary btn-lg rounded-3">Cancelar</a>
+              <button type="submit" class="btn btn-success btn-lg"><i class="ri-save-3-fill"></i> Guardar</button>
+              <a href="{{ route('MantenimientoInverndero.index') }}" class="btn btn-outline-secondary btn-lg rounded-3"> <i class="bi bi-x-circle"></i> Cancelar</a>
             </div>
 
           </form>

@@ -29,8 +29,8 @@
                                     <div class="invalid-feedback ">{{ $message }}</div>
                                 @enderror
                                 <div class="mt-3">
-                            <button type="submit" class="btn btn-success btn-lg rounded-3">Actualizar</button>
-                            <a href="{{ route('EstadosCosecha.index') }}" class="btn btn-outline-secondary btn-lg rounded-3">Cancelar</a>
+                            <button type="submit" class="btn btn-success btn-lg rounded-3"><i class="fas fa-sync-alt"></i> Actualizar</button>
+                            <a href="{{ route('EstadosCosecha.index') }}" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
                             </div>
                         </div>
                     </form>

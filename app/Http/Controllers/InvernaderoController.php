@@ -12,18 +12,19 @@ class InvernaderoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($idfinca)
     {
-        $invernaderos=Invernadero::all();
-        return view('Invernaderos.index', compact('invernaderos'));
+        $invernaderos=Invernadero::where('idFinca', $idfinca)->get();
+        $idfinca = $idfinca;
+        return view('Invernaderos.index', compact('invernaderos','idfinca'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {   
-        $fincas=finca::all();
+    public function create($idfinca)
+    {
+        $fincas=finca::where('id', $idfinca)->get();
         return view('Invernaderos.create', compact('fincas'));
     }
 
@@ -33,7 +34,12 @@ class InvernaderoController extends Controller
     public function store(InvernaderoRequest $request)
     {
         Invernadero::create($request->all());
-        return redirect()->route('Invernaderos.index')->with('success','Invernadero Creado Correctamente');
+
+        $idfinca = $request->input('idFinca');
+
+        return redirect()
+        ->route('Invernaderos.index', ['idfinca' => $idfinca])
+        ->with('success', 'Invernadero Creado Correctamente');
     }
 
     /**

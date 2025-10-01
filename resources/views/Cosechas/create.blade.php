@@ -117,7 +117,7 @@
                         <div class="mb-3">
                             <label for="idInvernadero" class="form-label">Invernadero</label>
                             <select id="idInvernadero" name="idInvernadero"
-                                class="form-select @error('idInvernadero') is-invalid @enderror">
+                                class="form-control @error('idInvernadero') is-invalid @enderror">
                                 <option value="">-- Seleccione un Invernadero --</option>
                                 @foreach($invernaderos as $invernadero)
                                     <option value="{{ $invernadero->id }}">{{ $invernadero->nombre }}</option>
@@ -132,7 +132,7 @@
                         <div class="mb-3">
                             <label for="idCultivo" class="form-label">Cultivo</label>
                             <select id="idCultivo" name="idCultivo"
-                                class="form-select @error('idCultivo') is-invalid @enderror">
+                                class="form-control @error('idCultivo') is-invalid @enderror">
                                 <option value="">-- Seleccione un Cultivo --</option>
                                 @foreach($cultivos as $cultivo)
                                     <option value="{{ $cultivo->id }}">{{ $cultivo->nombre }}</option>
@@ -147,7 +147,7 @@
                         <div class="mb-3">
                             <label for="idEstado" class="form-label">Estado</label>
                             <select id="idEstado" name="idEstado"
-                                class="form-select @error('idEstado') is-invalid @enderror">
+                                class="form-control @error('idEstado') is-invalid @enderror">
                                 <option value="">-- Seleccione un Estado --</option>
                                 @foreach($estados as $estado)
                                     <option value="{{ $estado->id }}">{{ $estado->nombre }}</option>
@@ -160,8 +160,8 @@
 
                         <!-- Botones -->
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-success btn-lg rounded-3">Guardar</button>
-                            <a href="{{ route('Cosechas.index') }}" class="btn btn-outline-secondary btn-lg rounded-3">Cancelar</a>
+                            <button type="submit" class="btn btn-success btn-lg rounded-3"><i class="ri-save-3-fill"></i> Guardar</button>
+                            <a href="{{ route('Cosechas.index') }}" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
                         </div>
                     </form>
 
