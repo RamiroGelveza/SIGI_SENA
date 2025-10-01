@@ -37,7 +37,7 @@
                     </div>
                     <h5 class="fw-semibold text-dark">Invernaderos</h5>
                     <p class="text-muted small mb-4">Lleva un control completo de tus Invernaderos.</p>
-                    <a href="{{ route('Invernaderos.index') }}" class="btn btn-outline-primary rounded-pill w-100">
+                    <a href="" class="btn btn-outline-primary rounded-pill w-100">
                         Gestionar Invernaderos
                     </a>
                 </div>

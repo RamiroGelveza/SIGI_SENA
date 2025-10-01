@@ -9,7 +9,7 @@
     
 <body class="bg-light">
     <div class="container">
-        <a href="{{route('Invernaderos.create,$invernadero->Finca->id')}}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nuevo Invernadero</a>
+        <a href="" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nuevo Invernadero</a>
         <script>
         function confirmarEliminacion(event) {
             event.preventDefault();
