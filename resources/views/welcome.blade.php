@@ -15,33 +15,49 @@
 
 
     <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body text-center p-4">
-                    <div class="mb-3">
-                        <i class="fas fa-seedling fa-2x text-primary"></i>
-                    </div>
-                    <h5 class="fw-semibold text-dark">Cantidas Fincas</h5>
-                </div>
+        <div class="small-box bg-info shadow">
+            <div class="inner">
+                <p>Fincas Registradas</p>
+                <h4 class="text-center">Administra fácilmente la información de tus Fincas.</h4>
             </div>
-        </div>
-
-
-
-        <!-- Fincas -->
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body text-center p-4">
-                    <div class="mb-3">
-                        <i class="fas fa-seedling fa-2x text-primary"></i>
-                    </div>
-                    <h5 class="fw-semibold text-dark">Fincas</h5>
-                    <p class="text-muted small mb-4">Administra fácilmente la información de tus Fincas.</p>
-                    <a href="{{ route('Fincas.index') }}" class="btn btn-outline-success rounded-pill w-100">
-                        Gestionar Fincas
-                    </a>
-                </div>
+            <div class="icon">
+                <i class="fas fa-seedling"></i>
             </div>
+            <a href="{{ route('Fincas.index') }}" class="small-box-footer">
+                Gestionar fincas <i class="fas fa-arrow-circle-right"></i>
+            </a>
         </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+        <div class="small-box bg-success shadow">
+            <div class="inner">
+                <p>Fincas Registradas</p>
+                <h3 class="text-center">{{ $cantidadFincas }}</h3>
+            </div>
+            <div class="icon">
+                <i class="fas fa-seedling"></i>
+            </div>
+            <a href="/Fincas/index" class="small-box-footer">
+                Ver todas las fincas <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+
+       <div class="col-md-6 col-lg-4">
+        <div class="small-box bg-primary shadow">
+            <div class="inner">
+                <p>Invernaderos Registradas</p>
+                <h3 class="text-center">{{ $cantidadInvernaderos }}</h3>
+            </div>
+            <div class="icon">
+                <i class="fas fa-seedling"></i>
+            </div>
+            <a href="" class="small-box-footer">
+                 <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
 
 
 <!--
