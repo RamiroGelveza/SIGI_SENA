@@ -328,32 +328,8 @@ return [
             'label_color' => 'success',
         ],
         [
-            'text' => 'Invernaderos',
-            'url' => '/Invernaderos/index',
-            'icon' => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],
-        [
-            'text' => 'Categoria Gastos',
-            'url' => '/CategoriaGastos/index',
-            'icon' => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],
-        [
-            'text' => 'Tipos de cultivo',
-            'url' => '/TiposCultivos/index',
-            'icon' => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],
-        [
             'text' => 'Mantenimiento',
             'url' => '/MantenimientoInverndero/index',
-            'icon' => 'far fa-fw fa-file',
-            'label_color' => 'success',
-        ],
-        [
-            'text' => 'Estado Cosecha',
-            'url' => '/EstadosCosecha/index',
             'icon' => 'far fa-fw fa-file',
             'label_color' => 'success',
         ],
@@ -374,9 +350,31 @@ return [
             'url' => '/Gastos/index',
             'icon' => 'far fa-fw fa-file',
             'label_color' => 'success',
+        ],[
+            'text' => 'Configuración',
+            'icon' => 'fas fa-folder', // Font Awesome icon
+            'submenu' => [
+                        [
+                            'text' => 'Categoria Gastos',
+                            'url' => '/CategoriaGastos/index',
+                            'icon' => 'far fa-fw fa-file',
+                            'label_color' => 'success',
+                        ],
+                        [
+                            'text' => 'Tipos de cultivo',
+                            'url' => '/TiposCultivos/index',
+                            'icon' => 'far fa-fw fa-file',
+                            'label_color' => 'success',
+                        ],
+                        [
+                            'text' => 'Estado Cosecha',
+                            'url' => '/EstadosCosecha/index',
+                            'icon' => 'far fa-fw fa-file',
+                            'label_color' => 'success',
+                        ],
+            ],
         ],
 
-        
     ],
 
     /*
