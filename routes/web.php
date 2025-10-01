@@ -35,6 +35,7 @@ Route::post('/Invernaderos/destroy/{id}',[InvernaderoController::class,'destroy'
 Route::get('/Invernaderos/edit/{id}',[InvernaderoController::class,'edit'])->name('Invernaderos.edit');
 Route::post('/Invernaderos/update/{id}',[InvernaderoController::class,'update'])->name('Invernaderos.update');
 
+
 #routes de categoria gastos
 Route::get('/CategoriaGastos/index',[CategoriaGastoController::class,'index'])->name('CategoriaGastos.index');
 Route::get('/CategoriaGastos/create',[CategoriaGastoController::class,'create'])->name('CategoriaGastos.create');
@@ -68,7 +69,7 @@ Route::get('/EstadosCosecha/edit/{id}',[EstadosCosechaController::class,'edit'])
 Route::post('/EstadosCosecha/update/{id}',[EstadosCosechaController::class,'update'])->name('EstadosCosecha.update');
 
 #routes de cosecha
-Route::get('/Cosechas/index',[CosechaController::class,'index'])->name('Cosechas.index');
+Route::get('/Cosechas/index/{id}',[CosechaController::class,'index'])->name('Cosechas.index');
 Route::get('/Cosechas/create',[CosechaController::class,'create'])->name('Cosechas.create');
 Route::post('/Cosechas/store',[CosechaController::class,'store'])->name('Cosechas.store');
 Route::post('/Cosechas/destroy/{id}',[CosechaController::class,'destroy'])->name('Cosechas.destroy');
