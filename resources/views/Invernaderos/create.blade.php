@@ -3,7 +3,7 @@
 
 @section('titleContent')
 <h1 class="text-center">Registrar Invernadero</h1>
-    
+
 @endsection
 @section('content')
 
@@ -98,7 +98,7 @@
             <!-- Botones -->
             <div class="d-grid gap-2 mt-4">
               <button type="submit" class="btn btn-success btn-lg"><i class="ri-save-3-fill"></i> Guardar</button>
-              <a href="{{ route('Invernaderos.index') }}" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
+              <a href="" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
             </div>
 
           </form>

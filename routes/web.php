@@ -25,9 +25,6 @@ Route::get('/Fincas/edit/{id}',[FincaController::class,'edit'])->name('Fincas.ed
 Route::post('/Fincas/update/{id}',[FincaController::class,'update'])->name('Fincas.update');
 
 
-
-
-
 # routes de invernadero
 Route::get('/Invernaderos/index/{idfinca}',[InvernaderoController::class,'index'])->name('Invernaderos.index');
 Route::get('/Invernaderos/create/{idfinca}',[InvernaderoController::class,'create'])->name('Invernaderos.create');
@@ -91,5 +88,3 @@ Route::post('/Gastos/store',[GastosController::class,'store'])->name('Gastos.sto
 Route::post('/Gastos/destroy/{id}',[GastosController::class,'destroy'])->name('Gastos.destroy');
 Route::get('/Gastos/edit/{id}',[GastosController::class,'edit'])->name('Gastos.edit');
 Route::post('/Gastos/update/{id}',[GastosController::class,'update'])->name('Gastos.update');
-
-

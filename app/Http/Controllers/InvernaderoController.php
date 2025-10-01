@@ -16,7 +16,6 @@ class InvernaderoController extends Controller
     {
         $invernaderos=Invernadero::where('idFinca', $idfinca)->get();
         $idfinca = $idfinca;
-
         return view('Invernaderos.index', compact('invernaderos','idfinca'));
     }
 
@@ -24,8 +23,8 @@ class InvernaderoController extends Controller
      * Show the form for creating a new resource.
      */
     public function create($idfinca)
-    {   
-        $fincas=finca::where('idFinca', $idfinca)->get();
+    {
+        $fincas=finca::where('id', $idfinca)->get();
         return view('Invernaderos.create', compact('fincas'));
     }
 
@@ -35,7 +34,12 @@ class InvernaderoController extends Controller
     public function store(InvernaderoRequest $request)
     {
         Invernadero::create($request->all());
-        return redirect()->route('Invernaderos.index')->with('success','Invernadero Creado Correctamente');
+
+        $idfinca = $request->input('idFinca');
+
+        return redirect()
+        ->route('Invernaderos.index', ['idfinca' => $idfinca])
+        ->with('success', 'Invernadero Creado Correctamente');
     }
 
     /**
