@@ -49,7 +49,7 @@
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 <strong class="text-muted">Tamaño:</strong>
-                                <span>{{ $invernadero->tamaño }} m²</span>
+                                <span>{{ $invernadero->tamaño }}-Plantulas</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 <strong class="text-muted">Rendimiento:</strong>
