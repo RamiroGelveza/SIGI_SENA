@@ -3,7 +3,6 @@
 @section('title', $title ?? 'Dashboard')
 
 @section('content_header')
-<h1>@yield('page-title', 'SIGI')</h1>
 @yield('titleContent')
 @stop
 
@@ -14,7 +13,7 @@
 
 @section('adminlte_css_pre')
 
-@vite(['resources/css/app.css', 'resources/js/app.js'])
+{{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 @endsection
 
 @section('css')

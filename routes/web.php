@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriaGastoController;
 use App\Http\Controllers\CosechaController;
+use App\Http\Controllers\dashboarController;
 use App\Http\Controllers\EstadosCosechaController;
 use App\Http\Controllers\FincaController;
 use App\Http\Controllers\GastosController;
@@ -11,9 +12,10 @@ use App\Http\Controllers\MantenimientoInvernaderoController;
 use App\Http\Controllers\TiposCultivoController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+
+#routes de dashboard
+Route::get('/',[dashboarController::class,'welcome'])->name('welcome');
+
 #routes de finca
 
 Route::get('/Fincas/admin',[FincaController::class,'admin'])->name('Fincas.admin');
@@ -23,9 +25,6 @@ Route::post('/Fincas/store',[FincaController::class,'store'])->name('Fincas.stor
 Route::post('/Fincas/destroy/{id}',[FincaController::class,'destroy'])->name('Fincas.destroy');
 Route::get('/Fincas/edit/{id}',[FincaController::class,'edit'])->name('Fincas.edit');
 Route::post('/Fincas/update/{id}',[FincaController::class,'update'])->name('Fincas.update');
-
-
-
 
 
 # routes de invernadero
@@ -91,5 +90,3 @@ Route::post('/Gastos/store',[GastosController::class,'store'])->name('Gastos.sto
 Route::post('/Gastos/destroy/{id}',[GastosController::class,'destroy'])->name('Gastos.destroy');
 Route::get('/Gastos/edit/{id}',[GastosController::class,'edit'])->name('Gastos.edit');
 Route::post('/Gastos/update/{id}',[GastosController::class,'update'])->name('Gastos.update');
-
-
