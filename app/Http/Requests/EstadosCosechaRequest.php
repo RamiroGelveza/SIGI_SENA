@@ -22,7 +22,18 @@ class EstadosCosechaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre' => 'required|string|max:100|min:3|regex:/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/'
+            
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'nombre.required' => 'El nombre es obligatorio.',
+            'nombre.string'   => 'El nombre debe ser un texto válido.',
+            'nombre.max'      => 'El nombre no puede superar los :max caracteres.',
+            'nombre.min'      => 'El nombre debe tener al menos :min caracteres.',
+            'nombre.regex' => 'El nombre solo puede contener letras.',
         ];
     }
 }

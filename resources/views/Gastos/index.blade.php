@@ -31,7 +31,7 @@
 
 <body class="bg-light">
     <div class="container">
-        <a href="{{route('Gastos.create')}}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nueva Finca</a>
+        <a href="{{route('Gastos.create')}}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Registrar Gasto</a>
 
         <table class="table table-bordered table-hover">
             <thead class="table-success">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GastosRequest;
 use App\Models\CategoriaGasto;
 use App\Models\Cosecha;
 use App\Models\Gastos;
@@ -31,7 +32,7 @@ class GastosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(GastosRequest $request)
     {
         Gastos::create($request->all());
         return redirect()->route('Gastos.index');
@@ -60,7 +61,7 @@ class GastosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(GastosRequest $request,$id)
     {
         $gastos=Gastos::findorfail($id);
         $gastos->update($request->all());

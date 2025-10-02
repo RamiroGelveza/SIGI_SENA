@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IngresoRequest;
 use App\Models\Cosecha;
 use App\Models\Ingreso;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class IngresoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(IngresoRequest $request)
     {
         Ingreso::create($request->all());
         return redirect()->route('Ingresos.index')->with('success','Ingreso Creado correctamente');
@@ -57,7 +58,7 @@ class IngresoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(IngresoRequest $request,$id)
     {
         $ingresos=Ingreso::findorfail($id);
         $ingresos->update($request->all());

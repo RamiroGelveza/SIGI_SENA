@@ -19,36 +19,58 @@
                         <!-- Fecha -->
                         <div class="mb-3">
                             <label for="fecha" class="form-label">Fecha</label>
-                            <input type="date" name="fecha" id="fecha" class="form-control">
+                            <input type="date" name="fecha" id="fecha" class="form-control @error('fecha') is-invalid @enderror">
+
+                            @error('fecha')
+                                <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
                         </div>
 
                         <!-- Descripción -->
                         <div class="mb-3">
                             <label for="descripcion" class="form-label">Descripción</label>
-                            <textarea name="descripcion" id="descripcion" rows="3" class="form-control" placeholder="Ej: Venta de tomates"></textarea>
+                            <textarea name="descripcion" id="descripcion" rows="3" class="form-control
+                            @error('descripcion') is-invalid @enderror" placeholder="Ej: Venta de tomates"></textarea>
+                            @error('descripcion')
+                                <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
                         </div>
 
                         <!-- Cantidad Vendida -->
                         <div class="mb-3">
                             <label for="cantidadVendida" class="form-label">Cantidad Vendida (kg)</label>
-                            <input type="number" step="0.01" name="cantidadVendida" id="cantidadVendida" class="form-control" placeholder="Ej: 120.50">
+                            <input type="number" step="0.01" name="cantidadVendida" id="cantidadVendida" class="form-control
+                            @error('cantidadVendida') is-invalid @enderror" placeholder="Ej: 120.50">
+                            @error('cantidadVendida')
+                                <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
                         </div>
 
                         <!-- Precio Unitario -->
                         <div class="mb-3">
                             <label for="precioUnitario" class="form-label">Precio Unitario ($)</label>
-                            <input type="number" step="0.01" name="precioUnitario" id="precioUnitario" class="form-control" placeholder="Ej: 2500">
+                            <input type="number" step="0.01" name="precioUnitario" id="precioUnitario" class="form-control
+                            @error('precioUnitario') is-invalid @enderror" placeholder="Ej: 2500">
+                            @error('precioUnitario')
+                                <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
                         </div>
 
                         <!-- Selección de Cosecha -->
                         <div class="mb-3">
                             <label for="idCosecha" class="form-label">Cosecha</label>
-                            <select name="idCosecha" id="idCosecha" class="form-select">
+                            <select name="idCosecha" id="idCosecha" class="form-control @error('idCosecha') is-invalid
+                                
+                            @enderror">
                                 <option value="">Seleccione una cosecha</option>
                                 @foreach($cosechas as $cosecha)
                                 <option value="{{ $cosecha->id }}">{{ $cosecha->nombre }} - {{ $cosecha->idCultivo }}</option>
                                 @endforeach
                             </select>
+
+                            @error('idCosecha')
+                                <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
                         </div>
 
                         <!-- Botones -->
