@@ -26,9 +26,7 @@
                   name="nombre" 
                   id="nombre" 
                   class="form-control form-control-lg @error('nombre') is-invalid @enderror" 
-                  placeholder="Ej.: Invernadero Norte" 
-                  minlength="3"
-                  maxlength="255">
+                  placeholder="Ej.: Invernadero Norte" >
               @error('nombre')
                 <div class="invalid-feedback">{{ $message }}</div>
               @enderror
@@ -42,9 +40,7 @@
                   name="cicloDias" 
                   id="cicloDias" 
                   class="form-control form-control-lg @error('cicloDias') is-invalid @enderror" 
-                  placeholder="Ej.: 120" 
-                  required
-                  min="1">
+                  placeholder="Ej.: 120" >
               @error('cicloDias')
                 <div class="invalid-feedback">{{ $message }}</div>
               @enderror

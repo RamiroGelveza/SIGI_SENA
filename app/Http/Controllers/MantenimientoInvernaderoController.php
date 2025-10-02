@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MantenimientoInvernaderoRequest;
 use App\Models\Invernadero;
 use App\Models\MantenimientoInvernadero;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class MantenimientoInvernaderoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(MantenimientoInvernaderoRequest $request)
     {
         MantenimientoInvernadero::create($request->all());
         return redirect()->route('MantenimientoInverndero.index')->with('success','Mantenimiento Inverndero Creado Correctamente');
@@ -56,7 +57,7 @@ class MantenimientoInvernaderoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(MantenimientoInvernaderoRequest $request, $id)
     {
         $mantenimientoInvernadero=MantenimientoInvernadero::findorfail($id);
         $mantenimientoInvernadero->update($request->all());

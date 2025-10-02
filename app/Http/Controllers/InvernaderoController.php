@@ -79,4 +79,6 @@ class InvernaderoController extends Controller
         $invernadero->delete();
         return redirect()->route('Invernaderos.index')->with('success','Invernadero Eliminado correctamente');
     }
+
+
 }

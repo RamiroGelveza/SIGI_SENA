@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TiposCultivoRequest;
 use App\Models\TiposCultivo;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class TiposCultivoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TiposCultivoRequest $request)
     {
         TiposCultivo::create($request->all());
         return redirect()->route('TiposCultivos.index')->with('success','Tipos Cultivo Creado Correctamente');
@@ -53,7 +54,7 @@ class TiposCultivoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(TiposCultivoRequest $request,$id)
     {
         $tiposCultivo=TiposCultivo::findorfail($id);
         $tiposCultivo->update($request->all());

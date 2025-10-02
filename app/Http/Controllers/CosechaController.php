@@ -15,9 +15,9 @@ class CosechaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($idinvernadero)
     {
-        $cosechas=Cosecha::all();
+        $cosechas=Cosecha::where('invernadero_id',$idinvernadero)->get();
         return view('Cosechas.index',compact('cosechas'));
     }
 
@@ -70,7 +70,7 @@ class CosechaController extends Controller
         $cosecha=Cosecha::findorfail($id);
         $cosecha->update($request->all());
         return redirect()->route('Cosechas.index')->with('success','Cosecha Actualizada Correctamente');
-        
+
     }
 
     /**
