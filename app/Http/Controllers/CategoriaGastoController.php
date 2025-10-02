@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoriaGastosRequest;
 use App\Models\CategoriaGasto;
 use Illuminate\Http\Request;
 
@@ -12,8 +13,8 @@ class CategoriaGastoController extends Controller
      */
     public function index()
     {
-      $categoriaGastos=CategoriaGasto::all();
-        return view('categoriaGastos.index',compact('categoriaGastos'));
+        $categoriaGastos = CategoriaGasto::all();
+        return view('categoriaGastos.index', compact('categoriaGastos'));
     }
 
     /**
@@ -27,7 +28,7 @@ class CategoriaGastoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoriaGastosRequest $request)
     {
         CategoriaGasto::create($request->all());
         return redirect()->route('CategoriaGastos.index')->with('success','Categoria de Gastos Creada Correctamente');
@@ -53,7 +54,7 @@ class CategoriaGastoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(CategoriaGastosRequest $request, $id)
     {
         $categoriaGasto=CategoriaGasto::findorfail($id);
         $categoriaGasto->update($request->all());

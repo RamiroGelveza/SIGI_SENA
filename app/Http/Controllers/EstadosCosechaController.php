@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EstadosCosechaRequest;
 use App\Models\EstadosCosecha;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class EstadosCosechaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(EstadosCosechaRequest $request)
     {
         EstadosCosecha::create($request->all());
         return redirect()->route('EstadosCosecha.index')->with('success','Estado de Cosecha Creado Correctamente');
@@ -53,7 +54,7 @@ class EstadosCosechaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(EstadosCosechaRequest $request, $id)
     {
         $estadosCosecha=EstadosCosecha::findorfail($id);
         $estadosCosecha->update($request->all());
