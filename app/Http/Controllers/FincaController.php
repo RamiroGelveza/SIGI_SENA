@@ -66,9 +66,15 @@ class FincaController extends Controller
      */
     public function destroy($id)
     {
-        $fincas=finca::findorfail($id);
-        $fincas->delete();
-        return redirect()->route('Fincas.index')->with('success','Finca eliminada correctamente');
-    
+        $contenido=finca::findorfail($id);
+        try {
+            $contenido->delete();
+            return redirect()->route('Fincas.index')
+                ->with('success', 'Contenido eliminado correctamente');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->route('Fincas.index')
+                ->with('error', 'No se puede eliminar este contenido porque tiene Invernaderos asociadas.');
+        }
+        
     }
 }

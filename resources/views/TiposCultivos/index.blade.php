@@ -32,7 +32,7 @@
 <body class="bg-light">
     <div class="container">
         <a href="{{route('TiposCultivos.create')}}" class="btn btn-success"> <i class="bi bi-plus-circle"></i> Nuevo Tipo Cultivo</a>
-        <table class="table table-bordered table-hover">
+        <table id="myTable"  class="table table-bordered table-hover">
             <thead class="table-success">
                 <tr>
                     <th>id</th>

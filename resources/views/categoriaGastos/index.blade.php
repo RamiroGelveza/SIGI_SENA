@@ -7,32 +7,10 @@
 @endsection
 @section('content')
 
-<script>
-    function confirmarEliminacion(event) {
-        event.preventDefault();
-        const form = event.target.closest('form');
-
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡No podrás revertir esto!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
-            }
-        });
-    }
-</script>
-
 <body class="bg-light">
     <div class="container">
         <a href="{{route('CategoriaGastos.create')}}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nueva Categoria Gasto</a>
-        <table class="table table-bordered table-hover">
+        <table id="myTable"  class="table table-bordered table-hover mt-2">
             <thead class="table-success">
                 <tr>
                     <th>id</th>

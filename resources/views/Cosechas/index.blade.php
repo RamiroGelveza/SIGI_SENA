@@ -6,28 +6,6 @@
 
 @endsection
 @section('content')
-<script>
-    function confirmarEliminacion(event) {
-        event.preventDefault();
-        const form = event.target.closest('form');
-
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡No podrás revertir esto!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
-            }
-        });
-    }
-</script>
-
 <body class="">
     <div class="">
         <a href="{{route('Cosechas.create')}}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nueva Cosecha</a>

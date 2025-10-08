@@ -3,7 +3,7 @@
 
 @section('titleContent')
 <h1 class="text-center">Actualizar Invernadero</h1>
-    
+
 @endsection
 @section('content')
 
@@ -17,7 +17,17 @@
 
           <form action="{{ route('Invernaderos.update',$invernadero->id) }}" method="POST">
             @csrf
+            <!-- Finca -->
+            <div class="mb-3">
+              <input type="text" class="form-control"
+                value="{{ $invernadero->finca->nombre }}" readonly>
 
+              <input type="hidden" name="idFinca" value="{{ $invernadero->idFinca }}">
+
+              @error('idFinca')
+              <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+            </div>
             <!-- Nombre -->
             <div class="mb-3">
               <label for="nombre" class="form-label">Nombre</label>
@@ -48,23 +58,6 @@
               @enderror
             </div>
 
-            <!-- Finca -->
-            <div class="mb-3">
-              <label for="idFinca" class="form-label">Finca</label>
-              <select
-                name="idFinca"
-                id="idFinca"
-                class="form-select form-select-lg @error('idFinca') is-invalid @enderror"
-                required>
-                <option value="" selected disabled>Seleccione una finca</option>
-                @foreach($fincas as $finca)
-                <option value="{{ $finca->id }}">{{ $finca->nombre }}</option>
-                @endforeach
-              </select>
-              @error('idFinca')
-              <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
-            </div>
             <!-- Costo Construcción -->
             <div class="mb-3">
               <label for="costoConstruccion" class="form-label">Costo de Construcción</label>
@@ -100,7 +93,7 @@
             <!-- Botones -->
             <div class="d-grid gap-2 mt-4">
               <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-sync-alt"></i> Actualizar</button>
-              <a href="{{ route('Invernaderos.index') }}" class="btn btn-outline-secondary btn-lg rounded-3"> <i class="bi bi-x-circle"></i> Cancelar</a>
+              <a href="" class="btn btn-outline-secondary btn-lg rounded-3"> <i class="bi bi-x-circle"></i> Cancelar</a>
             </div>
 
           </form>
@@ -110,5 +103,17 @@
     </div>
   </div>
 </div>
-
+@if(session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: "{{ session('success') }}",
+            confirmButtonText: 'Aceptar',
+            timer: 3000
+        });
+    });
+</script>
+@endif
 @endsection

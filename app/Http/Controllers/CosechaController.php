@@ -17,8 +17,9 @@ class CosechaController extends Controller
      */
     public function index($idinvernadero)
     {
-        $cosechas=Cosecha::where('invernadero_id',$idinvernadero)->get();
-        return view('Cosechas.index',compact('cosechas'));
+        $cosechas=Cosecha::where('idInvernadero',$idinvernadero)->get();
+        $idinvernadero=$idinvernadero;
+        return view('Cosechas.index',compact('cosechas','idinvernadero'));
     }
 
     /**

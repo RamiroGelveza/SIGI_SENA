@@ -37,8 +37,7 @@ class InvernaderoController extends Controller
 
         $idfinca = $request->input('idFinca');
 
-        return redirect()
-        ->route('Invernaderos.index', ['idfinca' => $idfinca])
+        return redirect()->route('Invernaderos.index', ['idfinca' => $idfinca])
         ->with('success', 'Invernadero Creado Correctamente');
     }
 
@@ -55,9 +54,9 @@ class InvernaderoController extends Controller
      */
     public function edit($id)
     {
-        $invernadero=Invernadero::findorfail($id);
-        $fincas=finca::all();
-        return view('Invernaderos.edit',compact('invernadero','fincas'));
+        $invernadero = Invernadero::findOrFail($id);
+        $fincas = Finca::all();
+        return view('Invernaderos.edit', compact('invernadero', 'fincas'));
     }
 
     /**
@@ -65,9 +64,11 @@ class InvernaderoController extends Controller
      */
     public function update(Request $request,$id)
     {
-        $invernadero=Invernadero::findorfail($id);
+        $invernadero = Invernadero::findOrFail($id);
         $invernadero->update($request->all());
-        return redirect()->route('Invernaderos.index')->with('success','Invernadero Actualizado Correctamente');
+        $idfinca = $request->input('idFinca');
+        return redirect()->route('Invernaderos.index', ['idfinca' => $idfinca])
+            ->with('success', 'Invernadero actualizado correctamente');
     }
 
     /**

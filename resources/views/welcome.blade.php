@@ -135,7 +135,7 @@
                     </div>
                     <h5 class="fw-semibold text-dark">Cosecha</h5>
                     <p class="text-muted small mb-4">Registra y controla la gestión de la cosecha.</p>
-                    <a href="{{ route('Cosechas.index') }}" class="btn btn-outline-success rounded-pill w-100">
+                    <a href="" class="btn btn-outline-success rounded-pill w-100">
                         Gestionar Cosecha
                     </a>
                 </div>

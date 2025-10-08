@@ -17,7 +17,29 @@
 
           <form action="{{ route('Invernaderos.store') }}" method="POST">
             @csrf
+          <!-- Finca -->
+            <div class="mb-3">
+              <select
 
+                name="idFinca"
+
+                id="idFinca"
+
+                class="form-control form-select-lg @error('idFinca') is-invalid @enderror"
+
+                readonly>
+
+                @foreach($fincas as $finca)
+
+                <option value="{{ $finca->id }}">{{ $finca->nombre }}</option>
+
+                @endforeach
+
+              </select>
+              @error('idFinca')
+              <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+            </div>
             <!-- Nombre -->
             <div class="mb-3">
               <label for="nombre" class="form-label">Nombre</label>
@@ -77,28 +99,10 @@
               @enderror
             </div>
 
-            <!-- Finca -->
-            <div class="mb-3">
-              <label for="idFinca" class="form-label">Finca</label>
-              <select
-                name="idFinca"
-                id="idFinca"
-                class="form-control form-select-lg @error('idFinca') is-invalid @enderror"
-                >
-                <option value="" selected disabled>Seleccione una finca</option>
-                @foreach($fincas as $finca)
-                <option value="{{ $finca->id }}">{{ $finca->nombre }}</option>
-                @endforeach
-              </select>
-              @error('idFinca')
-              <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
-            </div>
-
             <!-- Botones -->
             <div class="d-grid gap-2 mt-4">
               <button type="submit" class="btn btn-success btn-lg"><i class="ri-save-3-fill"></i> Guardar</button>
-              <a href="" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
+              <a href="{{ route('Invernaderos.index',$finca->id) }}" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
             </div>
 
           </form>

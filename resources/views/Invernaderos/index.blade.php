@@ -77,7 +77,7 @@
                         <div class="d-flex gap-2">
 
                             {{-- Botón Editar --}}
-                               <a href="{{route('Invernaderos.edit',$invernadero->id)}}"
+                               <a href="{{route('Invernaderos.edit',$idfinca)}}"
                                 class="btn btn-warning shadow-sm btn-accion">
                                 <i class="bi bi-pencil-square"></i> Editar
                             </a>
@@ -111,51 +111,5 @@
 
 @stop
 
-@section('js')
-    {{-- La función de confirmar eliminación con SweetAlert2 --}}
-    <script>
-        function confirmarEliminacion(event) {
-            event.preventDefault();
-            const form = event.target.closest('form');
-
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "¡No podrás revertir esto!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, eliminar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                }
-            });
-        }
-    </script>
-    {{-- Quité el CDN de Bootstrap, ya que AdminLTE ya lo incluye --}}
 
 
-            <script>
-        function confirmarEliminacion(event) {
-            event.preventDefault();
-            const form = event.target.closest('form');
-
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "¡No podrás revertir esto!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, eliminar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                }
-            });
-        }
-</script>
-@stop
