@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nombre',100);
             $table->integer('tamaño');
-            $table->decimal('costoConstruccion',10,2);
-            $table->decimal('rendimiento',10,2);
+            $table->decimal('costoConstruccion', 10, 2);
+            # $table->decimal('rendimiento',10,2);
 
             $table ->unsignedBigInteger('idFinca');
             $table->foreign('idFinca')->references('id')->on('fincas');

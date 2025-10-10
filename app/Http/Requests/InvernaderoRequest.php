@@ -25,7 +25,7 @@ class InvernaderoRequest extends FormRequest
             'nombre'             => 'required|string|min:3|max:255',
             'tamaño'             => 'required|integer|min:1|max:500000',
             'costoConstruccion'  => 'required|numeric|min:0|max:1000000000',
-            'rendimiento'        => 'required|numeric|min:0|max:100000',
+            #'rendimiento'        => 'required|numeric|min:0|max:100000',
             'idFinca'            => 'required|exists:fincas,id',
 
         ];
@@ -51,10 +51,10 @@ class InvernaderoRequest extends FormRequest
             'costoConstruccion.max'      => 'El costo de construcción no puede superar :max.',
 
             // Rendimiento
-            'rendimiento.required' => 'El rendimiento es obligatorio.',
-            'rendimiento.numeric'  => 'El rendimiento debe ser un número.',
-            'rendimiento.min'      => 'El rendimiento no puede ser menor que :min.',
-            'rendimiento.max'      => 'El rendimiento no puede superar :max.',
+            // 'rendimiento.required' => 'El rendimiento es obligatorio.',
+            // 'rendimiento.numeric'  => 'El rendimiento debe ser un número.',
+            // 'rendimiento.min'      => 'El rendimiento no puede ser menor que :min.',
+            // 'rendimiento.max'      => 'El rendimiento no puede superar :max.',
 
             // idFinca
             'idFinca.required' => 'Debe seleccionar una finca.',

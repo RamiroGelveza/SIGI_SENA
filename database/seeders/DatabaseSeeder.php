@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EstadoCosechaSeeder::class);
         $this->call(CategoriaGastoSeeder::class);
         $this->call(FincaSeeder::class);
+        $this->call(InvernaderoSeeder::class);
 
 
 

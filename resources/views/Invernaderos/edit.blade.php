@@ -75,7 +75,7 @@
             </div>
 
             <!-- Rendimiento -->
-            <div class="mb-3">
+            <!-- <div class="mb-3">
               <label for="rendimiento" class="form-label">Rendimiento (Canastillas / Ciclo)</label>
               <input
                 type="number"
@@ -88,7 +88,7 @@
               @error('rendimiento')
               <div class="invalid-feedback">{{ $message }}</div>
               @enderror
-            </div>
+            </div> -->
 
             <!-- Botones -->
             <div class="d-grid gap-2 mt-4">

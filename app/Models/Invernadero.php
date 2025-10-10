@@ -12,7 +12,7 @@ class Invernadero extends Model
         'nombre',
         'tamaño',
         'costoConstruccion',
-        'rendimiento',
+        #'rendimiento',
         'idFinca'
 
     ];
