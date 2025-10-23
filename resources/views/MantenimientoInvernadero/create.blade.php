@@ -17,7 +17,23 @@
 
           <form action="{{ route('MantenimientoInverndero.store') }}" method="POST">
             @csrf
-
+              
+            <!-- Invernadero -->
+            <div class="mb-3">
+              <label for="idInvernadero" class="form-label">Invernadero</label>
+              <select
+                name="idInvernadero"
+                id="idInvernadero"
+                class="form-control form-select-lg @error('idInvernadero') is-invalid @enderror"
+              readonly>
+                @foreach($invernaderos as $inv)
+                <option value="{{ $inv->id }}">{{ $inv->nombre }}</option>
+                @endforeach
+              </select>
+              @error('idInvernadero')
+              <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+            </div>
             <!-- Fecha de Mantenimiento -->
             <div class="mb-3">
               <label for="fechaMantenimiento" class="form-label">Fecha de Mantenimiento</label>
@@ -60,28 +76,11 @@
               @enderror
             </div>
 
-            <!-- Invernadero -->
-            <div class="mb-3">
-              <label for="idInvernadero" class="form-label">Invernadero</label>
-              <select
-                name="idInvernadero"
-                id="idInvernadero"
-                class="form-control form-select-lg @error('idInvernadero') is-invalid @enderror"
-              >
-                <option value="" selected disabled>Seleccione un invernadero</option>
-                @foreach($invernaderos as $inv)
-                <option value="{{ $inv->id }}">{{ $inv->nombre }}</option>
-                @endforeach
-              </select>
-              @error('idInvernadero')
-              <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
-            </div>
 
             <!-- Botones -->
             <div class="d-grid gap-2 mt-4">
               <button type="submit" class="btn btn-success btn-lg"><i class="ri-save-3-fill"></i> Guardar</button>
-              <a href="{{ route('MantenimientoInverndero.index') }}" class="btn btn-outline-secondary btn-lg rounded-3"> <i class="bi bi-x-circle"></i> Cancelar</a>
+              <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-lg rounded-3"> <i class="bi bi-x-circle"></i> Cancelar</a>
             </div>
 
           </form>

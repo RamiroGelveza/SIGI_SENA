@@ -14,53 +14,69 @@
 
 
 
-    <div class="col-md-6 col-lg-4">
-        <div class="small-box bg-info shadow">
-            <div class="inner">
-                <p>Fincas Registradas</p>
-                <h4 class="text-center">Administra fácilmente la información de tus Fincas.</h4>
+        <div class="col-md-6 col-lg-4">
+            <div class="small-box bg-info shadow">
+                <div class="inner">
+                    <p>Fincas Registradas</p>
+                    <h4 class="text-center">Administra fácilmente la información de tus Fincas.</h4>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <a href="{{ route('Fincas.index') }}" class="small-box-footer">
+                    Gestionar fincas <i class="fas fa-arrow-circle-right"></i>
+                </a>
             </div>
-            <div class="icon">
-                <i class="fas fa-seedling"></i>
-            </div>
-            <a href="{{ route('Fincas.index') }}" class="small-box-footer">
-                Gestionar fincas <i class="fas fa-arrow-circle-right"></i>
-            </a>
         </div>
-    </div>
 
-    <div class="col-md-6 col-lg-4">
-        <div class="small-box bg-success shadow">
-            <div class="inner">
-                <p>Fincas Registradas</p>
-                <h3 class="text-center">{{ $cantidadFincas }}</h3>
+        <div class="col-md-6 col-lg-4">
+            <div class="small-box bg-success shadow">
+                <div class="inner">
+                    <p>Fincas Registradas</p>
+                    <h3 class="text-center">{{ $cantidadFincas }}</h3>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <a href="/Fincas/index" class="small-box-footer">
+                    Ver todas las fincas <i class="fas fa-arrow-circle-right"></i>
+                </a>
             </div>
-            <div class="icon">
-                <i class="fas fa-seedling"></i>
-            </div>
-            <a href="/Fincas/index" class="small-box-footer">
-                Ver todas las fincas <i class="fas fa-arrow-circle-right"></i>
-            </a>
         </div>
-    </div>
 
-       <div class="col-md-6 col-lg-4">
-        <div class="small-box bg-primary shadow">
-            <div class="inner">
-                <p>Invernaderos Registradas</p>
-                <h3 class="text-center">{{ $cantidadInvernaderos }}</h3>
+        <div class="col-md-6 col-lg-4">
+            <div class="small-box bg-primary shadow">
+                <div class="inner">
+                    <p>Invernaderos Registradas</p>
+                    <h3 class="text-center">{{ $cantidadInvernaderos }}</h3>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <a href="/Invernaderos/index/{idfinca}" class="small-box-footer">
+                    <i class="fas fa-arrow-circle-right"></i>
+                </a>
             </div>
-            <div class="icon">
-                <i class="fas fa-seedling"></i>
-            </div>
-            <a href="" class="small-box-footer">
-                 <i class="fas fa-arrow-circle-right"></i>
-            </a>
         </div>
-    </div>
 
 
-<!--
+        <div class="col-md-6 col-lg-4">
+            <div class="small-box bg-primary shadow">
+                <div class="inner">
+                    <p>Cosecha Registradas</p>
+                    <h3 class="text-center">{{ $cantidadCosechas }}</h3>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <a href="/Cosechas/index/{idinvernadero}" class="small-box-footer">
+                    <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+
+
+        <!--
 
 
         <div class="col-md-6 col-lg-4">
@@ -103,7 +119,7 @@
                     </div>
                     <h5 class="fw-semibold text-dark">Mantenimiento Invernadero</h5>
                     <p class="text-muted small mb-4">Control de los mantenimientos realizados a los Invernaderos.</p>
-                    <a href="{{ route('MantenimientoInverndero.index') }}" class="btn btn-outline-success rounded-pill w-100">
+                    <a href="" class="btn btn-outline-success rounded-pill w-100">
                         Gestionar Mantenimientos
                     </a>
                 </div>
@@ -181,68 +197,74 @@
 
 @push('css')
 <style>
-/* Estilo agropecuario moderno */
-.card {
-    border: 1px solid #dfe6dd; /* Borde sutil */
-    border-radius: 18px;
-    background: #ffffff; /* Fondo blanco limpio */
-    color: #3a3a3a;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    overflow: hidden;
-}
+    /* Estilo agropecuario moderno */
+    .card {
+        border: 1px solid #dfe6dd;
+        /* Borde sutil */
+        border-radius: 18px;
+        background: #ffffff;
+        /* Fondo blanco limpio */
+        color: #3a3a3a;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        overflow: hidden;
+    }
 
-/* Hover efecto */
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-    border-color: #a7c957; /* Verde claro */
-}
+    /* Hover efecto */
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        border-color: #a7c957;
+        /* Verde claro */
+    }
 
-/* Encabezado con franja superior */
-.card::before {
-    content: "";
-    display: block;
-    height: 6px;
-    background: linear-gradient(90deg, #6a994e, #a9d6e5);
-}
+    /* Encabezado con franja superior */
+    .card::before {
+        content: "";
+        display: block;
+        height: 6px;
+        background: linear-gradient(90deg, #6a994e, #a9d6e5);
+    }
 
-/* Iconos */
-.card i {
-    font-size: 2.2rem;
-    color: #6a994e; /* Verde oliva */
-    margin-bottom: 12px;
-}
+    /* Iconos */
+    .card i {
+        font-size: 2.2rem;
+        color: #6a994e;
+        /* Verde oliva */
+        margin-bottom: 12px;
+    }
 
-/* Título */
-.card-title {
-    font-weight: 700;
-    font-size: 1.15rem;
-    color: #283618; /* Verde bosque */
-    margin-top: 5px;
-}
+    /* Título */
+    .card-title {
+        font-weight: 700;
+        font-size: 1.15rem;
+        color: #283618;
+        /* Verde bosque */
+        margin-top: 5px;
+    }
 
-/* Texto */
-.card-text {
-    font-size: 0.95rem;
-    color: #606c38; /* Verde suave tierra */
-    margin-bottom: 15px;
-}
+    /* Texto */
+    .card-text {
+        font-size: 0.95rem;
+        color: #606c38;
+        /* Verde suave tierra */
+        margin-bottom: 15px;
+    }
 
-/* Botón */
-.card .btn {
-    background-color: #6a994e;
-    border: none;
-    color: #fff;
-    font-weight: 500;
-    border-radius: 30px;
-    padding: 8px 18px;
-    transition: background 0.3s ease;
-}
+    /* Botón */
+    .card .btn {
+        background-color: #6a994e;
+        border: none;
+        color: #fff;
+        font-weight: 500;
+        border-radius: 30px;
+        padding: 8px 18px;
+        transition: background 0.3s ease;
+    }
 
-.card .btn:hover {
-    background-color: #386641; /* Verde más profundo */
-}
-
+    .card .btn:hover {
+        background-color: #386641;
+        /* Verde más profundo */
+    }
 </style>
 @endpush

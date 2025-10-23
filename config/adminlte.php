@@ -328,7 +328,7 @@ return [
             'label_color' => 'success',
         ]
         ,[
-            'text' => 'Configuración',
+            'text' => 'Informacion Cosecha',
             'icon' => 'fas fa-folder', // Font Awesome icon
             'submenu' => [
                         [

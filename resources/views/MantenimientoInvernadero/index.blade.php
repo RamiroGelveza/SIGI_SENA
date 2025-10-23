@@ -30,7 +30,7 @@
 
 <body class="bg-light">
     <div class="container">
-        <a href="{{route('MantenimientoInverndero.create')}}" class="btn btn-success"> <i class="bi bi-plus-circle"></i> Nuevo Mantenimiento Invernadero</a>
+        <a href="{{route('MantenimientoInverndero.create',$idinvernadero)}}" class="btn btn-success"> <i class="bi bi-plus-circle"></i> Nuevo Mantenimiento Invernadero</a>
         <table class="table table-bordered table-hover">
             <thead class="table-success">
                 <tr>
@@ -44,7 +44,7 @@
             </thead>
             <tbody>
 
-                @foreach ($mantenimientoInvernadero as $mantenimiento )
+                @foreach ($mantenimientos as $mantenimiento )
                 <tr>
 
                     <td>{{$mantenimiento->id}}</td>
@@ -71,7 +71,7 @@
                 @endforeach
             </tbody>
         </table>
-        <a href="{{route('welcome')}}" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Volver</a>
+        <a href="{{route('Invernaderos.index',$mantenimiento->id)}}" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Volver</a>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"

@@ -93,7 +93,7 @@
             <!-- Botones -->
             <div class="d-grid gap-2 mt-4">
               <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-sync-alt"></i> Actualizar</button>
-              <a href="" class="btn btn-outline-secondary btn-lg rounded-3"> <i class="bi bi-x-circle"></i> Cancelar</a>
+              <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-lg rounded-3"> <i class="bi bi-x-circle"></i> Cancelar</a>
             </div>
 
           </form>

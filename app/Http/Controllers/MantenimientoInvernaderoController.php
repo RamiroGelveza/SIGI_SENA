@@ -12,18 +12,20 @@ class MantenimientoInvernaderoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($idinvernadero)
     {
-        $mantenimientoInvernadero=MantenimientoInvernadero::all();
-        return view('MantenimientoInvernadero.index',compact('mantenimientoInvernadero'));
+        
+        $mantenimientos=MantenimientoInvernadero::where('idInvernadero',$idinvernadero)->get();
+        $idinvernadero=$idinvernadero;
+        return view('MantenimientoInvernadero.index',compact('mantenimientos','idinvernadero'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($idinvernadero)
     {
-        $invernaderos=Invernadero::all();
+        $invernaderos=Invernadero::where('id', $idinvernadero)->get();
         return view('MantenimientoInvernadero.create',compact('invernaderos'));
     }
 
@@ -33,7 +35,10 @@ class MantenimientoInvernaderoController extends Controller
     public function store(MantenimientoInvernaderoRequest $request)
     {
         MantenimientoInvernadero::create($request->all());
-        return redirect()->route('MantenimientoInverndero.index')->with('success','Mantenimiento Inverndero Creado Correctamente');
+        $idinvernadero = $request->input('idInvernadero');
+
+        return redirect()->route('MantenimientoInverndero.index',['idinvernadero' => $idinvernadero] )
+        ->with('success','Mantenimiento Inverndero Creado Correctamente');
     }
 
     /**
@@ -61,7 +66,10 @@ class MantenimientoInvernaderoController extends Controller
     {
         $mantenimientoInvernadero=MantenimientoInvernadero::findorfail($id);
         $mantenimientoInvernadero->update($request->all());
-        return redirect()->route('MantenimientoInverndero.index')->with('success','Mantenimiento Inverndero Actualizado Correctamente');
+        $idinvernadero = $request->input('idInvernadero');
+
+        return redirect()->route('MantenimientoInverndero.index',['idinvernadero'=>$idinvernadero] )
+        ->with('success','Mantenimiento Inverndero Actualizado Correctamente');
     }
 
     /**

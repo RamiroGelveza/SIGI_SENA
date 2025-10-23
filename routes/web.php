@@ -33,7 +33,7 @@ Route::get('/Invernaderos/create/{idfinca}',[InvernaderoController::class,'creat
 Route::post('/Invernaderos/store',[InvernaderoController::class,'store'])->name('Invernaderos.store');
 Route::post('/Invernaderos/destroy/{id}',[InvernaderoController::class,'destroy'])->name('Invernaderos.destroy');
 Route::get('/Invernaderos/edit/{idfinca}',[InvernaderoController::class,'edit'])->name('Invernaderos.edit');
-Route::post('/Invernaderos/update/{idfinca}',[InvernaderoController::class,'update'])->name('Invernaderos.update');
+Route::post('/Invernaderos/update/{id}',[InvernaderoController::class,'update'])->name('Invernaderos.update');
 
 
 #routes de categoria gastos
@@ -53,11 +53,11 @@ Route::get('/TiposCultivos/edit/{id}',[TiposCultivoController::class,'edit'])->n
 Route::post('/TiposCultivos/update/{id}',[TiposCultivoController::class,'update'])->name('TiposCultivos.update');
 
 #routes de mantenimineto invernaderos
-Route::get('/MantenimientoInverndero/index',[MantenimientoInvernaderoController::class,'index'])->name('MantenimientoInverndero.index');
-Route::get('/MantenimientoInverndero/create',[MantenimientoInvernaderoController::class,'create'])->name('MantenimientoInverndero.create');
+Route::get('/MantenimientoInverndero/index/{idinvernadero}',[MantenimientoInvernaderoController::class,'index'])->name('MantenimientoInverndero.index');
+Route::get('/MantenimientoInverndero/create/{idinvernadero}',[MantenimientoInvernaderoController::class,'create'])->name('MantenimientoInverndero.create');
 Route::post('/MantenimientoInverndero/store',[MantenimientoInvernaderoController::class,'store'])->name('MantenimientoInverndero.store');
 Route::post('/MantenimientoInverndero/destroy/{id}',[MantenimientoInvernaderoController::class,'destroy'])->name('MantenimientoInverndero.destroy');
-Route::get('/MantenimientoInverndero/edit/{id}',[MantenimientoInvernaderoController::class,'edit'])->name('MantenimientoInverndero.edit');
+Route::get('/MantenimientoInverndero/edit/{idinvernadero}',[MantenimientoInvernaderoController::class,'edit'])->name('MantenimientoInverndero.edit');
 Route::post('/MantenimientoInverndero/update/{id}',[MantenimientoInvernaderoController::class,'update'])->name('MantenimientoInverndero.update');
 
 #routes de estados de la cosecha

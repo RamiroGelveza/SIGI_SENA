@@ -41,6 +41,108 @@
     
     
 </style>
+<style>
+    /* --- ESTILOS GENERALES DEL DASHBOARD --- */
+    .card {
+        transition: all 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-header {
+        font-size: 1.1rem;
+        letter-spacing: 0.5px;
+    }
+
+    /* --- TARJETA PRINCIPAL DEL INVERNADERO --- */
+    .card-invernadero {
+        background: linear-gradient(145deg, #f6fff7, #ffffff);
+        border-left: 6px solid #198754;
+    }
+
+    .card-invernadero .card-header {
+        background: linear-gradient(90deg, #198754, #28a745);
+        font-size: 1.2rem;
+        padding: 0.9rem 1.2rem;
+    }
+
+    .card-invernadero .card-body {
+        background: #ffffff;
+        padding: 1.5rem;
+    }
+
+    /* --- MÉTRICAS DE INFORMACIÓN --- */
+    .metric-card {
+        background-color: #f8fdf9;
+        border-radius: 12px;
+        padding: 1rem 0.5rem;
+        border: 1px solid #e2efe4;
+        transition: all 0.3s ease;
+    }
+
+    .metric-card:hover {
+        background-color: #eaf9ed;
+        transform: scale(1.02);
+    }
+
+    .metric-card h4 {
+        font-size: 1.6rem;
+        margin: 0;
+    }
+
+    .metric-card i {
+        color: #198754;
+    }
+
+    /* --- BOTONES DE ACCIÓN --- */
+    .btn-success {
+        border-radius: 12px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-success:hover {
+        background-color: #157347 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(21, 115, 71, 0.3);
+    }
+
+    .btn-light.text-success {
+        background-color: #ffffff !important;
+        border: 1px solid #cce5d1;
+    }
+
+    .btn-light.text-success:hover {
+        background-color: #e8f6ec !important;
+        border-color: #198754;
+        transform: translateY(-2px);
+    }
+
+    /* --- GRÁFICAS --- */
+    canvas {
+        margin-top: 0.5rem;
+    }
+
+    .card-header i {
+        opacity: 0.9;
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+        .metric-card {
+            margin-bottom: 1rem;
+        }
+
+        .card-header h4 {
+            font-size: 1rem;
+        }
+    }
+</style>
+
 @stop
 
 

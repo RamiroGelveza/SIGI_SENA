@@ -18,7 +18,7 @@
 
 {{-- Contenedor de Acciones (Botones Superiores) --}}
 <div class="mb-4 d-flex justify-content-between">
-    <a href="{{ route('Invernaderos.create', $idfinca)}}" class="btn btn-success shadow">
+    <a href="{{ route('Invernaderos.create',$idfinca)}}" class="btn btn-success shadow">
         <i class="fas fa-fw fa-plus-circle"></i> Nuevo Invernadero
     </a>
 </div>
@@ -108,8 +108,12 @@
             <div class="card-footer bg-light p-3">
 
                 <div>
-                    <a href="{{ route('Cosechas.index',$invernadero->id)}}" class="btn btn-info form-control">Gestionar cosecha</a>
-                </div>
+                    <a href="{{ route('Cosechas.index',$invernadero->id)}}" class="btn btn-info form-control mt-2" >Gestionar cosecha</a>
+                    
+                    
+                    <a href="{{ route('MantenimientoInverndero.index',$invernadero->id)}}" class="btn btn-secondary form-control">Gestionar Mantenimientos</a>
+
+                    </div>
 
                 <!-- <div class="d-flex gap-2">
 

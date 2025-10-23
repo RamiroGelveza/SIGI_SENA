@@ -1,7 +1,8 @@
 
 <?php
 
-    namespace Database\Seeders;
+  namespace Database\Seeders;
+
 
     use Illuminate\Database\Console\Seeds\WithoutModelEvents;
     use Illuminate\Database\Seeder;
@@ -16,7 +17,6 @@
         public function run(): void
         {
             $invernaderos=[
-                [
                     [
                     'nombre' => 'El Tomatero',
                     'tamaño' => '9000',
@@ -38,7 +38,7 @@
                     'rendimiento' => '0',
                     'idFinca' => 2
                 ],
-                ]
+                
             ];
             DB::table('invernaderos')->insert($invernaderos);
         }
