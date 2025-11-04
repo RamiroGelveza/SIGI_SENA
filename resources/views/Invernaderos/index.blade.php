@@ -111,7 +111,7 @@
                     <a href="{{ route('Cosechas.index',$invernadero->id)}}" class="btn btn-info form-control mt-2" >Gestionar cosecha</a>
                     
                     
-                    <a href="{{ route('MantenimientoInverndero.index',$invernadero->id)}}" class="btn btn-secondary form-control">Gestionar Mantenimientos</a>
+                    <a href="{{ route('MantenimientoInverndero.index',$invernadero->id)}}" class="btn btn-success form-control">Gestionar Mantenimientos</a>
 
                     </div>
 

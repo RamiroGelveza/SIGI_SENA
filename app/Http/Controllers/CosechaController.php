@@ -17,69 +17,48 @@ class CosechaController extends Controller
      */
     public function index($idinvernadero)
     {
-        $cosechas=Cosecha::where('idInvernadero',$idinvernadero)->get();
+        $cosechas = Cosecha::where('idInvernadero',$idinvernadero)->get();
         $idinvernadero=$idinvernadero;
-        return view('Cosechas.index',compact('cosechas','idinvernadero'));
+        return view('Cosechas.index', compact('cosechas','idinvernadero'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create($idinvernadero)
     {
-        $invernaderos=Invernadero::all();
+        $invernaderos = Invernadero::where('id',$idinvernadero)->get();
         $cultivos=TiposCultivo::all();
         $estados=EstadosCosecha::all();
-        return view('Cosechas.create',compact('invernaderos','cultivos','estados'));
-
+        return view('Cosechas.create', compact('invernaderos','cultivos','estados'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(CosechaRequest $request)
     {
         Cosecha::create($request->all());
-        return redirect()->route('Cosechas.index')->with('success','Cosecha Creada Correctamente');
+        $idinvernadero=$request->input('$idinvernadero');
+
+        return redirect()->route('Cosechas.index',['idinvernadero' => $idinvernadero])
+            ->with('success','Cosecha Creada Correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Cosecha $cosecha)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
-        $cosecha=Cosecha::findorfail($id);
-        $invernaderos=Invernadero::all();
-        $cultivos=TiposCultivo::all();
-        $estados=EstadosCosecha::all();
-        return view('Cosechas.edit',compact('cosecha','invernaderos','cultivos','estados'));
+        $cosecha = Cosecha::findOrFail($id);
+        $invernadero=Invernadero::all();
+        return view('Cosechas.edit', compact('cosecha','invernadero'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(CosechaRequest $request, $id)
     {
-        $cosecha=Cosecha::findorfail($id);
+        $cosecha = Cosecha::findOrFail($id);
         $cosecha->update($request->all());
-        return redirect()->route('Cosechas.index')->with('success','Cosecha Actualizada Correctamente');
+        $idinvernadero=$request->input('$idinvernadero');
 
+        return redirect()->route('Cosechas.index',['idinvernadero' => $idinvernadero])
+            ->with('success','Cosecha Actualizada Correctamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
-        $cosecha=Cosecha::findorfail($id);
+        $cosecha = Cosecha::findOrFail($id);
         $cosecha->delete();
         return redirect()->route('Cosechas.index')->with('success','Cosecha Eliminada Correctamente');
     }

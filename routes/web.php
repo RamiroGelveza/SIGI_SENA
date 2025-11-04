@@ -70,10 +70,10 @@ Route::post('/EstadosCosecha/update/{id}',[EstadosCosechaController::class,'upda
 
 #routes de cosecha
 Route::get('/Cosechas/index/{idinvernadero}',[CosechaController::class,'index'])->name('Cosechas.index');
-Route::get('/Cosechas/create',[CosechaController::class,'create'])->name('Cosechas.create');
+Route::get('/Cosechas/create/{idinvernadero}',[CosechaController::class,'create'])->name('Cosechas.create');
 Route::post('/Cosechas/store',[CosechaController::class,'store'])->name('Cosechas.store');
 Route::post('/Cosechas/destroy/{id}',[CosechaController::class,'destroy'])->name('Cosechas.destroy');
-Route::get('/Cosechas/edit/{id}',[CosechaController::class,'edit'])->name('Cosechas.edit');
+Route::get('/Cosechas/edit/{idinvernadero}',[CosechaController::class,'edit'])->name('Cosechas.edit');
 Route::post('/Cosechas/update/{id}',[CosechaController::class,'update'])->name('Cosechas.update');
 
 #routes de ingresos

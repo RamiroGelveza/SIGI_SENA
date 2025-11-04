@@ -33,7 +33,7 @@ class Cosecha extends Model
     }
  public function ingreso(){
         return $this->hasMany(Ingreso::class);
-    }
+    } 
 
 }
 

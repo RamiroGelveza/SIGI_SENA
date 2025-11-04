@@ -69,7 +69,7 @@
                 <div class="icon">
                     <i class="fas fa-seedling"></i>
                 </div>
-                <a href="/Cosechas/index/{idinvernadero}" class="small-box-footer">
+                <a href="" class="small-box-footer">
                     <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
