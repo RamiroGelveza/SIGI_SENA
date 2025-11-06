@@ -16,6 +16,14 @@ use Illuminate\Support\Facades\Route;
 #routes de dashboard
 Route::get('/',[dashboarController::class,'welcome'])->name('welcome');
 
+
+Route::get('/administrar',[CosechaController::class,'administrar'])->name('administrar');
+
+
+
+
+
+
 #routes de finca
 
 Route::get('/Fincas/admin',[FincaController::class,'admin'])->name('Fincas.admin');
@@ -25,6 +33,11 @@ Route::post('/Fincas/store',[FincaController::class,'store'])->name('Fincas.stor
 Route::post('/Fincas/destroy/{id}',[FincaController::class,'destroy'])->name('Fincas.destroy');
 Route::get('/Fincas/edit/{id}',[FincaController::class,'edit'])->name('Fincas.edit');
 Route::post('/Fincas/update/{id}',[FincaController::class,'update'])->name('Fincas.update');
+
+
+
+
+
 
 
 # routes de invernadero
@@ -77,16 +90,16 @@ Route::get('/Cosechas/edit/{idinvernadero}',[CosechaController::class,'edit'])->
 Route::post('/Cosechas/update/{id}',[CosechaController::class,'update'])->name('Cosechas.update');
 
 #routes de ingresos
-Route::get('/Ingresos/index',[IngresoController::class,'index'])->name('Ingresos.index');
-Route::get('/Ingresos/create',[IngresoController::class,'create'])->name('Ingresos.create');
+Route::get('/Ingresos/index/{idcosecha}',[IngresoController::class,'index'])->name('Ingresos.index');
+Route::get('/Ingresos/create/{idcosecha}',[IngresoController::class,'create'])->name('Ingresos.create');
 Route::post('/Ingresos/store',[IngresoController::class,'store'])->name('Ingresos.store');
 Route::post('/Ingresos/destroy/{id}',[IngresoController::class,'destroy'])->name('Ingresos.destroy');
 Route::get('/Ingresos/edit/{id}',[IngresoController::class,'edit'])->name('Ingresos.edit');
 Route::post('/Ingresos/update/{id}',[IngresoController::class,'update'])->name('Ingresos.update');
 
 #routes de Gastos
-Route::get('/Gastos/index',[GastosController::class,'index'])->name('Gastos.index');
-Route::get('/Gastos/create',[GastosController::class,'create'])->name('Gastos.create');
+Route::get('/Gastos/index/{idcosecha}',[GastosController::class,'index'])->name('Gastos.index');
+Route::get('/Gastos/create/{idcosecha}',[GastosController::class,'create'])->name('Gastos.create');
 Route::post('/Gastos/store',[GastosController::class,'store'])->name('Gastos.store');
 Route::post('/Gastos/destroy/{id}',[GastosController::class,'destroy'])->name('Gastos.destroy');
 Route::get('/Gastos/edit/{id}',[GastosController::class,'edit'])->name('Gastos.edit');

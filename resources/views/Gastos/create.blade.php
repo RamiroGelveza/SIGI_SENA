@@ -90,7 +90,7 @@
                         <!-- Botones -->
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-success btn-lg rounded-3"><i class="ri-save-3-fill"></i> Guardar</button>
-                            <a href="{{ route('Gastos.index') }}" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
+                            <a href="" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
                         </div>
 
                     </form>

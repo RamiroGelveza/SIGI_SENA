@@ -167,7 +167,7 @@
                     </div>
                     <h5 class="fw-semibold text-dark">Ingresos</h5>
                     <p class="text-muted small mb-4">Registra y controla la gestión de los Ingresos.</p>
-                    <a href="{{ route('Ingresos.index') }}" class="btn btn-outline-primary rounded-pill w-100">
+                    <a href="" class="btn btn-outline-primary rounded-pill w-100">
                         Gestionar Ingresos
                     </a>
                 </div>
@@ -183,7 +183,7 @@
                     </div>
                     <h5 class="fw-semibold text-dark">Gastos</h5>
                     <p class="text-muted small mb-4">Registra y controla la gestión de los Gastos.</p>
-                    <a href="{{ route('Gastos.index') }}" class="btn btn-outline-success rounded-pill w-100">
+                    <a href="" class="btn btn-outline-success rounded-pill w-100">
                         Gestionar Gastos
                     </a>
                 </div>

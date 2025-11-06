@@ -12,33 +12,38 @@ class IngresoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $ingresos=Ingreso::all();
-        return view('Ingresos.index',compact('ingresos'));
-    }
+ public function index($idcosecha)
+{
+    $ingresos = Ingreso::where('idCosecha', $idcosecha)->get();
+    $cosecha = \App\Models\Cosecha::find($idcosecha); // ✅ se obtiene la cosecha
+    return view('Ingresos.index', compact('ingresos', 'idcosecha', 'cosecha'));
+}
+
+
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+   public function create($idcosecha)
     {
-        $cosechas=Cosecha::all();
-        return view('Ingresos.create',compact('cosechas'));
+        $cosechas = Cosecha::where('id', $idcosecha)->get();
+        return view('Ingresos.create', compact('cosechas'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda un nuevo ingreso en la base de datos.
      */
     public function store(IngresoRequest $request)
     {
         Ingreso::create($request->all());
-        return redirect()->route('Ingresos.index')->with('success','Ingreso Creado correctamente');
-        
+        $idcosecha = $request->input('idCosecha');
+
+        return redirect()->route('Ingresos.index', ['idcosecha' => $idcosecha])
+            ->with('success', 'Ingreso creado correctamente');
     }
 
     /**
-     * Display the specified resource.
+     * Muestra un ingreso específico (opcional).
      */
     public function show(Ingreso $ingreso)
     {
@@ -46,33 +51,39 @@ class IngresoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un ingreso existente.
      */
     public function edit($id)
     {
-        $ingresos=Ingreso::findorfail($id);
+        $ingreso = Ingreso::findOrFail($id);
         $cosechas = Cosecha::all();
-        return view('Ingresos.edit', compact('ingresos','cosechas'));
+        return view('Ingresos.edit', compact('ingreso', 'cosechas'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza un ingreso en la base de datos.
      */
-    public function update(IngresoRequest $request,$id)
+    public function update(IngresoRequest $request, $id)
     {
-        $ingresos=Ingreso::findorfail($id);
-        $ingresos->update($request->all());
-        return redirect()->route('Ingresos.index')->with('success','Ingreso Actualizado correctamente');
-        
+        $ingreso = Ingreso::findOrFail($id);
+        $ingreso->update($request->all());
+        $idcosecha = $request->input('idCosecha');
+
+        return redirect()->route('Ingresos.index', ['idcosecha' => $idcosecha])
+            ->with('success', 'Ingreso actualizado correctamente');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un ingreso de la base de datos.
      */
     public function destroy($id)
     {
-        $ingresos=Ingreso::findorfail($id);
-        $ingresos->delete();
-        return redirect()->route('Ingresos.index')->with('success','Ingreso Eliminado correctamente');
+        $ingreso = Ingreso::findOrFail($id);
+        $idcosecha = $ingreso->idCosecha;
+        $ingreso->delete();
+
+        return redirect()->route('Ingresos.index', ['idcosecha' => $idcosecha])
+            ->with('success', 'Ingreso eliminado correctamente');
     }
 }
+

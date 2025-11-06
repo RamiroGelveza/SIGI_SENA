@@ -21,53 +21,80 @@
             <i class="bi bi-arrow-left-circle"></i> Volver a Invernaderos
         </a>
     </div>
-
+    <!-- 
     {{-- 🔹 MÉTRICAS PRINCIPALES --}}
     @php
         $totalIngresos = $cosechas->sum('totalIngresos');
         $totalGastos = $cosechas->sum('totalGastos');
         $utilidadTotal = $cosechas->sum('utilidad');
         $rentabilidad = $totalGastos > 0 ? round(($utilidadTotal / $totalGastos) * 100, 1) : 0;
-    @endphp
+    @endphp -->
 
     <div class="row g-3 mb-4">
-        <div class="col-md-3">
-            <div class="card bg-light border-0 shadow-sm">
-                <div class="card-body text-center">
-                    <i class="bi bi-cash-stack text-success fs-3"></i>
-                    <h6 class="mt-2">Ingresos Totales</h6>
-                    <h3 class="text-success">${{ number_format($totalIngresos, 0, ',', '.') }}</h3>
+    <div class="col-md-3">
+        <a href="{{ route('Ingresos.index','idcosecha')}}" class="text-decoration-none d-block card-link">
+            <div class="card bg-success text-white border-0 shadow-lg h-100 animated-card">
+                <div class="card-body text-center d-flex flex-column justify-content-center align-items-center p-3">
+                    <i class="bi bi-cash-stack fs-1 mb-2"></i>
+                    <h6 class="text-uppercase mb-1">Ingresos Totales</h6>
+                    <h3 class="display-4 font-weight-bold">${{ number_format($totalIngresos, 0, ',', '.') }}</h3>
+                    <div class="mt-3 pt-2 w-100 border-top border-white border-opacity-50">
+                        <span class="d-block small text-white-50">
+                            Ver detalles <i class="fas fa-arrow-circle-right ms-1"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-light border-0 shadow-sm">
-                <div class="card-body text-center">
-                    <i class="bi bi-credit-card-2-front text-danger fs-3"></i>
-                    <h6 class="mt-2">Gastos Totales</h6>
-                    <h3 class="text-danger">${{ number_format($totalGastos, 0, ',', '.') }}</h3>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a href="{{ route('Gastos.index','idcosecha')}}" class="text-decoration-none d-block card-link">
+            <div class="card bg-danger text-white border-0 shadow-lg h-100 animated-card">
+                <div class="card-body text-center d-flex flex-column justify-content-center align-items-center p-3">
+                    <i class="bi bi-credit-card-2-front fs-1 mb-2"></i>
+                    <h6 class="text-uppercase mb-1">Gastos Totales</h6>
+                    <h3 class="display-4 font-weight-bold">${{ number_format($totalGastos, 0, ',', '.') }}</h3>
+                    <div class="mt-3 pt-2 w-100 border-top border-white border-opacity-50">
+                        <span class="d-block small text-white-50">
+                            Ver detalles <i class="fas fa-arrow-circle-right ms-1"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-light border-0 shadow-sm">
-                <div class="card-body text-center">
-                    <i class="bi bi-graph-up-arrow text-info fs-3"></i>
-                    <h6 class="mt-2">Utilidad Neta</h6>
-                    <h3 class="text-info">${{ number_format($utilidadTotal, 0, ',', '.') }}</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-light border-0 shadow-sm">
-                <div class="card-body text-center">
-                    <i class="bi bi-percent text-primary fs-3"></i>
-                    <h6 class="mt-2">Rentabilidad Promedio</h6>
-                    <h3 class="text-primary">{{ $rentabilidad }}%</h3>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-info text-white border-0 shadow-lg h-100">
+            <div class="card-body text-center d-flex flex-column justify-content-center align-items-center p-3">
+                <i class="bi bi-graph-up-arrow fs-1 mb-2"></i>
+                <h6 class="text-uppercase mb-1">Utilidad Neta</h6>
+                <h3 class="display-4 font-weight-bold">${{ number_format($utilidadTotal, 0, ',', '.') }}</h3>
+                <div class="mt-3 pt-2 w-100 border-top border-white border-opacity-50">
+                    <span class="d-block small text-white-50">
+                        Valor Actual
+                    </span>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="col-md-3">
+        <div class="card bg-primary text-white border-0 shadow-lg h-100">
+            <div class="card-body text-center d-flex flex-column justify-content-center align-items-center p-3">
+                <i class="bi bi-percent fs-1 mb-2"></i>
+                <h6 class="text-uppercase mb-1">Rentabilidad Promedio</h6>
+                <h3 class="display-4 font-weight-bold">{{ $rentabilidad }}%</h3>
+                <div class="mt-3 pt-2 w-100 border-top border-white border-opacity-50">
+                    <span class="d-block small text-white-50">
+                        Promedio Histórico
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     {{-- 🔹 GRÁFICOS DE DESEMPEÑO --}}
     <div class="row mb-5">
@@ -109,34 +136,54 @@
                     <th>Utilidad</th>
                     <th>Rentabilidad</th>
                     <th>Estado</th>
+                    <th>Accion</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($cosechas as $cosecha)
-                    <tr class="text-center">
-                        <td>{{ $cosecha->id }}</td>
-                        <td>{{ $cosecha->tiposCultivo->nombre ?? 'Sin definir' }}</td>
-                        <td>{{ $cosecha->invernadero->nombre ?? 'N/D' }}</td>
-                        <td>{{ $cosecha->fechaSiembra }}</td>
-                        <td>{{ $cosecha->fechaCosechaReal ?? 'Pendiente' }}</td>
-                        <td>${{ number_format($cosecha->totalIngresos, 0, ',', '.') }}</td>
-                        <td>${{ number_format($cosecha->totalGastos, 0, ',', '.') }}</td>
-                        <td>${{ number_format($cosecha->utilidad, 0, ',', '.') }}</td>
-                        <td>
-                            <span class="badge bg-{{ $cosecha->utilidad >= 0 ? 'success' : 'danger' }}">
-                                {{ round(($cosecha->utilidad / max($cosecha->totalGastos, 1)) * 100, 1) }}%
-                            </span>
-                        </td>
-                        <td>{{ $cosecha->estadosCosecha->nombre ?? 'Sin estado' }}</td>
-                    </tr>
+                <tr class="text-center">
+                    <td>{{ $cosecha->id }}</td>
+                    <td>{{ $cosecha->tiposCultivo->nombre ?? 'Sin definir' }}</td>
+                    <td>{{ $cosecha->invernadero->nombre ?? 'N/D' }}</td>
+                    <td>{{ $cosecha->fechaSiembra }}</td>
+                    <td>{{ $cosecha->fechaCosechaReal ?? 'Pendiente' }}</td>
+                    <td>${{ number_format($cosecha->totalIngresos, 0, ',', '.') }}</td>
+                    <td>${{ number_format($cosecha->totalGastos, 0, ',', '.') }}</td>
+                    <td>${{ number_format($cosecha->utilidad, 0, ',', '.') }}</td>
+                    <td>
+                        <span class="badge bg-{{ $cosecha->utilidad >= 0 ? 'success' : 'danger' }}">
+                            {{ round(($cosecha->utilidad / max($cosecha->totalGastos, 1)) * 100, 1) }}%
+                        </span>
+                    </td>
+                    <td>{{ $cosecha->estadosCosecha->nombre ?? 'Sin estado' }}</td>
+                     
+                    <td class="text-center">
+
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="{{route('administrar')}}" class=" btn btn-info shadow-sm ">Administrar</a>
+                            <a href="{{route('Cosechas.edit',$cosecha->id)}}"
+                                class="btn btn-warning shadow-sm ">
+                                <i class="bi bi-pencil-square"></i> 
+                            </a>
+                            <form action="{{route('Cosechas.destroy',$cosecha->id)}}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-danger shadow-sm "
+                                    onclick="confirmarEliminacion(event)">
+                                    <i class="bi bi-trash3"></i> 
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+
+
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="10" class="text-center text-muted">No hay cosechas registradas</td>
-                    </tr>
+                <tr>
+                    <td colspan="10" class="text-center text-muted">No hay cosechas registradas</td>
+                </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 </div>
 @endsection
-

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GastosRequest;
+use App\Http\Requests\IngresoRequest;
 use App\Models\CategoriaGasto;
 use App\Models\Cosecha;
 use App\Models\Gastos;
@@ -13,70 +14,75 @@ class GastosController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($idcosecha)
     {
-        $gastos=Gastos::all();
-        return view('Gastos.index',compact('gastos'));
+        $gastos=Gastos::where('idCosecha', $idcosecha)->get();
+        $idcosecha=$idcosecha;
+        return view('Gastos.index',compact('gastos','idcosecha'));
+    }
+
+    
+    public function create($idcosecha)
+    {
+        $cosechas = Cosecha::where('id', $idcosecha)->get();
+        $categoriaGastos = CategoriaGasto::all();
+        return view('Gastos.create', compact('cosechas', 'categoriaGastos'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $cosechas=Cosecha::all();
-        $categoriaGastos=CategoriaGasto::all();
-        return view('Gastos.create',compact('cosechas','categoriaGastos'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
+     * Guarda un nuevo gasto en la base de datos.
      */
     public function store(GastosRequest $request)
     {
         Gastos::create($request->all());
-        return redirect()->route('Gastos.index');
+        $idcosecha = $request->input('idCosecha');
+
+        return redirect()->route('Gastos.index', ['idcosecha' => $idcosecha])
+            ->with('success', 'Gasto creado correctamente');
     }
 
     /**
-     * Display the specified resource.
+     * Muestra un gasto específico (opcional).
      */
-    public function show(Gastos $gastos)
+    public function show(Gastos $gasto)
     {
         //
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un gasto existente.
      */
     public function edit($id)
     {
-        $gastos=Gastos::findorfail($id);
-        $cosechas=Cosecha::all();
-        $categoriaGastos=CategoriaGasto::all();
-        return view('Gastos.edit',compact('gastos','cosechas','categoriaGastos'));
-
+        $gasto = Gastos::findOrFail($id);
+        $cosechas = Cosecha::all();
+        $categoriaGastos = CategoriaGasto::all();
+        return view('Gastos.edit', compact('gasto', 'cosechas', 'categoriaGastos'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza un gasto existente.
      */
-    public function update(GastosRequest $request,$id)
+    public function update(GastosRequest $request, $id)
     {
-        $gastos=Gastos::findorfail($id);
-        $gastos->update($request->all());
-        return redirect()->route('Gastos.index');
-        
+        $gasto = Gastos::findOrFail($id);
+        $gasto->update($request->all());
+        $idcosecha = $request->input('idCosecha');
+
+        return redirect()->route('Gastos.index', ['idcosecha' => $idcosecha])
+            ->with('success', 'Gasto actualizado correctamente');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un gasto.
      */
     public function destroy($id)
     {
-        $gastos=Gastos::findorfail($id);
-        $gastos->delete();
-        return redirect()->route('Gastos.index');
-        
+        $gasto = Gastos::findOrFail($id);
+        $idcosecha = $gasto->idCosecha;
+        $gasto->delete();
+
+        return redirect()->route('Gastos.index', ['idcosecha' => $idcosecha])
+            ->with('success', 'Gasto eliminado correctamente');
     }
 }

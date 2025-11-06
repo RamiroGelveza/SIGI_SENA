@@ -22,7 +22,7 @@
                             <input type="date" name="fecha" id="fecha" class="form-control @error('fecha') is-invalid @enderror">
 
                             @error('fecha')
-                                <div class="invalid-feedback">{{$message}}</div>
+                            <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>
 
@@ -32,7 +32,7 @@
                             <textarea name="descripcion" id="descripcion" rows="3" class="form-control
                             @error('descripcion') is-invalid @enderror" placeholder="Ej: Venta de tomates"></textarea>
                             @error('descripcion')
-                                <div class="invalid-feedback">{{$message}}</div>
+                            <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>
 
@@ -42,7 +42,7 @@
                             <input type="number" step="0.01" name="cantidadVendida" id="cantidadVendida" class="form-control
                             @error('cantidadVendida') is-invalid @enderror" placeholder="Ej: 120.50">
                             @error('cantidadVendida')
-                                <div class="invalid-feedback">{{$message}}</div>
+                            <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>
 
@@ -52,31 +52,31 @@
                             <input type="number" step="0.01" name="precioUnitario" id="precioUnitario" class="form-control
                             @error('precioUnitario') is-invalid @enderror" placeholder="Ej: 2500">
                             @error('precioUnitario')
-                                <div class="invalid-feedback">{{$message}}</div>
+                            <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>
 
                         <!-- Selección de Cosecha -->
                         <div class="mb-3">
                             <label for="idCosecha" class="form-label">Cosecha</label>
-                            <select name="idCosecha" id="idCosecha" class="form-control @error('idCosecha') is-invalid
-                                
-                            @enderror">
+                            <select name="idCosecha" id="idCosecha" class="form-control @error('idCosecha') is-invalid @enderror">
                                 <option value="">Seleccione una cosecha</option>
                                 @foreach($cosechas as $cosecha)
-                                <option value="{{ $cosecha->id }}">{{ $cosecha->nombre }} - {{ $cosecha->idCultivo }}</option>
+                                <option value="{{ $cosecha->id }}">
+                                    {{ $cosecha->fechaSiembra }} - Cultivo {{ $cosecha->idCultivo }}
+                                </option>
                                 @endforeach
                             </select>
 
                             @error('idCosecha')
-                                <div class="invalid-feedback">{{$message}}</div>
+                            <div class="invalid-feedback">{{$message}}</div>
                             @enderror
                         </div>
 
                         <!-- Botones -->
                         <div class="d-flex justify-content">
                             <button type="submit" class="btn btn-success "><i class="ri-save-3-fill"></i> Guardar</button>
-                            <a href="{{ route('Ingresos.index') }}" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
+                            <a href="" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
                         </div>
 
                     </form>

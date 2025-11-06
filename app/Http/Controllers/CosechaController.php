@@ -30,27 +30,32 @@ class CosechaController extends Controller
         return view('Cosechas.create', compact('invernaderos','cultivos','estados'));
     }
 
-    public function store(CosechaRequest $request)
-    {
-        Cosecha::create($request->all());
-        $idinvernadero=$request->input('$idinvernadero');
+public function store(CosechaRequest $request)
+{
+    $cosecha = Cosecha::create($request->all());
+    $idinvernadero = $request->input('idInvernadero');
 
-        return redirect()->route('Cosechas.index',['idinvernadero' => $idinvernadero])
-            ->with('success','Cosecha Creada Correctamente');
-    }
+    return redirect()
+        ->route('Cosechas.index', ['idinvernadero' => $idinvernadero])
+        ->with('success', 'Cosecha Creada Correctamente');
+}
+
+
 
     public function edit($id)
     {
         $cosecha = Cosecha::findOrFail($id);
-        $invernadero=Invernadero::all();
-        return view('Cosechas.edit', compact('cosecha','invernadero'));
+        $cultivos=TiposCultivo::all();
+        $estados=EstadosCosecha::all();
+        $invernaderos=Invernadero::all();
+        return view('Cosechas.edit', compact('cosecha','invernaderos','cultivos','estados'));
     }
 
     public function update(CosechaRequest $request, $id)
     {
         $cosecha = Cosecha::findOrFail($id);
         $cosecha->update($request->all());
-        $idinvernadero=$request->input('$idinvernadero');
+      $idinvernadero = $request->input('idInvernadero');
 
         return redirect()->route('Cosechas.index',['idinvernadero' => $idinvernadero])
             ->with('success','Cosecha Actualizada Correctamente');
@@ -61,5 +66,9 @@ class CosechaController extends Controller
         $cosecha = Cosecha::findOrFail($id);
         $cosecha->delete();
         return redirect()->route('Cosechas.index')->with('success','Cosecha Eliminada Correctamente');
+    }
+    public function administrar(){
+        return view('Cosechas.administrar');
+        
     }
 }

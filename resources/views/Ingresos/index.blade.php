@@ -31,7 +31,7 @@
 
 <body class="bg-light">
     <div class="container">
-        <a href="{{route('Ingresos.create')}}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nuevo Ingreso</a>
+        <a href="{{route('Ingresos.create',$idcosecha)}}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nuevo Ingreso</a>
 
         <table class="table table-bordered table-hover">
             <thead class="table-success">
@@ -76,7 +76,7 @@
                 @endforeach
             </tbody>
         </table>
-        <a href="{{route('welcome')}}" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Volver</a>
+        <a href="" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Volver</a>
 
     </div>
     @endsection
