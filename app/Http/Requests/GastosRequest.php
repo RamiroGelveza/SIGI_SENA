@@ -26,7 +26,7 @@ class GastosRequest extends FormRequest
             'descripcion'        => ['required', 'string', 'min:3', 'max:150'],
             'monto'              => ['required', 'numeric', 'min:0', 'max:99999999.99'],
             'idCosecha'          => ['required', 'exists:cosechas,id'],
-            'idCategoriaGastos'  => ['required', 'exists:categorias_gastos,id'],
+            'idCategoriaGastos'  => ['required', 'exists:categoriaGastos,id'],
         ];
     }
     public function messages()

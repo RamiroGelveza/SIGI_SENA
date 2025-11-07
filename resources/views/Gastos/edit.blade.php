@@ -16,9 +16,24 @@
                 <div class="card shadow-sm border-0 rounded-4">
                     <div class="card-body p-4">
 
-                        <form action="{{ route('Gastos.update',$gastos->id) }}" method="POST">
+                        <form action="{{route('Gastos.update',$gastos->id)}}" method="POST">
                             @csrf
-
+                              <!-- Selección Cosecha -->
+                            <div class="mb-3">
+                                <label for="idCosecha" class="form-label">Cosecha</label>
+                                <select class="form-control @error('idCosecha') is-invalid @enderror"
+                                    id="idCosecha" name="idCosecha" readonly>
+                                    @foreach($cosechas as $cosecha)
+                                    <option value="{{ $cosecha->id }}"
+                                        @if ($gastos->idCosecha==$cosecha->id )selected @endif>
+                                       {{ $cosecha->fechaSiembra }} - Cultivo {{ $cosecha->tiposCultivo->nombre ?? 'Sin nombre' }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @error('idCosecha')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <!-- Campo Fecha -->
                             <div class="mb-3">
                                 <label for="fecha" class="form-label">Fecha</label>
@@ -56,23 +71,7 @@
                                 @enderror
                             </div>
 
-                            <!-- Selección Cosecha -->
-                            <div class="mb-3">
-                                <label for="idCosecha" class="form-label">Cosecha</label>
-                                <select class="form-control @error('idCosecha') is-invalid @enderror"
-                                    id="idCosecha" name="idCosecha">
-                                    <option value="">-- Selecciona una cosecha --</option>
-                                    @foreach($cosechas as $cosecha)
-                                    <option value="{{ $cosecha->id }}"
-                                        @if ($gastos->idCosecha==$cosecha->id )selected @endif>
-                                        {{ $cosecha->idCultivo }}
-                                    </option>
-                                    @endforeach
-                                </select>
-                                @error('idCosecha')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+                          
 
                             <!-- Selección Categoría de Gastos -->
                             <div class="mb-3">
@@ -95,7 +94,7 @@
                             <!-- Botones -->
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-success btn-lg rounded-3">Actualizar</button>
-                                <a href="{{ route('Gastos.index') }}" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
+                                <a href="" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
                             </div>
 
                         </form>

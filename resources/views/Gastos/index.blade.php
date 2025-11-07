@@ -50,12 +50,14 @@
                 @foreach ($gastos as $gasto )
                 <tr>
 
-                    <td>{{$gasto->id}}</td>
-                    <td>{{$gasto->fecha}}</td>
-                    <td>{{$gasto->descripcion}}</td>
-                    <td>{{$gasto->monto}}</td>
-                    <td>{{$gasto->idCosecha}}</td>
-                    <td>{{$gasto->idCategoriaGastos}}</td>
+                    <td>{{ $gasto->id }}</td>
+                    <td>{{ $gasto->fecha }}</td>
+                    <td>{{ $gasto->descripcion }}</td>
+                    <td>${{ number_format($gasto->monto, 0, ',', '.') }}</td>
+                    <!-- Mostrar nombre del cultivo -->
+                    <td>{{ $gasto->cosecha->tiposCultivo->nombre ?? 'Sin cultivo' }}</td>
+                    <td>{{ $gasto->categoriaGasto->nombre ?? 'Sin categoría' }}</td>
+
                     <td class="text-center">
                         <div class="d-flex justify-content-center gap-2">
                             <a href="{{route('Gastos.edit',$gasto->id)}}"

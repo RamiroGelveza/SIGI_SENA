@@ -52,21 +52,29 @@ class GastosController extends Controller
     /**
      * Muestra el formulario para editar un gasto existente.
      */
-    public function edit($id)
-    {
-        $gasto = Gastos::findOrFail($id);
-        $cosechas = Cosecha::all();
-        $categoriaGastos = CategoriaGasto::all();
-        return view('Gastos.edit', compact('gasto', 'cosechas', 'categoriaGastos'));
-    }
+ public function edit($id)
+{
+    // Buscar el gasto específico
+    $gastos = Gastos::findOrFail($id);
 
+    // Solo la cosecha asociada a este gasto
+    $cosechas = Cosecha::where('id', $gastos->idCosecha)
+        ->with('tiposCultivo') // ✅ relación correcta para mostrar el nombre del cultivo
+        ->get();
+
+    // Todas las categorías disponibles para el select
+    $categoriaGastos = CategoriaGasto::all();
+
+    // Retornar a la vista
+    return view('Gastos.edit', compact('gastos', 'cosechas', 'categoriaGastos'));
+}
     /**
      * Actualiza un gasto existente.
      */
     public function update(GastosRequest $request, $id)
     {
-        $gasto = Gastos::findOrFail($id);
-        $gasto->update($request->all());
+        $gastos = Gastos::findOrFail($id);
+        $gastos->update($request->all());
         $idcosecha = $request->input('idCosecha');
 
         return redirect()->route('Gastos.index', ['idcosecha' => $idcosecha])

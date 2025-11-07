@@ -14,4 +14,12 @@ class Gastos extends Model
         'idCosecha',
         'idCategoriaGastos'
     ];
+       public function categoriaGasto()
+    {
+        return $this->belongsTo(CategoriaGasto::class, 'idCategoriaGastos', 'id');
+    }
+      public function cosecha()
+    {
+        return $this->belongsTo(Cosecha::class, 'idCosecha', 'id');
+    }
 }

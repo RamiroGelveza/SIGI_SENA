@@ -56,7 +56,7 @@
                     <td>{{$ingreso->descripcion}}</td>
                     <td>{{$ingreso->cantidadVendida}}</td>
                     <td>{{$ingreso->precioUnitario}}</td>
-                    <td>{{$ingreso->Cosecha->idCultivo}}</td>
+                   <td>{{ $ingreso->cosecha->tiposCultivo->nombre ?? 'Sin cultivo' }}</td>
                     <td class="text-center">
                         <div class="d-flex justify-content-center gap-2">
                             <a href="{{route('Ingresos.edit',$ingreso->id)}}"

@@ -53,25 +53,33 @@ class IngresoController extends Controller
     /**
      * Muestra el formulario para editar un ingreso existente.
      */
-    public function edit($id)
-    {
-        $ingreso = Ingreso::findOrFail($id);
-        $cosechas = Cosecha::all();
-        return view('Ingresos.edit', compact('ingreso', 'cosechas'));
-    }
+public function edit($id)
+{
+    $ingresos = Ingreso::findOrFail($id);
 
+    // 👇 solo traemos la cosecha asociada a este ingreso
+    $cosechas = Cosecha::where('id', $ingresos->idCosecha)
+        ->with('tiposCultivo') // si quieres mostrar el nombre del cultivo
+        ->get();
+
+    $idcosecha = $ingresos->idCosecha;
+
+    return view('Ingresos.edit', compact('ingresos', 'cosechas', 'idcosecha'));
+}
     /**
      * Actualiza un ingreso en la base de datos.
      */
-    public function update(IngresoRequest $request, $id)
-    {
-        $ingreso = Ingreso::findOrFail($id);
-        $ingreso->update($request->all());
-        $idcosecha = $request->input('idCosecha');
+   public function update(IngresoRequest $request, $id)
+{
+    $ingreso = Ingreso::findOrFail($id);
+    $ingreso->update($request->all());
 
-        return redirect()->route('Ingresos.index', ['idcosecha' => $idcosecha])
-            ->with('success', 'Ingreso actualizado correctamente');
-    }
+    $idcosecha = $ingreso->idCosecha; // 👈 tomamos el idCosecha del ingreso actualizado
+
+    return redirect()->route('Ingresos.index', ['idcosecha' => $idcosecha])
+        ->with('success', 'Ingreso actualizado correctamente');
+}
+
 
     /**
      * Elimina un ingreso de la base de datos.

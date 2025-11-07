@@ -34,6 +34,10 @@ class Cosecha extends Model
  public function ingreso(){
         return $this->hasMany(Ingreso::class);
     } 
+       public function gastos()
+    {
+        return $this->hasMany(Gastos::class, 'idCosecha', 'id');
+    }
 
 }
 

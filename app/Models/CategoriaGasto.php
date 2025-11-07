@@ -11,4 +11,8 @@ class CategoriaGasto extends Model
         'nombre'
 
     ];
+    public function gastos()
+    {
+        return $this->hasMany(Gastos::class, 'idCategoriaGastos', 'id');
+    }
 }

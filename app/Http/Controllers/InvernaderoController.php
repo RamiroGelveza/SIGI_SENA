@@ -75,11 +75,18 @@ class InvernaderoController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($id)
-    {
-        $invernadero=Invernadero::findorfail($id);
+   {
+    $invernadero = Invernadero::findOrFail($id);
+    $idfinca = $invernadero->idFinca; // recuperamos la finca antes de eliminar
+
+    try {
         $invernadero->delete();
-        return redirect()->route('Invernaderos.index')->with('success','Invernadero Eliminado correctamente');
+        return redirect()->route('Invernaderos.index', ['idfinca' => $idfinca])
+            ->with('success', 'Invernadero eliminado correctamente.');
+    } catch (\Illuminate\Database\QueryException $e) {
+        return redirect()->route('Invernaderos.index', ['idfinca' => $idfinca])
+            ->with('error', 'No se puede eliminar este invernadero porque tiene cosechas asociadas.');
     }
 
-
+}
 }

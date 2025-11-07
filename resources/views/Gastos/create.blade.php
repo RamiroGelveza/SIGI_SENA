@@ -17,7 +17,21 @@
 
                     <form action="{{ route('Gastos.store') }}" method="POST">
                         @csrf
-
+                      <!-- Selección Cosecha -->
+                        <div class="mb-3">
+                            <label for="idCosecha" class="form-label">Cosecha</label>
+                            <select class="form-control @error('idCosecha') is-invalid @enderror" 
+                                    id="idCosecha" name="idCosecha" readonly>
+                                @foreach($cosechas as $cosecha)
+                                    <option value="{{ $cosecha->id }}">
+                                    {{ $cosecha->fechaSiembra }} - Cultivo {{ $cosecha->tiposCultivo->nombre ?? 'Sin nombre' }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('idCosecha')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
                         <!-- Campo Fecha -->
                         <div class="mb-3">
                             <label for="fecha" class="form-label">Fecha</label>
@@ -53,22 +67,7 @@
                             @enderror
                         </div>
 
-                        <!-- Selección Cosecha -->
-                        <div class="mb-3">
-                            <label for="idCosecha" class="form-label">Cosecha</label>
-                            <select class="form-control @error('idCosecha') is-invalid @enderror" 
-                                    id="idCosecha" name="idCosecha">
-                                <option value="">-- Selecciona una cosecha --</option>
-                                @foreach($cosechas as $cosecha)
-                                    <option value="{{ $cosecha->id }}">
-                                        {{ $cosecha->idCultivo }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('idCosecha')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                      
 
                         <!-- Selección Categoría de Gastos -->
                         <div class="mb-3">
