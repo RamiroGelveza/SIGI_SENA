@@ -6,100 +6,106 @@
 @endsection
 
 @section('content')
+
 <body class="bg-light">
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-6">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
 
-            <div class="card shadow-sm border-0 rounded-4">
-                <div class="card-body p-4">
+                <div class="card shadow-sm border-0 rounded-4">
+                    <div class="card-body p-4">
 
-                    <form action="{{ route('Gastos.store') }}" method="POST">
-                        @csrf
-                      <!-- Selección Cosecha -->
-                        <div class="mb-3">
-                            <label for="idCosecha" class="form-label">Cosecha</label>
-                            <select class="form-control @error('idCosecha') is-invalid @enderror" 
+                        <form action="{{ route('Gastos.store') }}" method="POST">
+                            @csrf
+                            <!-- Selección Cosecha -->
+                            <div class="mb-3">
+                                <label for="idCosecha" class="form-label">Cosecha</label>
+                                <select class="form-control @error('idCosecha') is-invalid @enderror"
                                     id="idCosecha" name="idCosecha" readonly>
-                                @foreach($cosechas as $cosecha)
+                                    @foreach($cosechas as $cosecha)
                                     <option value="{{ $cosecha->id }}">
-                                    {{ $cosecha->fechaSiembra }} - Cultivo {{ $cosecha->tiposCultivo->nombre ?? 'Sin nombre' }}
+                                        {{ $cosecha->fechaSiembra }} - Cultivo {{ $cosecha->tiposCultivo->nombre ?? 'Sin nombre' }}
                                     </option>
-                                @endforeach
-                            </select>
-                            @error('idCosecha')
+                                    @endforeach
+                                </select>
+                                @error('idCosecha')
                                 <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <!-- Campo Fecha -->
-                        <div class="mb-3">
-                            <label for="fecha" class="form-label">Fecha</label>
-                            <input type="date" 
-                                   class="form-control @error('fecha') is-invalid @enderror" 
-                                   id="fecha" name="fecha" >
-                            @error('fecha')
+                                @enderror
+                            </div>
+
+
+                            <!-- Campo Fecha -->
+                            <div class="mb-3">
+                                <label for="fecha" class="form-label">Fecha</label>
+                                <input type="date"
+                                    class="form-control @error('fecha') is-invalid @enderror"
+                                    id="fecha"
+                                    name="fecha"
+                                    value="{{ old('fecha', now()->toDateString()) }}" readonly>
+                                @error('fecha')
                                 <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                                @enderror
+                            </div>
 
-                        <!-- Campo Descripción -->
-                        <div class="mb-3">
-                            <label for="descripcion" class="form-label">Descripción</label>
-                            <textarea 
-                                class="form-control @error('descripcion') is-invalid @enderror" 
-                                id="descripcion" name="descripcion" 
-                                placeholder="Ej.: Compra de fertilizantes">{{ old('descripcion') }}</textarea>
-                            @error('descripcion')
+
+                            <!-- Campo Descripción -->
+                            <div class="mb-3">
+                                <label for="descripcion" class="form-label">Descripción</label>
+                                <textarea
+                                    class="form-control @error('descripcion') is-invalid @enderror"
+                                    id="descripcion" name="descripcion"
+                                    placeholder="Ej.: Compra de fertilizantes">{{ old('descripcion') }}</textarea>
+                                @error('descripcion')
                                 <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                                @enderror
+                            </div>
 
-                        <!-- Campo Monto -->
-                        <div class="mb-3">
-                            <label for="monto" class="form-label">Monto</label>
-                            <input type="number" step="0.01" 
-                                   class="form-control @error('monto') is-invalid @enderror" 
-                                   id="monto" name="monto" 
-                                   placeholder="Ej.: 150000">
-                            @error('monto')
+                            <!-- Campo Monto -->
+                            <div class="mb-3">
+                                <label for="monto" class="form-label">Monto</label>
+                                <input type="number" step="0.01"
+                                    class="form-control @error('monto') is-invalid @enderror"
+                                    id="monto" name="monto"
+                                    placeholder="Ej.: 150000">
+                                @error('monto')
                                 <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                                @enderror
+                            </div>
 
-                      
 
-                        <!-- Selección Categoría de Gastos -->
-                        <div class="mb-3">
-                            <label for="idCategoriaGastos" class="form-label">Categoría de Gasto</label>
-                            <select class="form-control @error('idCategoriaGastos') is-invalid @enderror" 
+
+                            <!-- Selección Categoría de Gastos -->
+                            <div class="mb-3">
+                                <label for="idCategoriaGastos" class="form-label">Categoría de Gasto</label>
+                                <select class="form-control @error('idCategoriaGastos') is-invalid @enderror"
                                     id="idCategoriaGastos" name="idCategoriaGastos">
-                                <option value="">-- Selecciona una categoría --</option>
-                                @foreach($categoriaGastos as $categoriaGasto)
-                                    <option value="{{ $categoriaGasto->id }}" >
+                                    <option value="">-- Selecciona una categoría --</option>
+                                    @foreach($categoriaGastos as $categoriaGasto)
+                                    <option value="{{ $categoriaGasto->id }}">
                                         {{ $categoriaGasto->nombre }}
                                     </option>
-                                @endforeach
-                            </select>
-                            @error('idCategoriaGastos')
+                                    @endforeach
+                                </select>
+                                @error('idCategoriaGastos')
                                 <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                                @enderror
+                            </div>
 
-                        <!-- Botones -->
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-success btn-lg rounded-3"><i class="ri-save-3-fill"></i> Guardar</button>
-                            <a href="" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
-                        </div>
+                            <!-- Botones -->
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-success btn-lg rounded-3"><i class="ri-save-3-fill"></i> Guardar</button>
+                                <a href="{{route('administrar',['id' => $cosecha->id])}}" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
+                            </div>
 
-                    </form>
+                        </form>
 
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </div>
-</div>
 
 </body>
 @endsection

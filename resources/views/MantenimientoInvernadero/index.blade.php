@@ -49,7 +49,7 @@
 
                     <td>{{$mantenimiento->id}}</td>
                     <td>{{$mantenimiento->fechaMantenimiento}}</td>
-                    <td>{{$mantenimiento->costoMantenimiento}}</td>
+                    <td>${{ number_format($mantenimiento->costoMantenimiento, 0, ',', '.') }}</td>
                     <td>{{$mantenimiento->descripcion}}</td>
                     <td>{{$mantenimiento->invernadero->nombre}}</td>
                     <td class="text-center">
@@ -71,7 +71,7 @@
                 @endforeach
             </tbody>
         </table>
-        <a href="{{route('Invernaderos.index',$idinvernadero)}}" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Volver</a>
+        <a href="" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Volver</a>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"

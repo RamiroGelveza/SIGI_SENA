@@ -21,6 +21,17 @@ class Cosecha extends Model
         'idCultivo',
         'idEstado'
     ];
+
+        protected static function boot()
+{
+    parent::boot();
+
+    static::creating(function ($model) {
+        if (empty($model->notas)) {
+            $model->notas = 'Sin notas';
+        }
+    });
+}
     public function invernadero(){
         return $this->belongsTo(Invernadero::class,'idInvernadero');
     }

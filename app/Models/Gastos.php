@@ -14,6 +14,17 @@ class Gastos extends Model
         'idCosecha',
         'idCategoriaGastos'
     ];
+    protected static function boot()
+{
+    parent::boot();
+
+    static::creating(function ($model) {
+        if (empty($model->descripcion)) {
+            $model->descripcion = 'Sin descripción';
+        }
+    });
+}
+
        public function categoriaGasto()
     {
         return $this->belongsTo(CategoriaGasto::class, 'idCategoriaGastos', 'id');

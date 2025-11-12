@@ -15,14 +15,14 @@
                 <div class="card-body p-4">
                     <form action="{{ route('Ingresos.store') }}" method="POST">
                         @csrf
-                          <!-- Selección de Cosecha -->
+                        <!-- Selección de Cosecha -->
                         <div class="mb-3">
                             <label for="idCosecha" class="form-label">Cosecha</label>
                             <select name="idCosecha" id="idCosecha" class="form-control @error('idCosecha') is-invalid @enderror"
-                            readonly>
+                                readonly>
                                 @foreach($cosechas as $cosecha)
                                 <option value="{{ $cosecha->id }}">
-                                 {{ $cosecha->fechaSiembra }} - Cultivo {{ $cosecha->tiposCultivo->nombre ?? 'Sin nombre' }}
+                                    {{ $cosecha->fechaSiembra }} - Cultivo {{ $cosecha->tiposCultivo->nombre ?? 'Sin nombre' }}
 
 
                                 </option>
@@ -37,12 +37,16 @@
                         <!-- Fecha -->
                         <div class="mb-3">
                             <label for="fecha" class="form-label">Fecha</label>
-                            <input type="date" name="fecha" id="fecha" class="form-control @error('fecha') is-invalid @enderror">
-
+                            <input type="date"
+                                class="form-control @error('fecha') is-invalid @enderror"
+                                id="fecha"
+                                name="fecha"
+                                value="{{ old('fecha', now()->toDateString()) }}" readonly>
                             @error('fecha')
-                            <div class="invalid-feedback">{{$message}}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+
 
                         <!-- Descripción -->
                         <div class="mb-3">
@@ -74,12 +78,12 @@
                             @enderror
                         </div>
 
-                      
+
 
                         <!-- Botones -->
                         <div class="d-flex justify-content">
                             <button type="submit" class="btn btn-success "><i class="ri-save-3-fill"></i> Guardar</button>
-                            <a href="" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
+                            <a href="{{route('administrar',['id' => $cosecha->id])}}" class="btn btn-outline-secondary btn-lg rounded-3"><i class="bi bi-x-circle"></i> Cancelar</a>
                         </div>
 
                     </form>

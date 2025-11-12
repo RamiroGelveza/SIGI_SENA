@@ -155,18 +155,26 @@
     </div>
 
     <hr>
+    <!-- Encabezado del invernadero -->
+<div class="text-center mb-4">
+    <h3 class="fw-bold text-success mb-2">
+        🌿 Invernadero: <span class="text-dark">{{ $nombreInvernadero }}</span>
+    </h3>
+    <h4 class="fw-bolder text-dark">
+        <i class="bi bi-table me-2"></i> 
+        Historial Detallado de Cosechas ({{ $cosechasCollection->count() }} Registros)
+    </h4>
+</div>
     
     {{-- 🔹 LISTADO DETALLADO DE COSECHAS --}}
-    <h4 class="fw-bolder text-dark mb-4"><i class="bi bi-table me-2"></i> Historial Detallado de Cosechas ({{ $cosechasCollection->count() }} Registros)</h4>
     <div class="card shadow-lg border-0">
         <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table table-striped align-middle mb-0 table-hover">
+                <table id="myTable" class="table table-striped align-middle mb-0 table-hover">
                     <thead class="table-success text-center text-uppercase small">
                         <tr>
                             <th>ID</th>
                             <th>Cultivo</th>
-                            <th>Invernadero</th>
                             <th>Siembra</th>
                             <th>Cosecha</th>
                             <th>Ingresos</th>
@@ -178,16 +186,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($cosechasCollection as $cosecha)
-                        <tr class="text-center">
-                            <td>{{ $cosecha->id }}</td>
-                            <td class="fw-bold">{{ $cosecha->tiposCultivo->nombre ?? 'Sin definir' }}</td>
-                            <td>{{ $cosecha->invernadero->nombre ?? 'N/D' }}</td>
-                            <td>{{ date('d/m/Y', strtotime($cosecha->fechaSiembra)) }}</td>
-                            <td>{{ $cosecha->fechaCosechaReal ? date('d/m/Y', strtotime($cosecha->fechaCosechaReal)) : 'Pendiente' }}</td>
-                            <td class="text-success">${{ number_format($cosecha->totalIngresos, 0, ',', '.') }}</td>
-                            <td class="text-danger">${{ number_format($cosecha->totalGastos, 0, ',', '.') }}</td>
-                            <td class="fw-bold text-primary">${{ number_format($cosecha->utilidad, 0, ',', '.') }}</td>
+                        @forelse($cosechas as $cosecha)
+    <tr class="text-center">
+        <td>{{ $cosecha->id }}</td>
+        <td>{{ $cosecha->tiposCultivo->nombre ?? 'Sin definir' }}</td>
+        <td>{{ date('d/m/Y', strtotime($cosecha->fechaSiembra)) }}</td>
+        <td>{{ $cosecha->fechaCosechaReal ? date('d/m/Y', strtotime($cosecha->fechaCosechaReal)) : 'Pendiente' }}</td>
+        <td>${{ number_format($cosecha->totalIngresos, 0, ',', '.') }}</td>
+        <td>${{ number_format($cosecha->totalGastos, 0, ',', '.') }}</td>
+        <td>${{ number_format($cosecha->utilidad, 0, ',', '.') }}</td>
                             <td>
                                 @php
                                     $rentabilidadCosecha = $cosecha->totalGastos > 0 ? round(($cosecha->utilidad / $cosecha->totalGastos) * 100, 1) : 0;
@@ -201,11 +208,10 @@
                             </td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-center gap-2">
-                                    <a href="{{route('administrar', $cosecha->id)}}" class="btn btn-info btn-sm shadow-sm" title="Administrar"><i class="bi bi-eye-fill"></i></a>
+                                    <a href="{{route('administrar', $cosecha->id)}}" class="btn btn-info btn-sm shadow-sm" title="Administrar"><i class="bi bi-gear-fill"></i></a>
                                     <a href="{{route('Cosechas.edit',$cosecha->id)}}" class="btn btn-warning btn-sm shadow-sm" title="Editar"><i class="bi bi-pencil-square"></i></a>
                                     <form action="{{route('Cosechas.destroy',$cosecha->id)}}" method="POST" onsubmit="return confirmarEliminacion(event)">
                                         @csrf
-                                        @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm shadow-sm" title="Eliminar"><i class="bi bi-trash3"></i></button>
                                     </form>
                                 </div>
@@ -213,7 +219,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="11" class="text-center text-muted py-4">No hay cosechas registradas en este invernadero.</td>
+                            <td colspan="10" class="text-center text-muted py-4">No hay cosechas registradas en este invernadero.</td>
                         </tr>
                         @endforelse
                     </tbody>

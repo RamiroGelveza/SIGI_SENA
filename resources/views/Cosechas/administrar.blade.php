@@ -92,17 +92,19 @@
             <div class="card shadow border-0 h-100">
                 <div class="card-header bg-success bg-opacity-75 text-white d-flex justify-content-between align-items-center py-3">
                     <h5 class="mb-0"><strong><i class="bi bi-cash-stack me-2"></i> Detalle de Ingresos</strong></h5>
-                    <a href="{{ route('Ingresos.index', $cosecha->id) }}" class="btn btn-primary btn-sm fw-bold shadow-sm">
-                        <i class="bi bi-pencil-square"></i> Gestionar
+                    <a href="{{ route('Ingresos.create', $cosecha->id) }}" class="btn btn-primary btn-sm fw-bold shadow-sm">
+                        <i class="bi bi-pencil-square"></i> Crear
                     </a>
                 </div>
                 <div class="card-body p-0 table-responsive">
-                    <table class="table table-striped table-hover align-middle mb-0">
+                    <table id="myTable" class="table table-striped table-hover align-middle mb-0">
                         <thead class="table-light text-center">
                             <tr>
                                 <th>Fecha</th>
                                 <th>Concepto</th>
                                 <th>Valor Total</th>
+                                <th>Accion</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -113,10 +115,44 @@
                                     <td>{{ $ingreso->descripcion ?? 'Venta' }}</td> 
                                     {{-- El cálculo se hace aquí para mostrar el valor total --}}
                                     <td class="text-success fw-bold">${{ number_format(((float)$ingreso->cantidadVendida * (float)$ingreso->precioUnitario), 0, ',', '.') }}</td>
+                               <td>
+                                        <div class="dropdown position-left top-2 end-2 mt-0 me-0 ">
+                    <button class="btn btn-light btn-sm border-0"
+                        type="button"
+                        data-toggle="dropdown"
+                        aria-expanded="true"
+                        title="Más opciones">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+
+
+                        {{-- Editar --}}
+                        <li>
+                            <a href="{{ route('Ingresos.edit',$ingreso->id) }}" class="dropdown-item text-warning">
+                                <i class="fas fa-fw fa-edit me-2" style="color:#FFE70F !important;"></i> Editar
+                            </a>
+                        </li>
+
+                        {{-- Eliminar --}}
+                        <li>
+                            <form action="{{ route('Ingresos.destroy',$ingreso->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="dropdown-item text-danger"
+                                    onclick="confirmarEliminacion(event)">
+                                    <i class="fas fa-fw fa-trash-alt me-2" style="color:#F82B2B !important;"></i> Eliminar
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                 </div>
+                </div>
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="3" class="text-center text-muted py-4">No hay ingresos registrados para esta cosecha.</td>
+                                    <td colspan="4" class="text-center text-muted py-4">No hay ingresos registrados para esta cosecha.</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -129,17 +165,20 @@
             <div class="card shadow border-0 h-100">
                 <div class="card-header bg-danger bg-opacity-75 text-white d-flex justify-content-between align-items-center py-3">
                     <h5 class="mb-0"><strong><i class="bi bi-receipt-cutoff me-2"></i> Detalle de Gastos</strong></h5>
-                    <a href="{{ route('Gastos.index', $cosecha->id) }}" class="btn btn-warning btn-sm fw-bold shadow-sm">
-                        <i class="bi bi-pencil-square"></i> Gestionar
+                    <a href="{{ route('Gastos.create', $cosecha->id) }}" class="btn btn-warning btn-sm fw-bold shadow-sm">
+                        <i class="bi bi-pencil-square"></i> Crear
                     </a>
                 </div>
                 <div class="card-body p-0 table-responsive">
-                    <table class="table table-striped table-hover align-middle mb-0">
+                    <table id="myTable" class="table table-striped table-hover align-middle mb-0">
                         <thead class="table-light text-center">
                             <tr>
                                 <th>Fecha</th>
                                 <th>Concepto</th>
+                                <th>Categoria</th>
                                 <th>Valor</th>
+                                <th>Accion</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -147,11 +186,51 @@
                                 <tr class="text-center">
                                     <td>{{ date('d/m/Y', strtotime($gasto->fecha)) }}</td>
                                     <td>{{ $gasto->descripcion ?? 'Gasto' }}</td>
+                                    <td>{{ $gasto->categoriaGasto->nombre ?? 'Sin categoría' }}</td>
+
+
                                     <td class="text-danger fw-bold">${{ number_format($gasto->monto, 0, ',', '.') }}</td>
+                                    
+                                    <td>
+                                        <div class="dropdown position-left top-2 end-2 mt-0 me-0 ">
+                    <button class="btn btn-light btn-sm border-0"
+                        type="button"
+                        data-toggle="dropdown"
+                        aria-expanded="true"
+                        title="Más opciones">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+
+
+                        {{-- Editar --}}
+                        <li>
+                            <a href="{{ route('Gastos.edit',$gasto->id) }}" class="dropdown-item text-warning">
+                                <i class="fas fa-fw fa-edit me-2" style="color:#FFE70F !important;"></i> Editar
+                            </a>
+                        </li>
+
+                        {{-- Eliminar --}}
+                        <li>
+                            <form action="{{ route('Gastos.destroy',$gasto->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="dropdown-item text-danger"
+                                    onclick="confirmarEliminacion(event)">
+                                    <i class="fas fa-fw fa-trash-alt me-2" style="color:#F82B2B !important;"></i> Eliminar
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                 </div>
+                </div>
+                 </td>
+
+
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="3" class="text-center text-muted py-4">No hay gastos registrados para esta cosecha.</td>
+                                    <td colspan="5" class="text-center text-muted py-4">No hay gastos registrados para esta cosecha.</td>
                                 </tr>
                             @endforelse
                         </tbody>

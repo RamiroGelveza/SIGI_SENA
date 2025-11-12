@@ -41,7 +41,8 @@
                 type="date"
                 name="fechaMantenimiento"
                 id="fechaMantenimiento"
-                class="form-control form-control-lg @error('fechaMantenimiento') is-invalid @enderror">
+                value="{{ old('fecha', now()->toDateString()) }}"
+                class="form-control form-control-lg @error('fechaMantenimiento') is-invalid @enderror" readonly>
               @error('fechaMantenimiento')
               <div class="invalid-feedback">{{ $message }}</div>
               @enderror

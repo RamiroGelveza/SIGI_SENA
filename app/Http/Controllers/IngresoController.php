@@ -38,7 +38,7 @@ class IngresoController extends Controller
         Ingreso::create($request->all());
         $idcosecha = $request->input('idCosecha');
 
-        return redirect()->route('Ingresos.index', ['idcosecha' => $idcosecha])
+        return redirect()->route('administrar', ['id' => $idcosecha])
             ->with('success', 'Ingreso creado correctamente');
     }
 
@@ -75,8 +75,7 @@ public function edit($id)
     $ingreso->update($request->all());
 
     $idcosecha = $ingreso->idCosecha; // 👈 tomamos el idCosecha del ingreso actualizado
-
-    return redirect()->route('Ingresos.index', ['idcosecha' => $idcosecha])
+        return redirect()->route('administrar', ['id' => $idcosecha])
         ->with('success', 'Ingreso actualizado correctamente');
 }
 
@@ -90,7 +89,7 @@ public function edit($id)
         $idcosecha = $ingreso->idCosecha;
         $ingreso->delete();
 
-        return redirect()->route('Ingresos.index', ['idcosecha' => $idcosecha])
+        return redirect()->route('administrar', ['id' => $idcosecha])
             ->with('success', 'Ingreso eliminado correctamente');
     }
 }

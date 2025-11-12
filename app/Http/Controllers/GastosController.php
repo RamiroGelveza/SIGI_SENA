@@ -37,7 +37,8 @@ class GastosController extends Controller
         Gastos::create($request->all());
         $idcosecha = $request->input('idCosecha');
 
-        return redirect()->route('Gastos.index', ['idcosecha' => $idcosecha])
+                return redirect()->route('administrar', ['id' => $idcosecha])
+
             ->with('success', 'Gasto creado correctamente');
     }
 
@@ -77,7 +78,8 @@ class GastosController extends Controller
         $gastos->update($request->all());
         $idcosecha = $request->input('idCosecha');
 
-        return redirect()->route('Gastos.index', ['idcosecha' => $idcosecha])
+        return redirect()->route('administrar', ['id' => $idcosecha])
+
             ->with('success', 'Gasto actualizado correctamente');
     }
 
@@ -90,7 +92,7 @@ class GastosController extends Controller
         $idcosecha = $gasto->idCosecha;
         $gasto->delete();
 
-        return redirect()->route('Gastos.index', ['idcosecha' => $idcosecha])
+        return redirect()->route('administrar', ['id' => $idcosecha])
             ->with('success', 'Gasto eliminado correctamente');
     }
 }

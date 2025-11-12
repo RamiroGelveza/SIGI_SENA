@@ -13,6 +13,19 @@ class MantenimientoInvernadero extends Model
         'descripcion',
         'idInvernadero'
     ];
+ protected static function boot()
+{
+    parent::boot();
+
+    static::creating(function ($model) {
+        // Solo si el campo viene vacío
+        if (empty($model->fechaMantenimiento)) {
+            $model->fechaMantenimiento = now()->toDateString(); // Fecha actual
+        }
+    });
+}
+
+
     public function invernadero(){
         return $this->belongsTo(Invernadero::class,'idInvernadero');
     }

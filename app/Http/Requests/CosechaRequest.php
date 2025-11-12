@@ -22,7 +22,7 @@ class CosechaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fechaCreacion'        => ['required', 'date','before_or_equal:today'],
+            // 'fechaCreacion'        => ['required', 'date','before_or_equal:today'],
             'fechaSiembra'         => ['required', 'date', 'before_or_equal:today'],
             'fechaCosechaEstimada' => ['required', 'date', 'after:fechaSiembra'],
             // 'fechaCosechaReal'     => ['nullable', 'date', 'after_or_equal:fechaSiembra'],
@@ -32,7 +32,7 @@ class CosechaRequest extends FormRequest
             // 'totalIngresos'        => ['required', 'numeric', 'min:0', 'max:99999999.99'],
             // 'utilidad'             => ['nullable', 'numeric', 'min:-99999999.99', 'max:99999999.99'],
 
-            // 'notas'                => ['nullable', 'string', 'max:500'],
+            'notas' => ['nullable', 'string', 'min:3', 'max:150'],
 
             // 'idInvernadero'        => ['required', 'exists:invernaderos,id'],
             // 'idCultivo'            => ['required', 'exists:cultivos,id'],

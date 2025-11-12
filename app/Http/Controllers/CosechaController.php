@@ -17,12 +17,22 @@ class CosechaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($idinvernadero)
-    {
-        $cosechas = Cosecha::where('idInvernadero',$idinvernadero)->get();
-        $idinvernadero=$idinvernadero;
-        return view('Cosechas.index', compact('cosechas','idinvernadero'));
-    }
+  public function index($idinvernadero)
+{
+    // Traemos las cosechas más recientes primero
+    $cosechas = Cosecha::where('idInvernadero', $idinvernadero)
+        ->orderByDesc('id')
+        ->get();
+        
+
+    // Obtenemos el nombre del invernadero asociado
+    $nombreInvernadero = $cosechas->first()->invernadero->nombre 
+        ?? Invernadero::find($idinvernadero)?->nombre 
+        ?? 'Invernadero no definido';
+
+    // Retornamos la vista con todas las variables necesarias
+    return view('Cosechas.index', compact('cosechas', 'idinvernadero', 'nombreInvernadero'));
+}
 
     public function create($idinvernadero)
     {
@@ -36,6 +46,7 @@ public function store(CosechaRequest $request)
 {
     $cosecha = Cosecha::create($request->all());
     $idinvernadero = $request->input('idInvernadero');
+    $data['fechaCreacion'] = now()->toDateString();
 
     return redirect()
         ->route('Cosechas.index', ['idinvernadero' => $idinvernadero])
@@ -79,18 +90,28 @@ public function administrarCosecha($id)
     $ingresos = Ingreso::where('idCosecha', $id)->get();
     $gastos = Gastos::where('idCosecha', $id)->get(); 
 
-    // ✅ Calcular totales (CORREGIDO PARA INGRESOS)
+    // ✅ Calcular totales
     $totalIngresos = $ingresos->sum(function ($ingreso) {
         return (float) $ingreso->cantidadVendida * (float) $ingreso->precioUnitario;
     });
 
     $totalGastos = $gastos->sum('monto');
-    
-    // 3. Calcular la Utilidad
     $utilidad = $totalIngresos - $totalGastos;
+
+    // ✅ Calcular rentabilidad (opcional)
+    $rentabilidad = $totalIngresos > 0 ? ($utilidad / $totalIngresos) * 100 : 0;
+
+    // ✅ Actualizar los valores en la base de datos
+    $cosecha->update([
+        'totalIngresos' => $totalIngresos,
+        'totalGastos'   => $totalGastos,
+        'utilidad'      => $utilidad,
+        'rentabilidad'  => $rentabilidad,
+    ]);
 
     return view('Cosechas.administrar', compact('cosecha', 'ingresos', 'gastos', 'totalIngresos', 'totalGastos', 'utilidad'));
 }
+
 
 }
 

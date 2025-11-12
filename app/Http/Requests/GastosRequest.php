@@ -22,8 +22,8 @@ class GastosRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fecha'              => ['required', 'date', 'before_or_equal:today'],
-            'descripcion'        => ['required', 'string', 'min:3', 'max:150'],
+            // 'fecha'              => ['required', 'date', 'before_or_equal:today'],
+            'descripcion' => ['nullable', 'string', 'min:3', 'max:150'],
             'monto'              => ['required', 'numeric', 'min:0', 'max:99999999.99'],
             'idCosecha'          => ['required', 'exists:cosechas,id'],
             'idCategoriaGastos'  => ['required', 'exists:categoriaGastos,id'],

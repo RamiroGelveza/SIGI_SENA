@@ -22,8 +22,8 @@ class IngresoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fecha'           => ['required', 'date','before_or_equal:today'],
-            'descripcion'     => ['required', 'string', 'min:3', 'max:255'],
+            // 'fecha'           => ['required', 'date','before_or_equal:today'],
+            'descripcion' => ['nullable', 'string', 'min:3', 'max:150'],
             'cantidadVendida' => ['required', 'integer', 'min:1', 'max:1000000'],
             'precioUnitario'  => ['required', 'numeric', 'min:0', 'max:99999999.99'],
             'idCosecha'       => ['required', 'exists:cosechas,id'],
