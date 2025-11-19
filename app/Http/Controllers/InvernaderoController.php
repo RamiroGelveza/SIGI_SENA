@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InvernaderoRequest;
+use App\Models\Cosecha;
 use App\Models\finca;
+use App\Models\Gastos;
 use App\Models\Invernadero;
+use App\Models\MantenimientoInvernadero;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+use Dompdf\Adapter\PDFLib;
 use Illuminate\Http\Request;
+
 
 class InvernaderoController extends Controller
 {
@@ -89,4 +96,75 @@ class InvernaderoController extends Controller
     }
 
 }
+
+public function generar(Request $request)
+{
+    $idInvernadero = $request->invernadero_id; // viene desde el modal
+    $tipo = $request->tipo;
+
+    switch ($tipo) {
+
+        /* -----------------------------------------------
+         * 1️⃣ INGRESOS Y UTILIDAD DE COSECHAS
+         * -----------------------------------------------*/
+        case 'cosechas_ingresos':
+
+            $cosechas = Cosecha::with(['ingresos', 'gastos'])
+                ->where('idInvernadero', $idInvernadero)
+                ->orderBy('fechaCosechaReal', 'desc')
+                ->get();
+
+            return view('Reportes.CosechaReportes.pdf.reportePDF', compact('cosechas'));
+
+
+        /* -----------------------------------------------
+         * 2️⃣ DETALLE DE GASTOS
+         * -----------------------------------------------*/
+        case 'gastos_detalle':
+
+            $gastos = Gastos::with('cosecha')
+                ->whereHas('cosecha', function($q) use ($idInvernadero) {
+                    $q->where('idInvernadero', $idInvernadero);
+                })
+                ->orderBy('fecha', 'desc')
+                ->get();
+
+            return view('reportes.pdf.gastos_detalle', compact('gastos'));
+
+
+        /* -----------------------------------------------
+         * 3️⃣ MANTENIMIENTOS
+         * -----------------------------------------------*/
+        case 'mantenimientos':
+
+            $mantenimientos = MantenimientoInvernadero::where('idInvernadero', $idInvernadero)
+                ->orderBy('fecha', 'desc')
+                ->get();
+
+            return view('reportes.pdf.mantenimientos', compact('mantenimientos'));
+
+
+        /* -----------------------------------------------
+         * 4️⃣ RESUMEN GENERAL
+         * -----------------------------------------------*/
+        case 'resumen_general':
+
+            $cosechas = Cosecha::with(['ingreso', 'gastos'])
+                ->where('idInvernadero', $idInvernadero)
+                ->get();
+
+            $gastos = Gastos::whereHas('cosecha', function($q) use ($idInvernadero) {
+                $q->where('idInvernadero', $idInvernadero);
+            })->get();
+
+            $mantenimientos = MantenimientoInvernadero::where('idInvernadero', $idInvernadero)->get();
+
+            return view('reportes.pdf.resumen_general', compact(
+                'cosechas',
+                'gastos',
+                'mantenimientos'
+            ));
+    }
+}
+
 }

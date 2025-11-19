@@ -30,7 +30,7 @@
 
 <body class="bg-light">
     <div class="container">
-        <a href="{{route('MantenimientoInverndero.create',$idinvernadero)}}" class="btn btn-success"> <i class="bi bi-plus-circle"></i> Nuevo Mantenimiento Invernadero</a>
+        <a href="{{route('MantenimientoInvernadero.create',$idinvernadero)}}" class="btn btn-success"> <i class="bi bi-plus-circle"></i> Nuevo Mantenimiento Invernadero</a>
         <table class="table table-bordered table-hover">
             <thead class="table-success">
                 <tr>
@@ -54,11 +54,11 @@
                     <td>{{$mantenimiento->invernadero->nombre}}</td>
                     <td class="text-center">
                         <div class="d-flex justify-content-center gap-2">
-                            <a href="{{route('MantenimientoInverndero.edit',$mantenimiento->id)}}"
+                            <a href="{{route('MantenimientoInvernadero.edit',$mantenimiento->id)}}"
                                 class="btn btn-warning shadow-sm btn-accion">
                                 <i class="bi bi-pencil-square"></i> Editar
                             </a>
-                            <form action="{{route('MantenimientoInverndero.destroy',$mantenimiento->id)}}" method="POST">
+                            <form action="{{route('MantenimientoInvernadero.destroy',$mantenimiento->id)}}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-danger shadow-sm btn-accion"
                                     onclick="confirmarEliminacion(event)">
@@ -71,7 +71,7 @@
                 @endforeach
             </tbody>
         </table>
-        <a href="" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Volver</a>
+        <a href="{{ route('Invernaderos.index', ['idfinca' => $idfinca]) }}" class="btn btn-info"><i class="bi bi-arrow-left-circle"></i> Volver</a>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"

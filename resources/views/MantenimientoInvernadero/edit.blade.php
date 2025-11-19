@@ -16,7 +16,7 @@
         </div>
         <div class="card-body p-4">
 
-          <form action="{{ route('MantenimientoInverndero.update',$mantenimiento->id) }}" method="POST">
+          <form action="{{ route('MantenimientoInvernadero.update',$mantenimiento->id) }}" method="POST">
             @csrf
 
               <!-- Invernadero -->

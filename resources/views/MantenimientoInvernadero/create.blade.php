@@ -15,7 +15,7 @@
         </div>
         <div class="card-body p-4">
 
-          <form action="{{ route('MantenimientoInverndero.store') }}" method="POST">
+          <form action="{{ route('MantenimientoInvernadero.store') }}" method="POST">
             @csrf
               
             <!-- Invernadero -->

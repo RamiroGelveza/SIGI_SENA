@@ -15,6 +15,11 @@
     <a href="{{ route('Fincas.create') }}" class="btn btn-success btn-lg shadow-sm lift-up-effect">
         <i class="fas fa-fw fa-plus-circle me-1"></i> Registrar Nueva Finca
     </a>
+    
+    <a href="{{ route('welcome') }}" class="btn btn-outline-secondary btn-lg fw-bold">
+        <i class="fas fa-fw fa-arrow-left me-1"></i> Volver al Dashboard
+    </a>
+
 </div>
 
 {{-- CUADRÍCULA DE FINCAS --}}
@@ -27,12 +32,12 @@
 
             {{-- Encabezado con Ícono, Nombre y Menú de Acciones --}}
             <div class="card-header bg-success text-white py-3 d-flex justify-content-between align-items-center">
-                
+                <div class="col-9">
                 {{-- Nombre de la Finca --}}
                 <h5 class="mb-0 fw-bold text-truncate">
                     <i class="fas fa-fw fa-map-marked-alt me-2"></i> {{ $finca->nombre }}
                 </h5>
-                
+                </div>
                 {{-- Dropdown de Acciones --}}
                 <div class="dropdown">
                     <button class="btn btn-sm btn-light p-0 px-1 rounded-circle shadow-sm"
@@ -58,7 +63,7 @@
                                 <i class="fas fa-fw fa-edit me-2" style="color:#FFE70F !important;"></i> Editar Finca
                             </a>
                         </li>
-
+                            <div class="dropdown-divider"></div>
                         {{-- Eliminar --}}
                         <li>
                             <form action="{{ route('Fincas.destroy', $finca->id) }}" method="POST" class="d-inline">
@@ -103,7 +108,7 @@
                         <h4 class="fw-bolder text-warning mb-0">
                             {{ $finca->contarInvernaderosPorId($finca->id) }}
                         </h4>
-                        <small class="text-muted">Cosechas Registradas</small>
+                        <small class="text-muted">Historial Cosechas</small>
                     </div>
                 </div>
 
@@ -111,7 +116,7 @@
 
             {{-- Pie de Página (Acción Principal) --}}
             <div class="card-footer bg-light p-2 border-top-0">
-                <a href="{{ route('Invernaderos.index', $finca->id) }}"
+                <a href="{{ route('Invernaderos.index', ['idfinca' => $finca->id]) }}"
                     class="btn btn-info btn-block w-100 shadow-sm fw-bold">
                     <i class="fas fa-fw fa-seedling me-1"></i> Administrar Invernaderos
                 </a>
@@ -129,12 +134,6 @@
         </div>
     </div>
     @endforelse
-</div>
-
-<div class="mt-5">
-    <a href="{{ route('welcome') }}" class="btn btn-secondary shadow-sm">
-        <i class="fas fa-fw fa-arrow-left me-1"></i> Volver al Dashboard
-    </a>
 </div>
 
 @stop

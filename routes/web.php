@@ -19,6 +19,16 @@ Route::get('/',[dashboarController::class,'welcome'])->name('welcome');
 
 Route::get('/Cosechas/{id}/administrar', [CosechaController::class, 'administrarCosecha'])->name('administrar');
 
+Route::get('/cosechas/reporte/vista', [CosechaController::class, 'vistaReporte'])->name('cosechas.reporte.vista');
+Route::get('/cosechas/reporte/pdf', [CosechaController::class, 'generarPDF'])->name('cosechas.reporte.pdf');
+
+
+Route::post('/reportes/generar', [InvernaderoController::class, 'generar'])->name('Invernadero.pdf');
+
+
+
+
+
 
 
 
@@ -66,12 +76,12 @@ Route::get('/TiposCultivos/edit/{id}',[TiposCultivoController::class,'edit'])->n
 Route::post('/TiposCultivos/update/{id}',[TiposCultivoController::class,'update'])->name('TiposCultivos.update');
 
 #routes de mantenimineto invernaderos
-Route::get('/MantenimientoInverndero/index/{idinvernadero}',[MantenimientoInvernaderoController::class,'index'])->name('MantenimientoInverndero.index');
-Route::get('/MantenimientoInverndero/create/{idinvernadero}',[MantenimientoInvernaderoController::class,'create'])->name('MantenimientoInverndero.create');
-Route::post('/MantenimientoInverndero/store',[MantenimientoInvernaderoController::class,'store'])->name('MantenimientoInverndero.store');
-Route::post('/MantenimientoInverndero/destroy/{id}',[MantenimientoInvernaderoController::class,'destroy'])->name('MantenimientoInverndero.destroy');
-Route::get('/MantenimientoInverndero/edit/{idinvernadero}',[MantenimientoInvernaderoController::class,'edit'])->name('MantenimientoInverndero.edit');
-Route::post('/MantenimientoInverndero/update/{id}',[MantenimientoInvernaderoController::class,'update'])->name('MantenimientoInverndero.update');
+Route::get('MantenimientoInvernadero/index/{idinvernadero}', [MantenimientoInvernaderoController::class, 'index'])->name('MantenimientoInvernadero.index');
+Route::get('MantenimientoInvernadero/create/{idinvernadero}', [MantenimientoInvernaderoController::class, 'create'])->name('MantenimientoInvernadero.create');
+Route::post('MantenimientoInvernadero/store', [MantenimientoInvernaderoController::class, 'store'])->name('MantenimientoInvernadero.store');
+Route::get('MantenimientoInvernadero/edit/{idinvernadero}', [MantenimientoInvernaderoController::class, 'edit'])->name('MantenimientoInvernadero.edit');
+Route::post('MantenimientoInvernadero/update/{id}', [MantenimientoInvernaderoController::class, 'update'])->name('MantenimientoInvernadero.update');
+Route::post('MantenimientoInvernadero/destroy/{id}', [MantenimientoInvernaderoController::class, 'destroy'])->name('MantenimientoInvernadero.destroy');
 
 #routes de estados de la cosecha
 Route::get('/EstadosCosecha/index',[EstadosCosechaController::class,'index'])->name('EstadosCosecha.index');

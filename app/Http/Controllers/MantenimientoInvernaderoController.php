@@ -13,12 +13,15 @@ class MantenimientoInvernaderoController extends Controller
      * Display a listing of the resource.
      */
     public function index($idinvernadero)
-    {
-        
-        $mantenimientos=MantenimientoInvernadero::where('idInvernadero',$idinvernadero)->get();
-        $idinvernadero=$idinvernadero;
-        return view('MantenimientoInvernadero.index',compact('mantenimientos','idinvernadero'));
-    }
+  {
+    $mantenimientos = MantenimientoInvernadero::where('idInvernadero', $idinvernadero)->get();
+
+    // obtenemos la finca a la que pertenece el invernadero
+    $invernadero = Invernadero::find($idinvernadero);
+    $idfinca = $invernadero ? $invernadero->idFinca : null;
+
+    return view('MantenimientoInvernadero.index', compact('mantenimientos', 'idinvernadero', 'idfinca'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -37,7 +40,7 @@ class MantenimientoInvernaderoController extends Controller
         MantenimientoInvernadero::create($request->all());
         $idinvernadero = $request->input('idInvernadero');
 
-        return redirect()->route('MantenimientoInverndero.index',['idinvernadero' => $idinvernadero] )
+        return redirect()->route('MantenimientoInvernadero.index',['idinvernadero' => $idinvernadero] )
         ->with('success','Mantenimiento Inverndero Creado Correctamente');
     }
 
@@ -68,7 +71,7 @@ class MantenimientoInvernaderoController extends Controller
         $mantenimientoInvernadero->update($request->all());
         $idinvernadero = $request->input('idInvernadero');
 
-        return redirect()->route('MantenimientoInverndero.index',['idinvernadero'=>$idinvernadero] )
+        return redirect()->route('MantenimientoInvernadero.index',['idinvernadero'=>$idinvernadero] )
         ->with('success','Mantenimiento Inverndero Actualizado Correctamente');
     }
 
@@ -76,10 +79,17 @@ class MantenimientoInvernaderoController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($id)
-    {
-        $mantenimientoInvernadero=MantenimientoInvernadero::findorfail($id);
-        $mantenimientoInvernadero->delete();
-        return redirect()->route('MantenimientoInverndero.index')->with('success','Mantenimiento Inverndero Eliminado Correctamente');
+ {
+   
+    $mantenimiento = MantenimientoInvernadero::findOrFail($id);
 
-    }
+    // Obtener el invernadero relacionado
+    $idinvernadero = $mantenimiento->idInvernadero;
+
+    $mantenimiento->delete();
+
+    return redirect()->route('MantenimientoInvernadero.index', ['idinvernadero' => $idinvernadero])
+        ->with('success', 'Mantenimiento eliminado correctamente');
 }
+}
+

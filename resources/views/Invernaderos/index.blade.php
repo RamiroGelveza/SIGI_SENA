@@ -16,11 +16,18 @@
 @section('content')
 
 {{-- Contenedor de Acciones (Botones Superiores) --}}
-<div class="mb-4 d-flex justify-content-between">
-    <a href="{{ route('Invernaderos.create', $idfinca)}}" class="btn btn-primary btn-lg shadow-sm lift-up-effect">
-        <i class="fas fa-fw fa-plus-circle me-1"></i> Registrar Nuevo Invernadero
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <a href="{{ route('Invernaderos.create', $idfinca) }}" 
+       class="btn btn-primary btn-lg shadow-sm lift-up-effect">
+        <i class="fas fa-plus-circle me-2"></i> Registrar Nuevo Invernadero
+    </a>
+
+    <a href="{{ route('Fincas.index') }}" 
+       class="btn btn-outline-secondary btn-lg fw-bold">
+        <i class="fas fa-arrow-left me-2"></i> Volver a Fincas
     </a>
 </div>
+
 
 {{-- CUADRÍCULA DE INVERNADEROS --}}
 <div class="row g-4">
@@ -32,10 +39,11 @@
 
             {{-- Encabezado con Nombre y Menú de Acciones --}}
             <div class="card-header bg-primary text-white py-3 d-flex justify-content-between align-items-center">
-
+                <div class="col-9">
                 <h5 class="mb-0 fw-bold text-truncate">
                     <i class="fas fa-fw fa-warehouse me-2"></i> {{ $invernadero->nombre }}
                 </h5>
+                </div>
 
                 {{-- Dropdown de Opciones --}}
                 <div class="dropdown">
@@ -60,7 +68,6 @@
                         <li>
                             <form action="{{ route('Invernaderos.destroy', $invernadero->id) }}" method="POST" class="d-inline">
                                 @csrf
-                                @method('DELETE')
                                 <button type="submit"
                                     class="dropdown-item text-danger"
                                     onclick="confirmarEliminacion(event)">
@@ -110,20 +117,26 @@
 
             {{-- Pie de Página (Acciones Principales) --}}
             <div class="card-footer bg-light p-3 d-grid gap-2">
-
+                
+                <!-- <a href="" class="btn btn-success btn-block shadow-sm fw-bold">Reportes</a> -->
+                    <button type="button" class="btn btn-success btn-block shadow-sm fw-bold" 
+                    data-bs-toggle="modal" data-bs-target="#modalGenerarReporte"> Reportes</button>
                 {{-- Acción Principal 1: Gestionar Cosecha --}}
                 <a href="{{ route('Cosechas.index', $invernadero->id)}}" class="btn btn-info btn-block shadow-sm fw-bold">
                     <i class="fas fa-leaf me-1"></i> Gestionar Cosechas
                 </a>
 
                 {{-- Acción Principal 2: Gestionar Mantenimientos --}}
-                <a href="{{ route('MantenimientoInverndero.index', $invernadero->id)}}" class="btn btn-warning btn-block shadow-sm fw-bold text-dark">
+                <a href="{{ route('MantenimientoInvernadero.index', ['idinvernadero' => $invernadero->id]) }}" class="btn btn-warning btn-block shadow-sm fw-bold text-dark">
                     <i class="fas fa-tools me-1"></i> Mantenimiento
                 </a>
 
             </div>
         </div>
     </div>
+    <!-- Button trigger modal -->
+@include('Reportes.InvernaderoReportes.InvernaderoReportes',['invernadero' => $invernadero])
+
 
     @empty
     {{-- Mensaje si no hay invernaderos --}}
@@ -134,12 +147,6 @@
         </div>
     </div>
     @endforelse
-</div>
-
-<div class="mt-5">
-    <a href="{{ route('Fincas.index') }}" class="btn btn-secondary shadow-sm">
-        <i class="fas fa-fw fa-arrow-left me-1"></i> Volver a Fincas
-    </a>
 </div>
 
 @stop

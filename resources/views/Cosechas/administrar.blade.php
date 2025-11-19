@@ -170,7 +170,7 @@
                     </a>
                 </div>
                 <div class="card-body p-0 table-responsive">
-                    <table id="myTable" class="table table-striped table-hover align-middle mb-0">
+                    <table id="dataTable" class="table table-striped table-hover align-middle mb-0">
                         <thead class="table-light text-center">
                             <tr>
                                 <th>Fecha</th>
@@ -319,6 +319,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable({
+            responsive: true,
+            autoWidth: true,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.8/i18n/es-ES.json'
+            }
+        });
+    });
 </script>
 @endpush
 @endsection
