@@ -10,6 +10,8 @@
             font-size: 12px;
             margin: 20px;
         }
+        .title { font-size: 20px; font-weight: bold; text-align: center; margin-bottom: 10px; }
+        .subtitle { font-size: 15px; margin-bottom: 20px; text-align: center; }
 
         h2 {
             text-align: center;
@@ -45,9 +47,12 @@
     </style>
 </head>
 <body>
+<div class="title">REPORTE DE INGRESOS Y UTILIDAD DE COSECHAS</div>
 
-<h2>REPORTE DE INGRESOS Y UTILIDAD DE COSECHAS</h2>
-
+    <div class="subtitle">
+        Invernadero: <strong>{{ $invernadero->nombre }}</strong><br>
+        Finca: <strong>{{ $invernadero->finca->nombre }}</strong>
+    </div>
 <table>
     <thead>
     <tr>
@@ -80,10 +85,12 @@
             <td class="right">$ {{ number_format($totalIngresos, 0, ',', '.') }}</td>
             <td class="right">$ {{ number_format($totalGastos, 0, ',', '.') }}</td>
 
-            <td class="right"
-                style="color: {{ $utilidad >= 0 ? 'green' : 'red' }};">
-                $ {{ number_format($utilidad, 0, ',', '.') }}
-            </td>
+          <td class="{{ $utilidad >= 0 ? 'text-green' : 'text-red' }}">
+    $ {{ number_format($utilidad, 0, ',', '.') }}
+</td>
+
+
+
 
             <td>{{ $cosecha->estadosCosecha->nombre ?? 'Sin estado' }}</td>
         </tr>

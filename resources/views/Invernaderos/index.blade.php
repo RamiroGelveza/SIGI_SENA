@@ -119,8 +119,17 @@
             <div class="card-footer bg-light p-3 d-grid gap-2">
                 
                 <!-- <a href="" class="btn btn-success btn-block shadow-sm fw-bold">Reportes</a> -->
-                    <button type="button" class="btn btn-success btn-block shadow-sm fw-bold" 
-                    data-bs-toggle="modal" data-bs-target="#modalGenerarReporte"> Reportes</button>
+            <!-- BOTÓN en cada card (dentro del foreach) -->
+<button class="btn btn-success btn-sm"
+    data-bs-toggle="modal"
+    data-bs-target="#modalReporteInvernadero"
+   onclick="setInvernadero('{{ $invernadero->id }}')">
+    <i class="fas fa-file-pdf"></i> Reporte
+</button>
+
+
+
+
                 {{-- Acción Principal 1: Gestionar Cosecha --}}
                 <a href="{{ route('Cosechas.index', $invernadero->id)}}" class="btn btn-info btn-block shadow-sm fw-bold">
                     <i class="fas fa-leaf me-1"></i> Gestionar Cosechas

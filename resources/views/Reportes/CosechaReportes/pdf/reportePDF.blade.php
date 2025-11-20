@@ -62,9 +62,11 @@
           <td>{{ $cosecha->fechaCosechaEstimada ?? '-' }}</td>
           <td>${{ number_format($cosecha->total_ingresos, 0, ',', '.') }}</td>
           <td>${{ number_format($cosecha->total_gastos, 0, ',', '.') }}</td>
-          <td style="color: {{ $cosecha->utilidad >= 0 ? 'green' : 'red' }}">
-            ${{ number_format($cosecha->utilidad, 0, ',', '.') }}
-          </td>
+         <td class="{{ $cosecha->utilidad >= 0 ? 'text-green' : 'text-red' }}">
+    ${{ number_format($cosecha->utilidad, 0, ',', '.') }}
+</td>
+
+
         </tr>
       @empty
         <tr>
@@ -85,9 +87,12 @@
     <p><strong>Total Ingresos:</strong> ${{ number_format($totalIngresos, 0, ',', '.') }}</p>
     <p><strong>Total Gastos:</strong> ${{ number_format($totalGastos, 0, ',', '.') }}</p>
     <p><strong>Utilidad Total:</strong> 
-      <span style="color: {{ $totalUtilidad >= 0 ? 'green' : 'red' }}">
-        ${{ number_format($totalUtilidad, 0, ',', '.') }}
-      </span>
+   <span class="{{ $totalUtilidad >= 0 ? 'text-green-500' : 'text-red-500' }}">
+    ${{ number_format($totalUtilidad, 0, ',', '.') }}
+</span>
+
+
+
     </p>
   </div>
   @endif
