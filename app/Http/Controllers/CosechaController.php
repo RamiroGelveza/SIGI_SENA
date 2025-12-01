@@ -8,6 +8,7 @@ use App\Models\EstadosCosecha;
 use App\Models\Gastos;
 use App\Models\Ingreso;
 use App\Models\Invernadero;
+use App\Models\MantenimientoInvernadero;
 use App\Models\TiposCultivo;
 use Barryvdh\DomPDF\Facade\Pdf;
 use GrahamCampbell\ResultType\Success;
@@ -21,6 +22,7 @@ class CosechaController extends Controller
      */
 public function index(Request $request, $idinvernadero)
 {
+    
     // 🔍 Filtros recibidos del formulario
     $search       = $request->get('search');
     $cultivoId    = $request->get('cultivo_id');
@@ -66,12 +68,18 @@ public function index(Request $request, $idinvernadero)
     $cosechas = $query->paginate(20);
 
     // 🔢 Datos auxiliares para los filtros
+    $mantenimientos= MantenimientoInvernadero::where('idInvernadero', $idinvernadero)->get(); 
+    $totalMantenimientos = $mantenimientos->sum('costoMantenimiento');
     $cultivos = TiposCultivo::all();
     $nombreInvernadero = Invernadero::find($idinvernadero)?->nombre ?? 'Invernadero no definido';
+    $invernadero = Invernadero::find($idinvernadero);
+
+    // Obtener la finca
+    $idfinca = $invernadero->idFinca;
 
     return view('Cosechas.index', compact(
         'cosechas', 'cultivos', 'idinvernadero', 'nombreInvernadero',
-        'search', 'cultivoId', 'estado', 'fechaInicio', 'fechaFin'
+        'search', 'cultivoId', 'estado', 'fechaInicio', 'fechaFin','mantenimientos','totalMantenimientos','invernadero','idfinca'
     ));
 }
 
@@ -167,14 +175,7 @@ public function administrarCosecha($id)
 
     return view('Cosechas.administrar', compact('cosecha', 'ingresos', 'gastos', 'totalIngresos', 'totalGastos', 'utilidad'));
 }
-private function graficarCosechasPorCultivo($idinvernadero)
-{
-    return Cosecha::selectRaw('tipos_cultivos.nombre as cultivo, COUNT(cosechas.id) as total')
-        ->join('tipos_cultivos', 'cosechas.idTipoCultivo', '=', 'tipos_cultivos.id')
-        ->where('cosechas.idInvernadero', $idinvernadero)
-        ->groupBy('tipos_cultivos.nombre')
-        ->get();
-}
+
 public function vistaReporte(Request $request)
 {
     $cosechas = $this->filtrarCosechas($request);

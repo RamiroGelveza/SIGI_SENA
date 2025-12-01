@@ -1,270 +1,74 @@
 @extends('layouts.app')
-
-@section('title','DASHBOARD')
+@section('title','Dashboard')
 
 @section('titleContent')
-<h1 class="text-primary fw-bold text-center mb-4">
-    <i class="fas fa-cogs"></i> Gestión del Sistema
+<h1 class="fw-bold text-center text-dark mb-4" style="letter-spacing: -1px;">
+    🌿 Gestión del Sistema
 </h1>
 @endsection
 
 @section('content')
-<div class="container py-4">
-    <div class="row g-4 justify-content-center">
+<div class="container py-5">
 
-
-
-        <div class="col-md-6 col-lg-4">
-            <div class="small-box bg-info shadow">
-                <div class="inner">
-                    <p>Fincas Registradas</p>
-                    <h4 class="text-center">Administra fácilmente la información de tus Fincas.</h4>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-seedling"></i>
-                </div>
-                <a href="{{ route('Fincas.index') }}" class="small-box-footer">
-                    Gestionar fincas <i class="fas fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-lg-4">
-            <div class="small-box bg-success shadow">
-                <div class="inner">
-                    <p>Fincas Registradas</p>
-                    <h3 class="text-center">{{ $cantidadFincas }}</h3>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-seedling"></i>
-                </div>
-                <a href="/Fincas/index" class="small-box-footer">
-                    Ver todas las fincas <i class="fas fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-lg-4">
-            <div class="small-box bg-primary shadow">
-                <div class="inner">
-                    <p>Invernaderos Registradas</p>
-                    <h3 class="text-center">{{ $cantidadInvernaderos }}</h3>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-seedling"></i>
-                </div>
-                <a href="/Invernaderos/index/{idfinca}" class="small-box-footer">
-                    <i class="fas fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div>
-
-
-        <div class="col-md-6 col-lg-4">
-            <div class="small-box bg-primary shadow">
-                <div class="inner">
-                    <p>Cosecha Registradas</p>
-                    <h3 class="text-center">{{ $cantidadCosechas }}</h3>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-seedling"></i>
-                </div>
-                <a href="" class="small-box-footer">
-                    <i class="fas fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div>
-
-
-        <!--
-
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body text-center p-4">
-                    <div class="mb-3">
-                        <i class="fas fa-wallet fa-2x text-primary"></i>
-                    </div>
-                    <h5 class="fw-semibold text-dark">Categoría Gastos</h5>
-                    <p class="text-muted small mb-4">Lleva un control detallado de la Categoría de Gastos.</p>
-                    <a href="{{ route('CategoriaGastos.index') }}" class="btn btn-outline-success rounded-pill w-100">
-                        Gestionar Categoria Gastos
-                    </a>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body text-center p-4">
-                    <div class="mb-3">
-                        <i class="fas fa-leaf fa-2x text-primary"></i>
-                    </div>
-                    <h5 class="fw-semibold text-dark">Tipos de Cultivos</h5>
-                    <p class="text-muted small mb-4">Control de las diferentes categorías de Cultivos.</p>
-                    <a href="{{ route('TiposCultivos.index') }}" class="btn btn-outline-primary rounded-pill w-100">
-                        Gestionar Cultivos
-                    </a>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body text-center p-4">
-                    <div class="mb-3">
-                        <i class="fas fa-tools fa-2x text-primary"></i>
-                    </div>
-                    <h5 class="fw-semibold text-dark">Mantenimiento Invernadero</h5>
-                    <p class="text-muted small mb-4">Control de los mantenimientos realizados a los Invernaderos.</p>
-                    <a href="" class="btn btn-outline-success rounded-pill w-100">
-                        Gestionar Mantenimientos
-                    </a>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body text-center p-4">
-                    <div class="mb-3">
-                        <i class="fas fa-tasks fa-2x text-primary"></i>
-                    </div>
-                    <h5 class="fw-semibold text-dark">Estados de Cosecha</h5>
-                    <p class="text-muted small mb-4">Registra y controla los diferentes estados de las cosechas.</p>
-                    <a href="{{ route('EstadosCosecha.index') }}" class="btn btn-outline-primary rounded-pill w-100">
-                        Gestionar Estados Cosecha
-                    </a>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body text-center p-4">
-                    <div class="mb-3">
-                        <i class="fas fa-tractor fa-2x text-primary"></i>
-                    </div>
-                    <h5 class="fw-semibold text-dark">Cosecha</h5>
-                    <p class="text-muted small mb-4">Registra y controla la gestión de la cosecha.</p>
-                    <a href="" class="btn btn-outline-success rounded-pill w-100">
-                        Gestionar Cosecha
-                    </a>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body text-center p-4">
-                    <div class="mb-3">
-                        <i class="fas fa-dollar-sign fa-2x text-primary"></i>
-                    </div>
-                    <h5 class="fw-semibold text-dark">Ingresos</h5>
-                    <p class="text-muted small mb-4">Registra y controla la gestión de los Ingresos.</p>
-                    <a href="" class="btn btn-outline-primary rounded-pill w-100">
-                        Gestionar Ingresos
-                    </a>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body text-center p-4">
-                    <div class="mb-3">
-                        <i class="fas fa-credit-card fa-2x text-primary"></i>
-                    </div>
-                    <h5 class="fw-semibold text-dark">Gastos</h5>
-                    <p class="text-muted small mb-4">Registra y controla la gestión de los Gastos.</p>
-                    <a href="" class="btn btn-outline-success rounded-pill w-100">
-                        Gestionar Gastos
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        -->
+    <!-- Hero Section -->
+    <div class="modern-hero mb-5 text-center">
+        <h2 class="fw-bold text-dark">Bienvenido al Sistema SIGI</h2>
+        <p class="text-secondary mb-0">Administra tus fincas y cultivos con un diseño moderno y minimalista.</p>
     </div>
+
+    <!-- Tarjeta única -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="modern-card shadow-sm">
+                <div>
+                    <h4 class="mb-1 fw-bold">Fincas Registradas</h4>
+                    <p class="text-secondary small">Administra toda la información de tus fincas.</p>
+                </div>
+                <h1 class="display-4 fw-bold text-primary">{{ $cantidadFincas }}</h1>
+                <a href="{{ route('Fincas.index') }}" class="btn-modern">Gestionar Fincas</a>
+            </div>
+        </div>
+    </div>
+
 </div>
 @endsection
 
 @push('css')
 <style>
-    /* Estilo agropecuario moderno */
-    .card {
-        border: 1px solid #dfe6dd;
-        /* Borde sutil */
-        border-radius: 18px;
+    .modern-hero {
+        padding: 40px;
+        background: #f8f9fa;
+        border-radius: 25px;
+    }
+
+    .modern-card {
         background: #ffffff;
-        /* Fondo blanco limpio */
-        color: #3a3a3a;
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-        transition: transform 0.25s ease, box-shadow 0.25s ease;
-        overflow: hidden;
+        border-radius: 25px;
+        padding: 35px;
+        text-align: center;
+        transition: 0.3s;
+        border: 1px solid #eee;
     }
 
-    /* Hover efecto */
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-        border-color: #a7c957;
-        /* Verde claro */
+    .modern-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 35px rgba(0,0,0,0.07);
     }
 
-    /* Encabezado con franja superior */
-    .card::before {
-        content: "";
-        display: block;
-        height: 6px;
-        background: linear-gradient(90deg, #6a994e, #a9d6e5);
-    }
-
-    /* Iconos */
-    .card i {
-        font-size: 2.2rem;
-        color: #6a994e;
-        /* Verde oliva */
-        margin-bottom: 12px;
-    }
-
-    /* Título */
-    .card-title {
-        font-weight: 700;
-        font-size: 1.15rem;
-        color: #283618;
-        /* Verde bosque */
-        margin-top: 5px;
-    }
-
-    /* Texto */
-    .card-text {
-        font-size: 0.95rem;
-        color: #606c38;
-        /* Verde suave tierra */
-        margin-bottom: 15px;
-    }
-
-    /* Botón */
-    .card .btn {
-        background-color: #6a994e;
-        border: none;
-        color: #fff;
-        font-weight: 500;
+    .btn-modern {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 25px;
         border-radius: 30px;
-        padding: 8px 18px;
-        transition: background 0.3s ease;
+        background: #1d72f3;
+        color: #fff;
+        font-weight: bold;
+        text-decoration: none;
+        transition: 0.3s;
     }
 
-    .card .btn:hover {
-        background-color: #386641;
-        /* Verde más profundo */
+    .btn-modern:hover {
+        background: #0d5ad8;
     }
 </style>
 @endpush

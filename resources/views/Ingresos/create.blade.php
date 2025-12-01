@@ -60,7 +60,7 @@
 
                         <!-- Cantidad Vendida -->
                         <div class="mb-3">
-                            <label for="cantidadVendida" class="form-label">Cantidad Vendida (kg)</label>
+                            <label for="cantidadVendida" class="form-label">Cantidad Vendida (Canastillas)</label>
                             <input type="number" step="0.01" name="cantidadVendida" id="cantidadVendida" class="form-control
                             @error('cantidadVendida') is-invalid @enderror" placeholder="Ej: 120.50">
                             @error('cantidadVendida')
@@ -70,7 +70,7 @@
 
                         <!-- Precio Unitario -->
                         <div class="mb-3">
-                            <label for="precioUnitario" class="form-label">Precio Unitario ($)</label>
+                            <label for="precioUnitario" class="form-label">Precio Unitario (Canastilla)</label>
                             <input type="number" step="0.01" name="precioUnitario" id="precioUnitario" class="form-control
                             @error('precioUnitario') is-invalid @enderror" placeholder="Ej: 2500">
                             @error('precioUnitario')

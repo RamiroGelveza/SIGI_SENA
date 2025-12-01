@@ -27,6 +27,11 @@
         }
         .btn-danger { background: #dc3545; }
         .btn-success { background: #198754; }
+        .footer {
+            margin-top: 25px;
+            text-align: right;
+            font-size: 11px;
+        }
     </style>
 
 </head>
@@ -83,6 +88,9 @@
     <h3 style="text-align:right;">
         Total de Gastos: <strong>${{ number_format($total, 0, ',', '.') }}</strong>
     </h3>
-
+{{-- FOOTER --}}
+    <div class="footer">
+        Reporte generado el {{ now()->format('d/m/Y - H:i') }}
+    </div>
 </body>
 </html>

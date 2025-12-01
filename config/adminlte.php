@@ -351,12 +351,12 @@ return [
                         ],
             ],
         ],
-        [
-            'text' => 'Reportes',
-            'url' => '/',
-            'icon' => 'fas fa-fw fa-tachometer-alt',
-            'label_color' => 'success',
-        ],
+        // [
+        //     'text' => 'Reportes',
+        //     'url' => '/',
+        //     'icon' => 'fas fa-fw fa-tachometer-alt',
+        //     'label_color' => 'success',
+        // ],
 
 
     ],

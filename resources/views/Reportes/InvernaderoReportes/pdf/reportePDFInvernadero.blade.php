@@ -5,44 +5,67 @@
     <title>Reporte - Ingresos y Utilidad de Cosechas</title>
 
     <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
+     body {
+            font-family: DejaVu Sans, sans-serif;
             font-size: 12px;
             margin: 20px;
         }
-        .title { font-size: 20px; font-weight: bold; text-align: center; margin-bottom: 10px; }
-        .subtitle { font-size: 15px; margin-bottom: 20px; text-align: center; }
 
-        h2 {
+        h2,
+        h3 {
             text-align: center;
-            margin-bottom: 15px;
+            margin: 10px 0;
         }
+
+        body {
+            font-family: DejaVu Sans, sans-serif;
+            font-size: 13px;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 25px;
+            margin-top: 15px;
         }
 
-        th {
-            background: #28a745;
-            color: white;
-            padding: 8px;
+        table th,
+        table td {
+            border: 1px solid #444;
+            padding: 6px;
             text-align: center;
         }
 
-        td {
-            border: 1px solid #777;
-            padding: 7px;
-            text-align: center;
-        }
-
-        .right { text-align: right; }
-        .left { text-align: left; }
-
-        .totales {
+        table th {
+            background: #f0f0f0;
             font-weight: bold;
-            background: #e9ffe7;
+        }
+
+        .section {
+            margin-top: 25px;
+            margin-bottom: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .footer {
+            margin-top: 25px;
+            text-align: right;
+            font-size: 11px;
         }
     </style>
 </head>
@@ -99,5 +122,36 @@
     </tbody>
 </table>
 
+        <table class="">
+            <thead>
+                <tr>
+                    <th>totalIngresosGeneral</th>
+                    <th>totalGastosGeneral</th>
+                    <th>totalUtilidadGeneral</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr class="totales">
+        <td >
+            <strong>$ {{ number_format($totalIngresosGeneral, 0, ',', '.') }}</strong>
+        </td>
+
+        <td >
+            <strong>$ {{ number_format($totalGastosGeneral, 0, ',', '.') }}</strong>
+        </td>
+
+        <td >
+            <strong>$ {{ number_format($totalUtilidadGeneral, 0, ',', '.') }}</strong>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+{{-- FOOTER --}}
+    <div class="footer">
+        Reporte generado el {{ now()->format('d/m/Y - H:i') }}
+    </div>
 </body>
 </html>

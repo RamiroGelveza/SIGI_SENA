@@ -25,7 +25,7 @@ class CosechaRequest extends FormRequest
             // 'fechaCreacion'        => ['required', 'date','before_or_equal:today'],
             'fechaSiembra'         => ['required', 'date', 'before_or_equal:today'],
             'fechaCosechaEstimada' => ['required', 'date', 'after:fechaSiembra'],
-            // 'fechaCosechaReal'     => ['nullable', 'date', 'after_or_equal:fechaSiembra'],
+            'fechaCosechaReal'     => ['nullable', 'date', 'after_or_equal:fechaSiembra'],
 
             // 'cantidadSembrada'     => ['required', 'numeric', 'min:1', 'max:100000'],
             // 'totalGastos'          => ['required', 'numeric', 'min:0', 'max:99999999.99'],

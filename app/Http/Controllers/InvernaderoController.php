@@ -9,7 +9,7 @@ use App\Models\Gastos;
 use App\Models\Invernadero;
 use App\Models\MantenimientoInvernadero;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use Carbon\Carbon;
 use Dompdf\Adapter\PDFLib;
 use Illuminate\Http\Request;
 
@@ -100,25 +100,58 @@ class InvernaderoController extends Controller
 public function generar(Request $request,$idInvernadero)
 {
     $invernadero = Invernadero::findOrFail($idInvernadero);
-
-    // Cosechas del invernadero
-    $cosechas = Cosecha::where('idInvernadero', $idInvernadero)->get();
     $tipo = $request->tipo;
+
+    /*
+    |--------------------------------------------------------------------------
+    | MANEJO DE FECHAS (FILTRA SOLO SI EL USUARIO PONE FECHA)
+    |--------------------------------------------------------------------------
+    */
+    $usarFecha = $request->filled('fecha_inicio') || $request->filled('fecha_fin');
+
+    if ($usarFecha) {
+        $fechaInicio = $request->filled('fecha_inicio')
+            ? Carbon::parse($request->fecha_inicio)->startOfDay()
+            : Carbon::create(1900, 1, 1)->startOfDay();
+
+        $fechaFin = $request->filled('fecha_fin')
+            ? Carbon::parse($request->fecha_fin)->endOfDay()
+            : Carbon::create(3000, 1, 1)->endOfDay();
+    }
+
 
     switch ($tipo) {
 
-        /* -----------------------------------------------
-         * 1️⃣ INGRESOS Y UTILIDAD DE COSECHAS
-         * -----------------------------------------------*/
+        /* ───────────────────────────────────────────────
+         * 1️⃣ INGRESOS Y UTILIDAD POR COSECHAS
+         * ─────────────────────────────────────────────── */
         case 'cosechas_ingresos':
-            $invernadero = Invernadero::findOrFail($idInvernadero);
 
-            $cosechas = Cosecha::with(['ingresos', 'gastos'])
-                ->where('idInvernadero', $idInvernadero)
-                ->orderBy('id', 'desc')
-                ->get();
+            $query = Cosecha::with(['ingresos', 'gastos'])
+                ->where('idInvernadero', $idInvernadero);
 
-            return view('Reportes.InvernaderoReportes.pdf.reportePDFInvernadero', compact('cosechas','invernadero'));
+            if ($usarFecha) {
+                $query->whereBetween('fechaSiembra', [$fechaInicio, $fechaFin]);
+            }
+
+            $cosechas = $query->orderBy('id', 'desc')->get();
+
+
+            // Calcular totales generales
+            $totalIngresosGeneral = 0;
+            $totalGastosGeneral = 0;
+
+            foreach ($cosechas as $cosecha) {
+                $totalIngresosGeneral += $cosecha->ingresos->sum(fn($i) => $i->cantidadVendida * $i->precioUnitario);
+                $totalGastosGeneral   += $cosecha->gastos->sum('monto');
+            }
+
+            $totalUtilidadGeneral = $totalIngresosGeneral - $totalGastosGeneral;
+
+            return view('Reportes.InvernaderoReportes.pdf.reportePDFInvernadero',
+                compact('cosechas','invernadero','totalIngresosGeneral','totalGastosGeneral','totalUtilidadGeneral')
+            );
+
 
 
         /* -----------------------------------------------

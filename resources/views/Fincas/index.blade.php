@@ -106,7 +106,7 @@
                     {{-- Contador de Cosechas (Simulado) --}}
                     <div class="col-6 border-left">
                         <h4 class="fw-bolder text-warning mb-0">
-                            {{ $finca->contarInvernaderosPorId($finca->id) }}
+                            {{ $finca->contarCosechas($finca->id) }}
                         </h4>
                         <small class="text-muted">Historial Cosechas</small>
                     </div>

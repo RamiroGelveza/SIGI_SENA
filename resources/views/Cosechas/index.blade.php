@@ -5,7 +5,7 @@
 @section('titleContent')
 <div class="text-center py-4 bg-light shadow-sm mb-4">
     <h1 class="fw-bolder display-5 text-success">
-        <i class="bi bi-seedling me-2"></i> Panel General de Cosechas
+        <i class="bi bi-seedling me-2"></i> Panel General de Invernadero
     </h1>
     <p class="text-secondary fs-6">Visualiza el rendimiento, la rentabilidad y la evolución financiera de tus invernaderos.</p>
 </div>
@@ -50,8 +50,8 @@
     $totalIngresos = $cosechasCollection->sum('totalIngresos');
     $totalGastos = $cosechasCollection->sum('totalGastos');
     $utilidadTotal = $cosechasCollection->sum('utilidad');
-    // Cálculo de rentabilidad (previene división por cero)
-    $rentabilidad = $totalGastos > 0 ? round(($utilidadTotal / $totalGastos) * 100, 1) : 0;
+    // Cálculo mantenimientos
+    $mantenimientos = $totalMantenimientos;
 
     // Datos de ejemplo para los gráficos si la colección está vacía o si 'totalIngresos' no existe
     $graficoLabels = $cosechasCollection->isNotEmpty() ?
@@ -79,7 +79,7 @@
         <a href="{{ route('Cosechas.create', $idinvernadero) }}" class="btn btn-success btn-lg fw-bold shadow-lg lift-up">
             <i class="bi bi-plus-circle-fill me-2"></i> Registrar Nueva Cosecha
         </a>
-        <a href="{{ route('Invernaderos.index', $invernaderoId) }}" class="btn btn-outline-secondary btn-lg fw-bold">
+        <a href="{{ route('Invernaderos.index', $idfinca) }}" class="btn btn-outline-secondary btn-lg fw-bold">
             <i class="bi bi-house-door-fill"></i> Volver a Invernaderos
         </a>
     </div>
@@ -140,16 +140,16 @@
             </div>
         </div>
 
-        {{-- Tarjeta de Rentabilidad Promedio --}}
-        <div class="col-lg-3 col-md-6">
+        {{-- Tarjeta de mantenimientos --}}
+         <div class="col-lg-3 col-md-6">
             <div class="card text-white border-0 shadow-lg h-100 animated-card lift-up" style="background-color: #6f42c1;">
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center">
-                        <i class="bi bi-percent display-4 me-3 opacity-75"></i>
+                        <i class="bi bi-tools display-4 me-3 opacity-75"></i>
                         <div class="flex-grow-1">
-                            <h6 class="text-uppercase mb-1 fw-light">Rentabilidad Promedio</h6>
+                            <h6 class="text-uppercase mb-1 fw-light">Mantenimientos Invernadero</h6>
                             <h3 class="fw-bolder mb-0 responsive-number">
-                                {{ $rentabilidad }}%
+                                ${{ number_format($mantenimientos, 0, ',', '.') }}
                             </h3>
 
                         </div>
@@ -226,7 +226,12 @@
                             <td>{{ $cosecha->id }}</td>
                             <td>{{ $cosecha->tiposCultivo->nombre ?? 'Sin definir' }}</td>
                             <td>{{ date('d/m/Y', strtotime($cosecha->fechaSiembra)) }}</td>
-                            <td>{{ $cosecha->fechaCosechaReal ? date('d/m/Y', strtotime($cosecha->fechaCosechaReal)) : 'Pendiente' }}</td>
+                            <td>
+                                {{ $cosecha->fechaCosechaReal != ''
+        ? date('d/m/Y', strtotime($cosecha->fechaCosechaReal))
+        : 'Pendiente'
+    }}
+                            </td>
                             <td>${{ number_format($cosecha->totalIngresos, 0, ',', '.') }}</td>
                             <td>${{ number_format($cosecha->totalGastos, 0, ',', '.') }}</td>
                             <td>${{ number_format($cosecha->utilidad, 0, ',', '.') }}</td>

@@ -1,24 +1,59 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Resumen General del Invernadero</title>
 
     <style>
-        body { font-family: DejaVu Sans, sans-serif; font-size: 12px; margin: 20px; }
-        h2, h3 { text-align: center; margin: 10px 0; }
-        body { font-family: DejaVu Sans, sans-serif; font-size: 13px; }
-        .title { font-size: 20px; font-weight: bold; text-align: center; margin-bottom: 10px; }
-        .subtitle { font-size: 15px; margin-bottom: 20px; text-align: center; }
+        body {
+            font-family: DejaVu Sans, sans-serif;
+            font-size: 12px;
+            margin: 20px;
+        }
+
+        h2,
+        h3 {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        body {
+            font-family: DejaVu Sans, sans-serif;
+            font-size: 13px;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
 
 
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        table th, table td {
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table th,
+        table td {
             border: 1px solid #444;
             padding: 6px;
             text-align: center;
         }
-        table th { background: #f0f0f0; font-weight: bold; }
+
+        table th {
+            background: #f0f0f0;
+            font-weight: bold;
+        }
 
         .section {
             margin-top: 25px;
@@ -35,14 +70,15 @@
         }
     </style>
 </head>
+
 <body>
-<div class="title">RESUMEN GENERAL DEL INVERNADERO</div>
+    <div class="title">RESUMEN GENERAL DEL INVERNADERO</div>
 
     <div class="subtitle">
         Invernadero: <strong>{{ $invernadero->nombre }}</strong><br>
         Finca: <strong>{{ $invernadero->finca->nombre }}</strong>
     </div>
-    
+
 
     {{-- ===========================
         RESUMEN DE COSECHAS
@@ -64,35 +100,35 @@
         <tbody>
             @php $totalIngresos = 0; $totalGastos = 0; $totalUtilidad = 0; @endphp
 
-            @forelse ($cosechas as $c)
+            @forelse ($cosechas as $cosecha)
 
-                @php
-                    $ing = $c->ingresos->sum(function($i){
-                        return $i->cantidadVendida * $i->precioUnitario;
-                    });
+            @php
+            $ing = $cosecha->ingresos->sum(function($i){
+            return $i->cantidadVendida * $i->precioUnitario;
+            });
 
-                    $gas = $c->gastos->sum('valor');
+            $gas = $cosecha->gastos->sum('monto');
 
-                    $uti = $ing - $gas;
+            $uti = $ing - $gas;
 
-                    $totalIngresos += $ing;
-                    $totalGastos += $gas;
-                    $totalUtilidad += $uti;
-                @endphp
+            $totalIngresos += $ing;
+            $totalGastos += $gas;
+            $totalUtilidad += $uti;
+            @endphp
 
-                <tr>
-                    <td>{{ optional($c->fechaSiembra)->format('d/m/Y') ?? '---' }}</td>
-                    <td>{{ optional($c->fechaCosechaReal)->format('d/m/Y') ?? '---' }}</td>
-                    <td>{{ $c->tipoCultivo->nombre ?? 'Sin dato' }}</td>
-                    <td>${{ number_format($ing, 0, ',', '.') }}</td>
-                    <td>${{ number_format($gas, 0, ',', '.') }}</td>
-                    <td>${{ number_format($uti, 0, ',', '.') }}</td>
-                </tr>
+            <tr>
+                <td>{{ $cosecha->fechaSiembra ? \Carbon\Carbon::parse($cosecha->fechaSiembra)->format('d/m/Y') : '---' }}</td>
+                <td>{{ $cosecha->fechaCosechaReal ? \Carbon\Carbon::parse($cosecha->fechaCosechaReal)->format('d/m/Y') : '---' }}</td>
+                <td>{{ $cosecha->tiposCultivo->nombre ?? 'Sin cultivo' }}</td>
+                <td>${{ number_format($ing, 0, ',', '.') }}</td>
+                <td>${{ number_format($gas, 0, ',', '.') }}</td>
+                <td>${{ number_format($uti, 0, ',', '.') }}</td>
+            </tr>
 
             @empty
-                <tr>
-                    <td colspan="6">No hay cosechas registradas</td>
-                </tr>
+            <tr>
+                <td colspan="6">No hay cosechas registradas</td>
+            </tr>
             @endforelse
         </tbody>
     </table>
@@ -121,19 +157,19 @@
         <tbody>
             @php $totalGastosGlobal = 0; @endphp
 
-            @forelse ($gastos as $g)
-                <tr>
-                    <td>{{ \Carbon\Carbon::parse($g->fecha)->format('d/m/Y') }}</td>
-                    <td>{{ $g->cosecha->tipoCultivo->nombre ?? 'Sin dato' }}</td>
-                    <td>{{ $g->descripcion }}</td>
-                    <td>${{ number_format($g->valor, 0, ',', '.') }}</td>
-                </tr>
+            @forelse ($gastos as $gasto)
+            <tr>
+                <td>{{ \Carbon\Carbon::parse($gasto->fecha)->format('d/m/Y') }}</td>
+                <td>{{ $gasto->cosecha->tiposCultivo->nombre ?? 'Sin cultivo' }}</td>
+                <td>{{ $gasto->descripcion }}</td>
+                <td>${{ number_format($gasto->monto, 0, ',', '.') }}</td>
+            </tr>
 
-                @php $totalGastosGlobal += $g->valor; @endphp
+            @php $totalGastosGlobal += $gasto->monto; @endphp
             @empty
-                <tr>
-                    <td colspan="4">No hay gastos registrados</td>
-                </tr>
+            <tr>
+                <td colspan="4">No hay gastos registrados</td>
+            </tr>
             @endforelse
         </tbody>
     </table>
@@ -157,18 +193,18 @@
         <tbody>
             @php $totalMantenimientos = 0; @endphp
 
-            @forelse ($mantenimientos as $m)
-                <tr>
-                    <td>{{ \Carbon\Carbon::parse($m->fecha)->format('d/m/Y') }}</td>
-                    <td>{{ $m->descripcion }}</td>
-                    <td>${{ number_format($m->costo, 0, ',', '.') }}</td>
-                </tr>
+            @forelse ($mantenimientos as $mantenimientos)
+            <tr>
+                <td>{{ \Carbon\Carbon::parse($mantenimientos->fechaMantenimiento)->format('d/m/Y') }}</td>
+                <td>{{ $mantenimientos->descripcion }}</td>
+                <td>${{ number_format($mantenimientos->costoMantenimiento, 0, ',', '.') }}</td>
+            </tr>
 
-                @php $totalMantenimientos += $m->costo; @endphp
+            @php $totalMantenimientos += $mantenimientos->costoMantenimiento; @endphp
             @empty
-                <tr>
-                    <td colspan="3">No hay mantenimientos registrados</td>
-                </tr>
+            <tr>
+                <td colspan="3">No hay mantenimientos registrados</td>
+            </tr>
             @endforelse
         </tbody>
     </table>
@@ -183,4 +219,5 @@
     </div>
 
 </body>
+
 </html>

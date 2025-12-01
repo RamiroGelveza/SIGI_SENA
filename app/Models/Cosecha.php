@@ -31,6 +31,13 @@ class Cosecha extends Model
             $model->notas = 'Sin notas';
         }
     });
+    parent::boot();
+
+    static::saving(function ($model) {
+        if (empty($model->fechaCosechaReal)) {
+            $model->fechaCosechaReal = ''; // Fecha fake para 'pendiente'
+        }
+    });
 }
     public function invernadero(){
         return $this->belongsTo(Invernadero::class,'idInvernadero');

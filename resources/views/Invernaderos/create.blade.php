@@ -25,7 +25,7 @@
 
                 id="idFinca"
 
-                class="form-control form-select-lg @error('idFinca') is-invalid @enderror"
+                class="form-control @error('idFinca') is-invalid @enderror"
 
                 readonly>
 

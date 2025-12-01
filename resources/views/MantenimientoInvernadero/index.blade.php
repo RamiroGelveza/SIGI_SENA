@@ -38,7 +38,7 @@
                     <th>fechaMantenimiento</th>
                     <th>costoMantenimiento</th>
                     <th>descripcion</th>
-                    <th>idInvernadero</th>
+                    <th>Invernadero</th>
                     <th>opciones</th>
                 </tr>
             </thead>

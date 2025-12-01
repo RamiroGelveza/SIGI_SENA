@@ -132,7 +132,7 @@
 
                 {{-- Acción Principal 1: Gestionar Cosecha --}}
                 <a href="{{ route('Cosechas.index', $invernadero->id)}}" class="btn btn-info btn-block shadow-sm fw-bold">
-                    <i class="fas fa-leaf me-1"></i> Gestionar Cosechas
+                    <i class="fas fa-leaf me-1"></i> Gestionar Invernadero
                 </a>
 
                 {{-- Acción Principal 2: Gestionar Mantenimientos --}}

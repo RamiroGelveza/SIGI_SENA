@@ -25,7 +25,7 @@
               <select
                 name="idInvernadero"
                 id="idInvernadero"
-                class="form-control form-select-lg @error('idInvernadero') is-invalid @enderror"
+                class="form-control @error('idInvernadero') is-invalid @enderror"
                 readonly>
                 @foreach($invernaderos as $invernadero)
                 <option value="{{ $invernadero->id }}" @if ($mantenimiento->idInvernadero==$invernadero->id)selected @endif>
