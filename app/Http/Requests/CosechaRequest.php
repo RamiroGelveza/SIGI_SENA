@@ -27,16 +27,16 @@ class CosechaRequest extends FormRequest
             'fechaCosechaEstimada' => ['required', 'date', 'after:fechaSiembra'],
             'fechaCosechaReal'     => ['nullable', 'date', 'after_or_equal:fechaSiembra'],
 
-            // 'cantidadSembrada'     => ['required', 'numeric', 'min:1', 'max:100000'],
+             'cantidadSembrada'     => ['required', 'numeric', 'min:1', 'max:100000'],
             // 'totalGastos'          => ['required', 'numeric', 'min:0', 'max:99999999.99'],
             // 'totalIngresos'        => ['required', 'numeric', 'min:0', 'max:99999999.99'],
             // 'utilidad'             => ['nullable', 'numeric', 'min:-99999999.99', 'max:99999999.99'],
 
             'notas' => ['nullable', 'string', 'min:3', 'max:150'],
 
-            // 'idInvernadero'        => ['required', 'exists:invernaderos,id'],
-            // 'idCultivo'            => ['required', 'exists:cultivos,id'],
-            // 'idEstado'             => ['required', 'exists:estados,id'],
+             'idInvernadero'        => ['required', 'exists:invernaderos,id'],
+             'idCultivo'            => ['required', 'exists:tiposCultivo,id'],
+             'idEstado'             => ['required', 'exists:estadosCosecha,id'],
         ];
     }
     public function messages()

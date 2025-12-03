@@ -2,32 +2,58 @@
 @section('title','Dashboard')
 
 @section('titleContent')
-<h1 class="fw-bold text-center text-dark mb-4" style="letter-spacing: -1px;">
-    🌿 Gestión del Sistema
-</h1>
+<h1 class="fw-bold text-center text-dark mb-4">Dashboard SIGI</h1>
 @endsection
 
 @section('content')
-<div class="container py-5">
+<div class="container py-4">
 
-    <!-- Hero Section -->
-    <div class="modern-hero mb-5 text-center">
-        <h2 class="fw-bold text-dark">Bienvenido al Sistema SIGI</h2>
-        <p class="text-secondary mb-0">Administra tus fincas y cultivos con un diseño moderno y minimalista.</p>
+    <!-- HERO SECTION -->
+    <div class="hero-box mb-5 text-center">
+        <h2 class="fw-bold text-dark mb-1">Bienvenido a SIGI</h2>
+        <p class="text-secondary mb-0">Panel general del sistema de información agrícola.</p>
     </div>
 
-    <!-- Tarjeta única -->
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="modern-card shadow-sm">
-                <div>
-                    <h4 class="mb-1 fw-bold">Fincas Registradas</h4>
-                    <p class="text-secondary small">Administra toda la información de tus fincas.</p>
+    <!-- CARDS -->
+    <div class="row g-4 justify-content-center">
+
+        <!-- Fincas -->
+        <div class="col-md-4">
+            <div class="stat-card shadow-sm">
+                <div class="icon-circle bg-primary text-white">
+                    <i class="fas fa-tree"></i>
                 </div>
-                <h1 class="display-4 fw-bold text-primary">{{ $cantidadFincas }}</h1>
-                <a href="{{ route('Fincas.index') }}" class="btn-modern">Gestionar Fincas</a>
+                <h6 class="text-muted mt-3 mb-1">Fincas Registradas</h6>
+                <h1 class="fw-bold text-dark">{{ $cantidadFincas }}</h1>
+
+                <a href="{{ route('Fincas.index') }}" class="btn btn-primary mt-3 w-100">
+                    Gestionar Fincas
+                </a>
             </div>
         </div>
+
+        <!-- Invernaderos -->
+        <div class="col-md-4">
+            <div class="stat-card shadow-sm">
+                <div class="icon-circle bg-success text-white">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h6 class="text-muted mt-3 mb-1">Total Invernaderos</h6>
+                <h1 class="fw-bold text-dark">{{ $cantidadInvernaderos }}</h1>
+            </div>
+        </div>
+
+        <!-- Cosechas -->
+        <div class="col-md-4">
+            <div class="stat-card shadow-sm">
+                <div class="icon-circle bg-warning text-white">
+                    <i class="fas fa-tractor"></i>
+                </div>
+                <h6 class="text-muted mt-3 mb-1">Cosechas Registradas</h6>
+                <h1 class="fw-bold text-dark">{{ $cantidadCosechas }}</h1>
+            </div>
+        </div>
+
     </div>
 
 </div>
@@ -35,40 +61,41 @@
 
 @push('css')
 <style>
-    .modern-hero {
+
+    /* HERO BOX */
+    .hero-box {
+        background: #f4f6f9;
         padding: 40px;
-        background: #f8f9fa;
-        border-radius: 25px;
+        border-radius: 18px;
+        border: 1px solid #e4e6eb;
     }
 
-    .modern-card {
+    /* STAT CARDS */
+    .stat-card {
         background: #ffffff;
-        border-radius: 25px;
-        padding: 35px;
+        border-radius: 18px;
+        padding: 30px 20px;
         text-align: center;
-        transition: 0.3s;
-        border: 1px solid #eee;
+        border: 1px solid #e7e7e7;
+        transition: 0.25s ease;
     }
 
-    .modern-card:hover {
+    .stat-card:hover {
         transform: translateY(-6px);
-        box-shadow: 0 20px 35px rgba(0,0,0,0.07);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
     }
 
-    .btn-modern {
-        display: inline-block;
-        margin-top: 20px;
-        padding: 12px 25px;
-        border-radius: 30px;
-        background: #1d72f3;
-        color: #fff;
-        font-weight: bold;
-        text-decoration: none;
-        transition: 0.3s;
+    /* ICON CIRCLES */
+    .icon-circle {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        margin: 0 auto;
     }
 
-    .btn-modern:hover {
-        background: #0d5ad8;
-    }
 </style>
 @endpush

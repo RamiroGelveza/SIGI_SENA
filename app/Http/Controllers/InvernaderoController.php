@@ -102,54 +102,40 @@ public function generar(Request $request,$idInvernadero)
     $invernadero = Invernadero::findOrFail($idInvernadero);
     $tipo = $request->tipo;
 
-    /*
-    |--------------------------------------------------------------------------
-    | MANEJO DE FECHAS (FILTRA SOLO SI EL USUARIO PONE FECHA)
-    |--------------------------------------------------------------------------
-    */
-    $usarFecha = $request->filled('fecha_inicio') || $request->filled('fecha_fin');
-
-    if ($usarFecha) {
-        $fechaInicio = $request->filled('fecha_inicio')
-            ? Carbon::parse($request->fecha_inicio)->startOfDay()
-            : Carbon::create(1900, 1, 1)->startOfDay();
-
-        $fechaFin = $request->filled('fecha_fin')
-            ? Carbon::parse($request->fecha_fin)->endOfDay()
-            : Carbon::create(3000, 1, 1)->endOfDay();
-    }
-
-
     switch ($tipo) {
 
         /* ───────────────────────────────────────────────
-         * 1️⃣ INGRESOS Y UTILIDAD POR COSECHAS
+         * 1️⃣ INGRESOS Y UTILIDAD POR COSECHAS (SIN FECHAS)
          * ─────────────────────────────────────────────── */
         case 'cosechas_ingresos':
 
-            $query = Cosecha::with(['ingresos', 'gastos'])
-                ->where('idInvernadero', $idInvernadero);
-
-            if ($usarFecha) {
-                $query->whereBetween('fechaSiembra', [$fechaInicio, $fechaFin]);
-            }
-
-            $cosechas = $query->orderBy('id', 'desc')->get();
-
+            $cosechas = Cosecha::with(['ingresos', 'gastos'])
+                ->where('idInvernadero', $idInvernadero)
+                ->orderBy('id', 'desc')
+                ->get();
 
             // Calcular totales generales
             $totalIngresosGeneral = 0;
             $totalGastosGeneral = 0;
 
             foreach ($cosechas as $cosecha) {
-                $totalIngresosGeneral += $cosecha->ingresos->sum(fn($i) => $i->cantidadVendida * $i->precioUnitario);
-                $totalGastosGeneral   += $cosecha->gastos->sum('monto');
+                $totalIngresosGeneral += $cosecha->ingresos->sum(
+                    fn($i) => $i->cantidadVendida * $i->precioUnitario
+                );
+                $totalGastosGeneral += $cosecha->gastos->sum('monto');
             }
 
             $totalUtilidadGeneral = $totalIngresosGeneral - $totalGastosGeneral;
 
-            return view('Reportes.InvernaderoReportes.pdf.reportePDFInvernadero',
-                compact('cosechas','invernadero','totalIngresosGeneral','totalGastosGeneral','totalUtilidadGeneral')
+            return view(
+                'Reportes.InvernaderoReportes.pdf.reportePDFInvernadero',
+                compact(
+                    'cosechas',
+                    'invernadero',
+                    'totalIngresosGeneral',
+                    'totalGastosGeneral',
+                    'totalUtilidadGeneral'
+                )
             );
 
 
@@ -206,5 +192,128 @@ public function generar(Request $request,$idInvernadero)
             ));
     }
 }
+public function descargar(Request $request, $idInvernadero)
+{
+    $invernadero = Invernadero::findOrFail($idInvernadero);
+    $tipo = $request->tipo;
+
+    switch ($tipo) {
+
+        /* ───────────────────────────────────────────────
+         * 1️⃣ INGRESOS Y UTILIDAD POR COSECHAS
+         * ─────────────────────────────────────────────── */
+        case 'cosechas_ingresos':
+
+            $cosechas = Cosecha::with(['ingresos', 'gastos'])
+                ->where('idInvernadero', $idInvernadero)
+                ->orderBy('id', 'desc')
+                ->get();
+
+            $totalIngresosGeneral = 0;
+            $totalGastosGeneral = 0;
+
+            foreach ($cosechas as $cosecha) {
+                $totalIngresosGeneral += $cosecha->ingresos->sum(
+                    fn($i) => $i->cantidadVendida * $i->precioUnitario
+                );
+                $totalGastosGeneral += $cosecha->gastos->sum('monto');
+            }
+
+            $totalUtilidadGeneral = $totalIngresosGeneral - $totalGastosGeneral;
+
+            $pdf = Pdf::loadView('Reportes.InvernaderoReportes.pdf.reportePDFInvernadero', compact(
+                'cosechas',
+                'invernadero',
+                'totalIngresosGeneral',
+                'totalGastosGeneral',
+                'totalUtilidadGeneral'
+            ))->setPaper('a4', 'landscape');
+
+            return $pdf->download('reporte_cosechas_ingresos_' . date('Y-m-d') . '.pdf');
+
+
+
+        /* ───────────────────────────────────────────────
+         * 2️⃣ DETALLE DE GASTOS
+         * ─────────────────────────────────────────────── */
+        case 'gastos_detalle':
+
+            $gastos = Gastos::with('cosecha')
+                ->whereHas('cosecha', function ($q) use ($idInvernadero) {
+                    $q->where('idInvernadero', $idInvernadero);
+                })
+                ->orderBy('fecha', 'desc')
+                ->get();
+
+            $totalGastos = $gastos->sum('monto');
+
+            $pdf = Pdf::loadView('Reportes.InvernaderoReportes.pdf.gastosPDFInvernadero', compact(
+                'gastos',
+                'invernadero',
+                'totalGastos'
+            ))->setPaper('a4', 'portrait');
+
+            return $pdf->download('reporte_gastos_' . date('Y-m-d') . '.pdf');
+
+
+
+        /* ───────────────────────────────────────────────
+         * 3️⃣ MANTENIMIENTOS
+         * ─────────────────────────────────────────────── */
+        case 'mantenimientos':
+
+            $mantenimientos = MantenimientoInvernadero::where('idInvernadero', $idInvernadero)
+                ->orderBy('fecha', 'desc')
+                ->get();
+
+            $totalMantenimientos = $mantenimientos->sum('costo');
+
+            $pdf = Pdf::loadView('Reportes.InvernaderoReportes.pdf.mantenimientosPDFInvernadero', compact(
+                'mantenimientos',
+                'invernadero',
+                'totalMantenimientos'
+            ))->setPaper('a4', 'portrait');
+
+            return $pdf->download('reporte_mantenimientos_' . date('Y-m-d') . '.pdf');
+
+
+
+        /* ───────────────────────────────────────────────
+         * 4️⃣ RESUMEN GENERAL
+         * ─────────────────────────────────────────────── */
+        case 'resumen_general':
+
+            $cosechas = Cosecha::with(['ingresos', 'gastos'])
+                ->where('idInvernadero', $idInvernadero)
+                ->get();
+
+            $gastos = Gastos::whereHas('cosecha', function ($q) use ($idInvernadero) {
+                $q->where('idInvernadero', $idInvernadero);
+            })->get();
+
+            $mantenimientos = MantenimientoInvernadero::where('idInvernadero', $idInvernadero)->get();
+
+            $totalIngresos = $cosechas->sum(
+                fn($c) => $c->ingresos->sum(fn($i) => $i->cantidadVendida * $i->precioUnitario)
+            );
+
+            $totalGastos = $gastos->sum('monto') + $mantenimientos->sum('costo');
+
+            $utilidad = $totalIngresos - $totalGastos;
+
+            $pdf = Pdf::loadView('Reportes.InvernaderoReportes.pdf.generalPDFInvernadero', compact(
+                'cosechas',
+                'gastos',
+                'mantenimientos',
+                'invernadero',
+                'totalIngresos',
+                'totalGastos',
+                'utilidad'
+            ))->setPaper('a4', 'landscape');
+
+            return $pdf->download('reporte_resumen_general_' . date('Y-m-d') . '.pdf');
+    }
+}
+
 
 }

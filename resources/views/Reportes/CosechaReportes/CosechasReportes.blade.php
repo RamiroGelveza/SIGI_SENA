@@ -20,20 +20,26 @@
                     <div class="row g-4">
                         
                         <div class="col-md-6"> 
-                            <label class="form-label fw-bold text-primary">🌱 Cultivo</label>
+                            <label class="form-label fw-bold text-success">🌱 Cultivo</label>
                             <div class="bg-light p-3 border rounded-3 form-control-lg shadow-sm">
                                 <strong class="text-dark" id="cultivoNombreDinamico"></strong>
                             </div>
                         </div>
 
                         <div class="col-md-6"> 
-                            <label class="form-label fw-bold text-primary">📅 Rango de Fechas</label>
+                            <label class="form-label fw-bold text-success">📅 Rango de Fechas</label>
                             <div class="input-group shadow-sm">
                                 <input type="date" class="form-control form-control-lg" name="fecha_inicio" id="fechaInicioFiltro" title="Fecha de inicio">
                                 <span class="input-group-text bg-light fw-bold text-muted">A</span>
                                 <input type="date" class="form-control form-control-lg" name="fecha_fin" id="fechaFinFiltro" title="Fecha de fin">
                             </div>
+                        </div >
+                        <div class="col-6">
+                        <div id="filtrosAplicadosDinamico" class="alert alert-secondary d-none border-0 rounded-3">
+                        <h6 class="fw-bold mb-1 text-dark"><i class="fas fa-filter me-1"></i> Filtros activos:</h6>
+                        <div id="filtrosTextoDinamico" class="mt-2"></div>
                         </div>
+                    </div>
                         
                         </div>
 
@@ -58,10 +64,7 @@
 
                     <hr class="my-4">
 
-                    <div id="filtrosAplicadosDinamico" class="alert alert-secondary d-none border-0 rounded-3">
-                        <h6 class="fw-bold mb-1 text-dark"><i class="fas fa-filter me-1"></i> Filtros activos:</h6>
-                        <div id="filtrosTextoDinamico" class="mt-2"></div>
-                    </div>
+                    
 
                 </form>
             </div>
@@ -121,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
         // 1. Filtro de Cultivo (Siempre activo)
         const nombreFijo = cultivoNombreFijo.textContent || 'Sin Cultivo';
-        texto += `<span class="badge bg-primary text-white me-2 py-2 px-3"><i class="fas fa-seedling me-1"></i> Cultivo: ${nombreFijo}</span>`;
+        texto += `<span class="badge bg-success text-white me-2 py-2 px-3"><i class="fas fa-seedling me-1"></i> Cultivo: ${nombreFijo}</span>`;
 
         // 2. Filtro de Fechas (Solo por fechas)
         const f1 = fechaInicioInput.value;

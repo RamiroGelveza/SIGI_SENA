@@ -13,7 +13,8 @@ use App\Models\TiposCultivo;
 use Barryvdh\DomPDF\Facade\Pdf;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
-use Carbon\Carbon; 
+use Carbon\Carbon;
+use IcehouseVentures\LaravelChartjs\Facades\Chartjs;
 
 class CosechaController extends Controller
 {
@@ -32,7 +33,9 @@ public function index(Request $request, $idinvernadero)
 
     // 🧩 Consulta base
     $query = Cosecha::with(['tiposCultivo', 'invernadero'])
-        ->where('idInvernadero', $idinvernadero);
+    ->where('idInvernadero', $idinvernadero)
+    ->orderBy('id', 'DESC');
+
 
     // 🔎 Filtro de búsqueda general
     if ($search) {
@@ -74,12 +77,24 @@ public function index(Request $request, $idinvernadero)
     $nombreInvernadero = Invernadero::find($idinvernadero)?->nombre ?? 'Invernadero no definido';
     $invernadero = Invernadero::find($idinvernadero);
 
-    // Obtener la finca
-    $idfinca = $invernadero->idFinca;
+        // Obtener la finca
+        $idfinca = $invernadero->idFinca;
 
-    return view('Cosechas.index', compact(
-        'cosechas', 'cultivos', 'idinvernadero', 'nombreInvernadero',
-        'search', 'cultivoId', 'estado', 'fechaInicio', 'fechaFin','mantenimientos','totalMantenimientos','invernadero','idfinca'
+         $invernadero = Invernadero::findOrFail($idinvernadero);
+
+    // 👉 Llamamos tu función
+$donut = $this->graficarIngresosYGastos($idinvernadero);
+
+$grafico = $this->graficaPorCosechas($idinvernadero);
+
+        return view('Cosechas.index', compact(
+            'cosechas',
+            'cultivos',
+            'donut',
+            'grafico',
+            'idinvernadero',
+            'nombreInvernadero',
+            'search', 'cultivoId', 'estado', 'fechaInicio', 'fechaFin','mantenimientos','totalMantenimientos','invernadero','idfinca'
     ));
 }
 
@@ -319,5 +334,98 @@ private function filtrarCosechas(Request $request)
     }
     
     return $cosechas;
-}}
+}
+
+
+
+public function graficarIngresosYGastos($idinvernadero)
+{
+    $data = Cosecha::selectRaw("
+            SUM(totalIngresos) as totalIngresos,
+            SUM(totalGastos) as totalGastos
+        ")
+        ->where('idInvernadero', $idinvernadero)
+        ->first();
+
+    // Valores totales
+    $ingresos = $data->totalIngresos ?? 0;
+    $gastos   = $data->totalGastos ?? 0;
+
+    return ChartJs::build()
+        ->name('donutIngresosGastos')
+        ->type('doughnut') // ← tipo circular
+        ->size(['width' => 300, 'height' => 300])
+        ->labels(['Ingresos', 'Gastos'])
+        ->datasets([
+            [
+                'backgroundColor' => [
+                    'rgba(40, 167, 69, 0.8)',   // Ingresos verde
+                    'rgba(220, 53, 69, 0.8)'    // Gastos rojo
+                ],
+                'data' => [$ingresos, $gastos],
+            ],
+        ])
+        ->options([
+            'responsive' => true,
+            'maintainAspectRatio' => false,
+            'plugins' => [
+                'legend' => [
+                    'position' => 'bottom'
+                ]
+            ]
+        ]);
+}
+
+public function graficaPorCosechas($idinvernadero)
+{
+    // Obtener cosechas con join a tipo de cultivo
+    $cosechas = Cosecha::with('tiposCultivo:id,nombre')
+        ->select('id', 'idCultivo', 'fechaSiembra', 'totalIngresos', 'totalGastos')
+        ->where('idInvernadero', $idinvernadero)
+        ->orderBy('id', 'ASC')
+        ->get();
+
+    // Labels por fecha
+    $labels = $cosechas->map(fn($c) =>
+        \Carbon\Carbon::parse($c->fechaSiembra)->format('d/m/Y')
+    )->toArray();
+
+    $ingresos = $cosechas->pluck('totalIngresos')->toArray();
+    $gastos   = $cosechas->pluck('totalGastos')->toArray();
+
+    // Nombre del tipo de cultivo
+    $tiposCultivo = $cosechas->map(fn($c) =>
+        $c->tiposCultivo->nombre ?? 'Sin tipo'
+    )->toArray();
+
+    // Construcción de la gráfica
+    return ChartJs::build()
+        ->name('graficaNormalCosechas')
+        ->type('bar')
+        ->size(['width' => 900, 'height' => 420])
+        ->labels($labels)
+        ->datasets([
+            [
+                'label' => 'Ingresos',
+                'backgroundColor' => 'rgba(40, 167, 69, 0.8)',
+                'data' => $ingresos,
+                'customData' => $tiposCultivo, // <--- AQUI VA
+            ],
+            [
+                'label' => 'Gastos',
+                'backgroundColor' => 'rgba(220, 53, 69, 0.8)',
+                'data' => $gastos,
+            ],
+        ])
+        ->options([
+            'responsive' => false,
+            'maintainAspectRatio' => false,
+            'scales' => [
+                'y' => ['beginAtZero' => true],
+            ],
+        ]);
+}
+
+}
+
 

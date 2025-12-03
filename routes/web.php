@@ -23,11 +23,13 @@ Route::get('/cosechas/reporte/vista', [CosechaController::class, 'vistaReporte']
 Route::get('/cosechas/reporte/pdf', [CosechaController::class, 'generarPDF'])->name('cosechas.reporte.pdf');
 
 
-Route::post('/reportes/{idInvernadero}/generar', 
-    [InvernaderoController::class, 'generar']
-)->name('Invernadero.pdf');
+Route::get('/reportes/{idInvernadero}/generar', 
+    [InvernaderoController::class, 'generar'])
+    ->name('invernadero.generar.pdf');
 
 
+Route::get('/reporte/{idInvernadero}/descargar', [InvernaderoController::class, 'descargar'])
+    ->name('invernadero.descargar.pdf');
 
 
 

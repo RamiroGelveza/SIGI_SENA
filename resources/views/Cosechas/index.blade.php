@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Panel de Cosechas')
+@section('title', 'Panel de Invernadero')
 
 @section('titleContent')
 <div class="text-center py-4 bg-light shadow-sm mb-4">
@@ -13,27 +13,54 @@
 
 @section('content')
 <style>
-.card-icon {
-    font-size: 2.5rem;     /* antes era enorme, ahora perfecto */
-    opacity: 0.85;
-}
+    .card-icon {
+        font-size: 2.5rem;
+        /* antes era enorme, ahora perfecto */
+        opacity: 0.85;
+    }
 
-.card-title {
-    font-size: 0.95rem;
-    margin-bottom: 5px;
-    font-weight: 400;
-}
+    .card-title {
+        font-size: 0.95rem;
+        margin-bottom: 5px;
+        font-weight: 400;
+    }
 
-.card-value {
-    font-weight: 700;
-    font-size: clamp(1.2rem, 3vw, 2.3rem);
-    white-space: nowrap;
-    overflow: hidden;
-    line-height: 1.1;
-}
+    .card-value {
+        font-weight: 700;
+        font-size: clamp(1.2rem, 3vw, 2.3rem);
+        white-space: nowrap;
+        overflow: hidden;
+        line-height: 1.1;
+    }
 
+    .grafica-container {
+        width: 100%;
+        max-width: 950px;
+        margin: 20px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        position: relative;
+    }
 
+    /* Scroll horizontal solo si es necesario */
+    .grafica-scroll {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
 
+    /* Mantiene tamaño exacto de la gráfica sin que se deforme */
+    .grafica-inner {
+        width: 800px;
+        /* el mismo ancho que tu gráfico */
+        margin: 0 auto;
+    }
+
+    .grafica-container canvas {
+        max-height: 420px !important;
+    }
 </style>
 
 <div class="container-fluid py-4">
@@ -52,23 +79,6 @@
     $utilidadTotal = $cosechasCollection->sum('utilidad');
     // Cálculo mantenimientos
     $mantenimientos = $totalMantenimientos;
-
-    // Datos de ejemplo para los gráficos si la colección está vacía o si 'totalIngresos' no existe
-    $graficoLabels = $cosechasCollection->isNotEmpty() ?
-    $cosechasCollection->map(fn($c) => $c->tiposCultivo->nombre ?? 'Cosecha #'.$c->id)->toArray() :
-    ['Cebolla', 'Tomate', 'Pimiento', 'Frijol'];
-
-    $graficoIngresos = $cosechasCollection->isNotEmpty() ?
-    $cosechasCollection->map(fn($c) => $c->totalIngresos)->toArray() :
-    [5000000, 3500000, 6200000, 1800000];
-
-    $graficoGastos = $cosechasCollection->isNotEmpty() ?
-    $cosechasCollection->map(fn($c) => $c->totalGastos)->toArray() :
-    [2500000, 4100000, 3100000, 1500000];
-
-    // Datos para el gráfico Donut (solo si hay datos reales, sino usaremos los totales)
-    $donutLabels = ['Ingresos', 'Gastos'];
-    $donutData = [$totalIngresos, $totalGastos];
 
     @endphp
     {{-- ⚠️ FIN DE CÁLCULO DE FALLBACK ⚠️ --}}
@@ -141,7 +151,7 @@
         </div>
 
         {{-- Tarjeta de mantenimientos --}}
-         <div class="col-lg-3 col-md-6">
+        <div class="col-lg-3 col-md-6">
             <div class="card text-white border-0 shadow-lg h-100 animated-card lift-up" style="background-color: #6f42c1;">
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center">
@@ -168,11 +178,14 @@
                 <div class="card-header bg-light border-bottom fw-bold text-success py-3">
                     <i class="bi bi-bar-chart-line-fill me-2"></i> Desempeño Económico por Cosecha (Ingresos vs. Gastos)
                 </div>
-                <div class="card-body">
-                    <div class="chart-container" style="height: 400px;">
-                        <canvas id="barChart"></canvas>
-                    </div>
-                </div>
+                <div class="grafica-container">
+          <!-- En tu vista Blade -->
+<div class="grafica-scroll" style="overflow-x: auto;">
+    <div class="grafica-inner" style="min-width: 800px; height: 420px;">
+        <x-chartjs-component :chart="$grafico" />
+    </div>
+</div>       </div>
+
             </div>
         </div>
         <div class="col-md-4 mb-4">
@@ -181,9 +194,11 @@
                     <i class="bi bi-pie-chart-fill me-2"></i> Relación Ingresos/Gastos Total
                 </div>
                 <div class="card-body d-flex align-items-center justify-content-center">
-                    <div class="chart-container" style="height: 300px;">
-                        <canvas id="donutChart"></canvas>
+                    <div style="width:300px;height:300px;margin:auto;">
+                        <x-chartjs-component :chart="$donut" />
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -299,110 +314,48 @@
 @push('scripts')
 {{-- Asegúrate de que Chart.js esté cargado --}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-
 <script>
-    // Función de confirmación de eliminación (referenciada en la tabla)
-    function confirmarEliminacion(event) {
-        event.preventDefault();
-        return confirm('¿Está seguro de eliminar esta cosecha? Esta acción es irreversible.');
-    }
+document.addEventListener("DOMContentLoaded", function () {
 
-    document.addEventListener('DOMContentLoaded', function() {
-        // ----------------------------------------------------
-        // PREPARACIÓN DE DATOS (Usando variables PHP definidas arriba)
-        // ----------------------------------------------------
-        const labels = @json($graficoLabels);
-        const ingresos = @json($graficoIngresos);
-        const gastos = @json($graficoGastos);
+    const chart = Chart.getChart('graficaNormalCosechas');
+    if (!chart) return;
 
-        // Datos para el gráfico Donut (Relación Total I/G)
-        const donutLabels = @json($donutLabels);
-        const donutData = @json($donutData);
+    chart.options.plugins.tooltip.callbacks = {
 
-        // ----------------------------------------------------
-        // GRÁFICO 1: Barras (Ingresos vs. Gastos)
-        // ----------------------------------------------------
-        const barCtx = document.getElementById('barChart');
-        if (barCtx) {
-            new Chart(barCtx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                            label: 'Ingresos ($)',
-                            data: ingresos,
-                            backgroundColor: 'rgba(40, 167, 69, 0.8)', // Verde
-                            borderColor: 'rgba(40, 167, 69, 1)',
-                            borderWidth: 1
-                        },
-                        {
-                            label: 'Gastos ($)',
-                            data: gastos,
-                            backgroundColor: 'rgba(220, 53, 69, 0.8)', // Rojo
-                            borderColor: 'rgba(220, 53, 69, 1)',
-                            borderWidth: 1
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return '$' + value.toLocaleString('es-CO');
-                                }
-                            }
-                        }
-                    }
-                }
-            });
+        label: function (context) {
+            let datasetLabel = context.dataset.label;
+            let value = context.raw || 0;
+            return datasetLabel + ': $' + Number(value).toLocaleString('es-CO');
+        },
+
+        afterBody: function (context) {
+
+            let index = context[0].dataIndex;
+            let chartInst = context[0].chart;
+
+            let ingresosDataset = chartInst.data.datasets[0];
+
+            let ingresos = ingresosDataset.data[index];
+            let gastos   = chartInst.data.datasets[1].data[index];
+            let ganancia = ingresos - gastos;
+
+            // 🌱 CORRECTO → el nombre del cultivo viene en customData
+            let tipoCultivo = ingresosDataset.customData[index];
+
+            let fecha = chartInst.data.labels[index];
+
+            return [
+                'Cultivo: ' + tipoCultivo,
+                'Fecha: ' + fecha,
+                'Ganancia: $' + ganancia.toLocaleString('es-CO'),
+            ];
         }
+    };
 
-        // ----------------------------------------------------
-        // GRÁFICO 2: Dona (Relación Total Ingresos/Gastos)
-        // ----------------------------------------------------
-        const donutCtx = document.getElementById('donutChart');
-        if (donutCtx && donutData[0] + donutData[1] > 0) { // Solo si hay alguna transacción
-            new Chart(donutCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: donutLabels,
-                    datasets: [{
-                        data: donutData,
-                        backgroundColor: [
-                            'rgba(40, 167, 69, 0.8)', // Verde
-                            'rgba(220, 53, 69, 0.8)', // Rojo
-                        ],
-                        hoverOffset: 8,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    label += '$' + context.raw.toLocaleString('es-CO');
-                                    return label;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        }
-    });
+    chart.update();
+});
 </script>
+
+
 @endpush
 @endsection
